@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07230F">
+<title>Simulated Virtuals — vFootball</title>
+<style>
+:root{--bg:#0A0F0A;--card:#101A10;--card2:#0C140C;--line:#1E3320;--txt:#EAF5EA;--muted:#8FA894;--green:#00E07A;--green2:#00A85C;--dk:#07230F;--amber:#FFB020;--red:#FF5A5A;--chip:#12251A;--chipH:#0C4A28}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding-bottom:40px}
+header.top{background:linear-gradient(180deg,#0D1A10,var(--bg));border-bottom:1px solid var(--line);padding:12px 14px;max-width:620px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.brand{font-size:16px;font-weight:800;letter-spacing:.4px}
+.brand b{color:var(--green)}
+.pills{display:flex;gap:6px;flex-wrap:wrap}
+.pill{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.pill-green{background:rgba(0,224,122,.13);border-color:rgba(0,224,122,.45);color:#7CF5B4}
+nav.tabs{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--bg) 82%,rgba(10,15,10,0));display:flex;gap:4px;overflow-x:auto;padding:6px 10px;max-width:620px;margin:0 auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{background:var(--card2);color:var(--muted);border:1px solid var(--line);border-radius:9px;padding:7px 12px;font-size:12.5px;font-weight:700;white-space:nowrap;cursor:pointer}
+.tab.active{background:var(--green2);color:#fff;border-color:var(--green2)}
+.tab b{background:#fff2;border-radius:6px;padding:0 5px;margin-left:2px}
+main{max-width:620px;margin:0 auto;padding:8px 10px}
+.panel{display:none}
+.panel.active{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:12px 13px;margin-bottom:10px}
+h2{font-size:14.5px;margin-bottom:6px}
+.tiny{font-size:11px}.small{font-size:12.5px}.muted{color:var(--muted)}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:10px;word-break:break-all}
+.rc-row1{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.count{font-size:22px;font-weight:800;color:var(--amber);font-variant-numeric:tabular-nums}
+.bar{height:6px;background:#0c1a0e;border-radius:99px;overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green2),var(--green));border-radius:99px}
+.rc-btns{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.btn{border-radius:9px;border:1px solid var(--line);background:var(--card2);color:var(--txt);padding:7px 11px;font-size:12px;font-weight:700;cursor:pointer}
+.btn-green{background:var(--green2);border-color:var(--green2);color:#fff}
+.btn-ghost{background:transparent}
+.btn-amber{background:var(--amber);border-color:var(--amber);color:#231400}
+.btn-mini{border-radius:8px;border:1px solid var(--line);background:var(--card2);color:var(--txt);padding:4px 8px;font-size:11.5px;font-weight:800;cursor:pointer}
+.btn-mini:hover{border-color:var(--green)}
+/* league blocks like a virtuals lobby */
+.lg-block{margin-bottom:14px}
+.lg-bar{display:flex;align-items:center;gap:8px;background:var(--dk);border:1px solid var(--line);border-radius:11px;padding:8px 11px}
+.lg-flag{font-size:15px}
+.lg-name{font-size:13px;font-weight:800;flex:1;min-width:0}
+.lg-name .tiny{display:block;font-weight:600}
+.lg-cd{font-size:13px;font-weight:800;color:var(--amber);font-variant-numeric:tabular-nums;min-width:44px;text-align:right}
+.lg-cd.live{color:var(--green)}
+.cols3{display:grid;grid-template-columns:1fr 52px 52px 52px 44px;gap:4px;padding:5px 11px 2px;color:var(--muted);font-size:10px;font-weight:800}
+.cols3 span{text-align:center}
+.match{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:8px 11px;margin:5px 0}
+.m-grid{display:grid;grid-template-columns:1fr 52px 52px 52px 44px;gap:4px;align-items:center}
+.m-teams{font-size:13.5px;font-weight:800;letter-spacing:.3px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-teams .v{color:var(--muted);font-weight:600;margin:0 3px}
+.chip{background:var(--chip);border:1px solid var(--line);border-radius:8px;color:var(--txt);padding:5px 0;cursor:pointer;text-align:center}
+.chip b{font-size:13px;font-variant-numeric:tabular-nums;display:block}
+.chip small{font-size:8.5px;color:var(--muted);font-weight:800;letter-spacing:.4px;display:block}
+.chip:active{transform:scale(.95)}
+.chip.pick{background:var(--chipH);border-color:var(--green)}
+.chip.off{opacity:.35;pointer-events:none}
+.more-btn{background:transparent;border:1px dashed var(--line);color:var(--muted);border-radius:8px;padding:4px 0;font-size:11px;font-weight:800;cursor:pointer;width:100%}
+.m-extra{margin-top:8px;border-top:1px dashed var(--line);padding-top:8px;display:none}
+.m-extra.open{display:block}
+.m-extra .lbl{font-size:10px;color:var(--muted);font-weight:800;margin:7px 0 4px;letter-spacing:.4px}
+.m-extra .xrow{display:flex;gap:5px;flex-wrap:wrap}
+.m-extra .xrow .chip{padding:4px 9px;min-width:48px}
+.m-res{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.score{font-size:19px;font-weight:800;background:var(--dk);border:1px solid var(--green2);border-radius:9px;padding:2px 10px;font-variant-numeric:tabular-nums}
+.mins{font-size:10.5px;color:var(--muted)}
+.betTag{font-size:10.5px;font-weight:800;border-radius:6px;padding:2px 7px}
+.betTag.won{background:rgba(0,224,122,.15);color:#7CF5B4;border:1px solid rgba(0,224,122,.4)}
+.betTag.lost{background:rgba(255,90,90,.13);color:#FFB3B3;border:1px solid rgba(255,90,90,.4)}
+.lg-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.lg-pill{background:var(--card2);border:1px solid var(--line);border-radius:999px;color:var(--muted);padding:5px 12px;font-size:12px;font-weight:800;cursor:pointer}
+.lg-pill.active{background:var(--green2);color:#fff;border-color:var(--green2)}
+.tbl-wrap{overflow-x:auto}
+table.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl th{color:var(--muted);font-size:10px;text-align:center;padding:4px 3px;border-bottom:1px solid var(--line)}
+.tbl td{padding:5px 3px;text-align:center;border-bottom:1px solid #14261a;font-variant-numeric:tabular-nums}
+.tbl .lft{text-align:left;font-weight:800}
+.tbl tr.top td{background:rgba(0,224,122,.06)}
+.tbl tr.bot td{background:rgba(255,90,90,.05)}
+.form span{display:inline-block;width:15px;text-align:center;border-radius:3px;font-size:9px;font-weight:800;margin-right:1px}
+.form .w{background:rgba(0,224,122,.22);color:#7CF5B4}
+.form .d{background:rgba(143,168,148,.25);color:#DCE8DE}
+.form .l{background:rgba(255,90,90,.22);color:#FFB3B3}
+.xgbar{height:7px;background:#0c1a0e;border-radius:99px;overflow:hidden;min-width:56px}
+textarea.ta{width:100%;background:var(--chip);border:1px solid var(--line);color:var(--txt);border-radius:11px;padding:10px 12px;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;min-height:130px;resize:vertical}
+.xgbar i{display:block;height:100%;background:linear-gradient(90deg,var(--green2),var(--green));border-radius:99px}
+.rowres{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid #14261a;font-size:12.5px;align-items:center}
+.rowres:last-child{border-bottom:none}
+.rowres .sc{font-weight:800;font-variant-numeric:tabular-nums}
+.slip-leg{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid #14261a;font-size:12.5px}
+.slip-leg .x{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:6px;cursor:pointer;padding:2px 7px;font-weight:800}
+input.stake{background:var(--chip);border:1px solid var(--line);color:var(--txt);border-radius:9px;padding:8px 10px;font-size:15px;font-weight:800;width:110px;font-variant-numeric:tabular-nums}
+.stat-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #14261a;font-size:12.5px;gap:8px}
+.stat-row:last-child{border-bottom:none}
+.stat-row b{font-variant-numeric:tabular-nums}
+.tag-g{color:#7CF5B4}.tag-r{color:#FFB3B3}
+#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(80px);background:var(--dk);border:1px solid var(--green2);color:var(--txt);border-radius:11px;padding:10px 16px;font-size:12.5px;font-weight:700;transition:transform .25s;z-index:99;max-width:90vw;text-align:center}
+#toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+</head><body>
+<header class="top">
+  <div class="brand">⚽ SIMULATED <b>VIRTUALS</b></div>
+  <div class="pills">
+    <a class="pill" href="index.html" style="text-decoration:none" title="James AI Predictor — the main app">🏠 JAP ↗</a>
+    <span class="pill" id="roundPill">5 leagues · next round 0:12</span>
+    <span class="pill pill-green" id="balPill">🪙 10,000</span>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="tab active" data-tab="board">🎯 Matches</button>
+  <button class="tab" data-tab="results">📋 Results</button>
+  <button class="tab" data-tab="table">🏆 Tables</button>
+  <button class="tab" data-tab="xg">📊 xG</button>
+  <button class="tab" data-tab="gen">🧪 Generator</button>
+  <button class="tab" data-tab="scan">🔎 Real</button>
+  <button class="tab" data-tab="stats">📊 Stats &amp; RNG</button>
+  <button class="tab" data-tab="slip">🎫 Slip <b id="slipTabN">0</b></button>
+</nav>
+
+<main>
+  <section id="panel-board" class="panel active">
+    <div class="card">
+      <div class="rc-row1">
+        <h2 style="margin:0">Next round closes in</h2>
+        <div class="count" id="countdown">—</div>
+      </div>
+      <div class="bar"><i id="cdBar" style="width:100%"></i></div>
+      <div class="tiny muted" style="margin-top:8px">Five virtual leagues — England, Spain, Italy, Germany, France — 10 matches each, on staggered clocks like a real virtuals lobby. Every round's seed is committed (SHA-256) before its countdown ends.</div>
+      <div class="rc-btns">
+        <button id="pauseBtn" class="btn btn-ghost">⏸ Pause</button>
+        <button id="turboBtn" class="btn btn-ghost">🐇 Turbo: off</button>
+        <button id="newSeasonBtn" class="btn btn-ghost">🔄 New season (all leagues)</button>
+      </div>
+    </div>
+    <div id="champBox"></div>
+    <div id="boardList"></div>
+    <div class="card tiny muted">Prices are pre-calculated by the bookmaker engine (Poisson model + margin) before betting opens; the RNG then draws each result from this exact board's probabilities. Play-money simulation — its own product, separate from the betPawa virtuals analyzer in James AI Predictor, and not affiliated with football.com.</div>
+  </section>
+
+  <section id="panel-results" class="panel"><div id="resultsBox"></div></section>
+  <section id="panel-table" class="panel"><div id="tableBox"></div></section>
+  <section id="panel-xg" class="panel"><div id="xgBox"></div></section>
+  <section id="panel-gen" class="panel">
+    <div class="card">
+      <h2>🧪 Fixture generator — real fixtures in, simulated results out</h2>
+      <p class="small muted">Type or paste real fixtures with their 1X2 prices, one per line — or tap <b>Capture live fixtures</b> to pull today’s real matches with real-time odds. The engine strips the bookmaker margin, calibrates the Poisson model to those exact probabilities, and the RNG draws each result from them — the same engine that runs the virtual leagues.</p>
+      <textarea id="genIn" class="ta" placeholder="Leeds United v Newcastle 2.35 3.64 3.13&#10;Torino v Roma 6.44 4.72 1.53&#10;Como 1907 v Parma Calcio 1.24 7.10 13.72"></textarea>
+      <div class="rc-btns">
+        <button id="genBtn" class="btn btn-green">🎲 Simulate</button>
+        <button id="genCapture" class="btn btn-amber">📥 Capture live fixtures</button>
+        <button id="genReroll" class="btn btn-ghost">🔁 Re-roll (new seed)</button>
+        <button id="genExample" class="btn btn-ghost">📋 Load example</button>
+        <button id="genClear" class="btn btn-ghost">🗑 Clear</button>
+      </div>
+      <div class="tiny muted" id="genParse" style="margin-top:6px"></div>
+      <div class="tiny muted" id="genCaptureNote" style="margin-top:4px">Capture pulls today’s real fixtures with real-time 1X2 prices — SofaScore multi-book averages first, ESPN/DraftKings as fallback — then simulates them straight away.</div>
+    </div>
+    <div id="genOut"></div>
+  </section>
+
+  <section id="panel-scan" class="panel">
+    <div class="card">
+      <h2>🔎 Real Scanner — live fixtures · true odds · edge vs the books</h2>
+      <p class="small muted">Captures today\u2019s <b>real</b> football fixtures with live prices (SofaScore multi-book average; ESPN/DraftKings fallback), then runs each one through the model:</p>
+      <p class="tiny muted" style="margin-top:6px">\u2022 <b>home_xg = ATK_home \u00d7 DEF_away</b> \u2014 ATK and DEF come from each team\u2019s last 10 <b>real</b> matches: goals scored / conceded per game, normalised to the 1.35 league average (\u00d71.12 home, \u00d70.93 away in front).<br>
+      \u2022 <b>prob = \u03a3 Poisson(x; home_xg) \u00b7 Poisson(y; away_xg)</b> over the exact score grid (x&gt;y home, x=y draw, x&lt;y away).<br>
+      \u2022 <b>true_odds = 1 / prob</b> \u2014 and <b>Edge % = true_prob \u00d7 bookie_odds \u2212 1</b> per outcome against the live multi-book average. That\u2019s the real-world value edge: where the books\u2019 price exceeds true odds.<br>
+      \u2022 Predicted score = the most likely <b>Poisson(home_xg) : Poisson(away_xg)</b> scoreline. Fixtures the form feed can\u2019t reach fall back to a <b>market</b> basis (xG calibrated from the odds themselves \u2014 no independent edge claimed).</p>
+      <button id="rsScanBtn" class="btn btn-green" style="margin-top:9px">🔎 Scan today\u2019s real fixtures</button>
+    </div>
+    <div id="rsBody"><div class="card"><p class="muted small">Hit <b>Scan</b> to capture today\u2019s real fixtures with live prices and rank them by edge \u2014 where the books\u2019 price exceeds the model\u2019s true odds.</p></div></div>
+  </section>
+
+  <section id="panel-stats" class="panel">
+    <div class="card"><h2>📊 Calibration — does the RNG follow the odds?</h2><div id="calibBox"></div></div>
+    <div class="card"><h2>🪙 Your play-money betting</h2><div id="pnlBox"></div></div>
+    <div class="card"><h2>🎲 RNG — independent streams · commit &amp; reveal</h2><div id="rngBox"></div>
+      <button id="verifyBtn" class="btn btn-amber" style="margin-top:9px">🔍 Verify last completed round from its seed</button></div>
+    <div class="card"><h2>⚙️ How this generator works</h2>
+      <p class="small muted">1 <b>The bookmaker pre-calculates the odds.</b> Each team carries attack / defence ratings (fixed per season). For every fixture: <b>home_xg = ATK_home × DEF_away</b> (and symmetrically for the away side), the exact Poisson score matrix gives every fair probability — <b>prob_home_win = Σ Poisson(x; home_xg) · Poisson(y; away_xg) for x&gt;y</b> — and <b>true_odds = 1 / probability</b>. The 1X2 prices are <b>true_odds × uniform</b>: the vig wobbles ±3% around 6%, and on roughly 1 match in 5 the book deliberately misprices ONE line above true odds — a value edge, findable from the ratings tab. Derived markets carry flat margins; all prices are rounded before anyone can bet.</p>
+      <p class="small muted" style="margin-top:7px">2 <b>The RNG draws the score from the same xGs.</b> Two independent streams sample each side's goals directly — <b>score = Poisson(home_xg) : Poisson(away_xg)</b>, exactly the expected goals the prices were computed from — and a third places goal minutes (each goal lands before half-time with probability 0.45, matching how the 1st-half prices are computed). All markets settle from that one drawn score.</p>
+      <p class="small muted" style="margin-top:7px">3 <b>Commit &amp; reveal.</b> Each league-round publishes SHA-256 of its seed before the countdown ends; the seed is revealed after the draw and any round can be re-verified from it.</p>
+      <p class="tiny muted" style="margin-top:7px">Format mimics the classic simulated-virtuals lobby: country leagues, 3-letter team codes, 10 matches per round, staggered clocks. Team codes are generic club abbreviations for simulation only.</p>
+    </div>
+  </section>
+
+  <section id="panel-slip" class="panel">
+    <div class="card"><h2>🎫 Betslip — singles</h2><div id="slipBox"></div></div>
+    <div class="card"><h2>Open bets</h2><div id="openBetsBox"></div></div>
+    <div class="card"><h2>Bet history</h2><div id="betHist"></div></div>
+  </section>
+</main>
+<div id="toast"></div>
+
+<script>
+/*VFG-ENGINE-START*/
+var VFG = (function () {
+  'use strict';
+
+  /* ---------- constants ---------- */
+  var GMAX = 10;
+  var BASE_H = 1.50, BASE_A = 1.20;            /* ~2.70 goals/game, home edge */
+  var ATT_SIGMA = 0.27, DEF_SIGMA = 0.22;      /* spread of team strength */
+  var LAM_MIN = 0.25, LAM_MAX = 3.40, PRICE_JITTER = 0.05;
+  var H1_FRAC = 0.45;                          /* share of goals scored before HT */
+  var MARGIN = { m1x2: 0.060, tot: 0.045, ggng: 0.045, dc: 0.045, h1: 0.050, hou: 0.050, cs: 0.180 };
+  var VIG_WOBBLE = 0.030;   /* bookie_odds = true_odds * uniform: vig wobbles +/-3% around the market margin */
+  var VALUE_P = 0.18;       /* share of matches where ONE 1X2 line is deliberately priced ABOVE true odds */
+
+  /* ---------- RNG: mulberry32 + SHA-256 stream derivation ---------- */
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function sha256(ascii) {
+    var K = [0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+             0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+             0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+             0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+             0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+             0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+             0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+             0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+    function rotr(x, n) { return (x >>> n) | (x << (32 - n)); }
+    var bytes = [], i;
+    for (i = 0; i < ascii.length; i++) bytes.push(ascii.charCodeAt(i) & 0xff);
+    var bitLen = ascii.length * 8;
+    bytes.push(0x80);
+    while (bytes.length % 64 !== 56) bytes.push(0);
+    bytes.push(0, 0, 0, 0);
+    bytes.push((bitLen >>> 24) & 255, (bitLen >>> 16) & 255, (bitLen >>> 8) & 255, bitLen & 255);
+    var H = [0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+    for (var c = 0; c < bytes.length / 64; c++) {
+      var w = new Array(64), t;
+      for (t = 0; t < 16; t++)
+        w[t] = ((bytes[c * 64 + t * 4] << 24) | (bytes[c * 64 + t * 4 + 1] << 16) |
+                (bytes[c * 64 + t * 4 + 2] << 8) | bytes[c * 64 + t * 4 + 3]) | 0;
+      for (t = 16; t < 64; t++) {
+        var s0 = rotr(w[t - 15], 7) ^ rotr(w[t - 15], 18) ^ (w[t - 15] >>> 3);
+        var s1 = rotr(w[t - 2], 17) ^ rotr(w[t - 2], 19) ^ (w[t - 2] >>> 10);
+        w[t] = (w[t - 16] + s0 + w[t - 7] + s1) | 0;
+      }
+      var a = H[0], b = H[1], c2 = H[2], d = H[3], e = H[4], f = H[5], g = H[6], h = H[7];
+      for (t = 0; t < 64; t++) {
+        var S1 = rotr(e, 6) ^ rotr(e, 11) ^ rotr(e, 25);
+        var ch = (e & f) ^ (~e & g);
+        var t1 = (h + S1 + ch + K[t] + w[t]) | 0;
+        var S0 = rotr(a, 2) ^ rotr(a, 13) ^ rotr(a, 22);
+        var mj = (a & b) ^ (a & c2) ^ (b & c2);
+        var t2 = (S0 + mj) | 0;
+        h = g; g = f; f = e; e = (d + t1) | 0; d = c2; c2 = b; b = a; a = (t1 + t2) | 0;
+      }
+      H[0] = (H[0] + a) | 0; H[1] = (H[1] + b) | 0; H[2] = (H[2] + c2) | 0; H[3] = (H[3] + d) | 0;
+      H[4] = (H[4] + e) | 0; H[5] = (H[5] + f) | 0; H[6] = (H[6] + g) | 0; H[7] = (H[7] + h) | 0;
+    }
+    var hex = '';
+    for (i = 0; i < 8; i++) hex += (H[i] >>> 0).toString(16).padStart(8, '0');
+    return hex;
+  }
+  function deriveSeed(master, name) {
+    return parseInt(sha256(master + '|' + name).slice(0, 8), 16) >>> 0;
+  }
+  function rngFor(master, name) { return mulberry32(deriveSeed(master, name)); }
+  function randHex(nBytes) {
+    var b = new Uint8Array(nBytes), out = '';
+    if (typeof crypto !== 'undefined' && crypto.getRandomValues) crypto.getRandomValues(b);
+    else for (var i = 0; i < nBytes; i++) b[i] = Math.floor(Math.random() * 256);
+    for (var k = 0; k < nBytes; k++) out += (b[k] < 16 ? '0' : '') + b[k].toString(16);
+    return out;
+  }
+  function normal(rng) {
+    var u = 0, v = 0;
+    while (u === 0) u = rng();
+    while (v === 0) v = rng();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  }
+
+  /* ---------- algorithms: schedule, ratings, Poisson pricing ---------- */
+  function roundRobin(ids) {
+    var a = ids.slice(1), n = ids.length, rounds = [];
+    for (var r = 0; r < n - 1; r++) {
+      var line = [ids[0]].concat(a), pairs = [];
+      for (var k = 0; k < n / 2; k++) {
+        var x = line[k], y = line[n - 1 - k];
+        pairs.push(r % 2 === 0 ? { h: x, a: y } : { h: y, a: x });
+      }
+      rounds.push(pairs);
+      a.unshift(a.pop());
+    }
+    return rounds;
+  }
+  function makeSeason(master, codes) {
+    var n = codes.length;
+    var rr = rngFor(master, 'ratings'), i;
+    var att = [], def = [];
+    for (i = 0; i < n; i++) {
+      att.push(Math.exp(ATT_SIGMA * normal(rr)));
+      def.push(Math.exp(DEF_SIGMA * normal(rr)));
+    }
+    var sa = 0, sd = 0;
+    for (i = 0; i < n; i++) { sa += att[i]; sd += def[i]; }
+    for (i = 0; i < n; i++) { att[i] /= sa / n; def[i] /= sd / n; }
+    var sr = rngFor(master, 'schedule'), ids = [];
+    for (i = 0; i < n; i++) ids.push(i);
+    for (i = ids.length - 1; i > 0; i--) {
+      var j = Math.floor(sr() * (i + 1)), t = ids[i]; ids[i] = ids[j]; ids[j] = t;
+    }
+    var first = roundRobin(ids), fixtures = first.slice(0);
+    first.forEach(function (rd) {
+      fixtures.push(rd.map(function (p) { return { h: p.a, a: p.h }; }));
+    });
+    return { master: master, codes: codes, att: att, def: def, fixtures: fixtures };
+  }
+  function poissonRow(lam, n) {
+    var row = [Math.exp(-lam)];
+    for (var i = 1; i <= n; i++) row[i] = row[i - 1] * lam / i;
+    return row;
+  }
+  function matrixOf(lh, la) {
+    var ph = poissonRow(lh, GMAX), pa = poissonRow(la, GMAX), s = 0, m = [], i, j;
+    for (i = 0; i <= GMAX; i++) { m[i] = []; for (j = 0; j <= GMAX; j++) { var p = ph[i] * pa[j]; m[i][j] = p; s += p; } }
+    for (i = 0; i <= GMAX; i++) for (j = 0; j <= GMAX; j++) m[i][j] /= s;
+    return m;
+  }
+  function fairOf(m, lh, la) {
+    var h = 0, d = 0, a = 0, o15 = 0, o25 = 0, o35 = 0, gg = 0, i, j, cs = [];
+    for (i = 0; i <= GMAX; i++) for (j = 0; j <= GMAX; j++) {
+      var p = m[i][j];
+      if (i > j) h += p; else if (i === j) d += p; else a += p;
+      var t = i + j;
+      if (t > 1.5) o15 += p;
+      if (t > 2.5) o25 += p;
+      if (t > 3.5) o35 += p;
+      if (i > 0 && j > 0) gg += p;
+      cs.push({ i: i, j: j, p: p });
+    }
+    cs.sort(function (x, y) { return y.p - x.p; });
+    /* marginals for the extra markets */
+    var ph = poissonRow(lh, GMAX), pa = poissonRow(la, GMAX);
+    var p1 = poissonRow(H1_FRAC * (lh + la), 12);        /* first-half total goals (thinned Poisson) */
+    return {
+      h: h, d: d, a: a,
+      o15: o15, u15: 1 - o15, o25: o25, u25: 1 - o25, o35: o35, u35: 1 - o35,
+      gg: gg, ng: 1 - gg,
+      dc1x: h + d, dc12: h + a, dcx2: d + a,
+      h1o05: 1 - p1[0], h1u05: p1[0], h1o15: 1 - p1[0] - p1[1], h1u15: p1[0] + p1[1],
+      ho05: 1 - ph[0], hu05: ph[0], ho15: 1 - ph[0] - ph[1], hu15: ph[0] + ph[1],
+      ao05: 1 - pa[0], au05: pa[0], ao15: 1 - pa[0] - pa[1], au15: pa[0] + pa[1],
+      csTop: cs.slice(0, 8)
+    };
+  }
+  function price(p, m) {                 /* derived markets: flat margin, unchanged */
+    var o = Math.floor((1 / (p * (1 + m))) * 100) / 100;
+    return Math.max(1.01, o);
+  }
+  /* the 1X2: true_odds = 1/probability, bookie_odds = true_odds * uniform.
+     The vig wobbles +/-3% around 6%, and on ~1 in 5 matches (VALUE_P) ONE line
+     is deliberately mispriced ABOVE true odds - a value edge to be found. */
+  function priceRow(f, rng) {
+    var coin = rng(), line = Math.floor(rng() * 3);
+    var injF = 1.02 + 0.06 * rng();
+    function noise() { return 1 - MARGIN.m1x2 - VIG_WOBBLE + 2 * VIG_WOBBLE * rng(); }
+    function one(p, n, inj) { return Math.max(1.01, Math.floor((1 / p) * (inj ? injF : n) * 100) / 100); }
+    var n1 = noise(), nX = noise(), n2 = noise();
+    return { '1': one(f.h, n1, coin < VALUE_P && line === 0),
+             'X': one(f.d, nX, coin < VALUE_P && line === 1),
+             '2': one(f.a, n2, coin < VALUE_P && line === 2) };
+  }
+  /* inverse Poisson CDF: smallest k with CDF(k; lam) >= u */
+  function poissonInv(lam, u) {
+    var p = Math.exp(-lam), c = p, k = 0;
+    while (u > c && k < 60) { k++; p = p * lam / k; c += p; }
+    return k;
+  }
+
+  /* light lambda helper: the exact expected-goals pair, no matrix build */
+  function lamsOf(season, md, mid) {
+    var fx = season.fixtures[md][mid];
+    var jr = rngFor(season.master, 'price|' + md + '|' + mid);
+    var jh = Math.exp(PRICE_JITTER * normal(jr)), ja = Math.exp(PRICE_JITTER * normal(jr));
+    var atkH = BASE_H * season.att[fx.h] * jh;   /* ATK_home: goals per game vs an average defence */
+    var atkA = BASE_A * season.att[fx.a] * ja;   /* ATK_away */
+    var lh = Math.min(LAM_MAX, Math.max(LAM_MIN, atkH * season.def[fx.a]));  /* home_xg = ATK_home * DEF_away */
+    var la = Math.min(LAM_MAX, Math.max(LAM_MIN, atkA * season.def[fx.h]));  /* away_xg = ATK_away * DEF_home */
+    return { lh: lh, la: la };
+  }
+  function topScoresOf(m, n) {
+    var list = [], i, j;
+    for (i = 0; i <= GMAX; i++) for (j = 0; j <= GMAX; j++) list.push({ i: i, j: j, p: m[i][j] });
+    list.sort(function (x, y) { return y.p - x.p; });
+    return list.slice(0, n || 1);
+  }
+
+  /* ---------- custom-fixture engine: real odds in, simulated result out ---------- */
+  function devig(o1, ox, o2) {
+    var a = 1 / o1, b = 1 / ox, c = 1 / o2, t = a + b + c;
+    return { h: a / t, d: b / t, a: c / t, margin: t - 1 };
+  }
+  function probsOfMatrix(lh, la) {
+    var m = matrixOf(lh, la), h = 0, d = 0, a = 0, i, j;
+    for (i = 0; i <= GMAX; i++) for (j = 0; j <= GMAX; j++) {
+      if (i > j) h += m[i][j]; else if (i === j) d += m[i][j]; else a += m[i][j];
+    }
+    return { h: h, d: d, a: a };
+  }
+  /* find the (lh, la) whose Poisson matrix reproduces the given 1X2 probabilities:
+     inner bisection on the goal split (matches home-minus-away), outer on total
+     goals (matches the draw probability - more goals, fewer draws) */
+  function calibrateLams(pH, pD, pA) {
+    var diff = pH - pA;
+    function splitFor(T) {
+      var lo = 0.02, hi = 0.98, mid, pr, i;
+      for (i = 0; i < 22; i++) {
+        mid = (lo + hi) / 2;
+        pr = probsOfMatrix(T * mid, T * (1 - mid));
+        if (pr.h - pr.a < diff) lo = mid; else hi = mid;
+      }
+      return (lo + hi) / 2;
+    }
+    var lo = 0.3, hi = 8.0, T, s, pr, i;
+    for (i = 0; i < 24; i++) {
+      T = (lo + hi) / 2;
+      s = splitFor(T);
+      pr = probsOfMatrix(T * s, T * (1 - s));
+      if (pr.d > pD) lo = T; else hi = T;
+    }
+    T = (lo + hi) / 2; s = splitFor(T);
+    var lh = T * s, la = T * (1 - s);
+    pr = probsOfMatrix(lh, la);
+    return { lh: lh, la: la, pr: pr, err: Math.abs(pr.h - pH) + Math.abs(pr.d - pD) + Math.abs(pr.a - pA) };
+  }
+  /* sample a scoreline from the matrix conditioned on the drawn outcome */
+  function condScore(u2, matrix, outcome) {
+    var tot = 0, i, j;
+    for (i = 0; i <= GMAX; i++) for (j = 0; j <= GMAX; j++) {
+      var isMatch = (outcome === 'h' && i > j) || (outcome === 'd' && i === j) || (outcome === 'a' && i < j);
+      if (isMatch) tot += matrix[i][j];
+    }
+    var x = u2 * tot, acc = 0, gi = 0, gj = 0;
+    outer:
+    for (i = 0; i <= GMAX; i++) for (j = 0; j <= GMAX; j++) {
+      var isM = (outcome === 'h' && i > j) || (outcome === 'd' && i === j) || (outcome === 'a' && i < j);
+      if (isM) { acc += matrix[i][j]; if (acc >= x) { gi = i; gj = j; break outer; } }
+    }
+    return { gh: gi, ga: gj };
+  }
+  /* the full pipeline for one real fixture: its prices ARE the bookmaker board */
+  function simulateFromOdds(master, key, o1, ox, o2) {
+    var dv = devig(o1, ox, o2);
+    var cal = calibrateLams(dv.h, dv.d, dv.a);
+    var m = matrixOf(cal.lh, cal.la);
+    var f = fairOf(m, cal.lh, cal.la);
+    var u1 = rngFor(master, 'res|' + key)();          /* outcome: EXACTLY the real de-vigged board */
+    var outcome = u1 < dv.h ? 'h' : (u1 < dv.h + dv.d ? 'd' : 'a');
+    var u2 = rngFor(master, 'sc|' + key)();           /* score: calibrated matrix given the outcome */
+    var sc = condScore(u2, m, outcome);
+    var mr = rngFor(master, 'min|' + key);
+    function minuteOf() {
+      if (mr() < H1_FRAC) return 1 + Math.floor(mr() * 45);
+      return 46 + Math.floor(mr() * 45);
+    }
+    var minsH = [], minsA = [], k;
+    for (k = 0; k < sc.gh; k++) minsH.push(minuteOf());
+    for (k = 0; k < sc.ga; k++) minsA.push(minuteOf());
+    minsH.sort(function (p2, q2) { return p2 - q2; });
+    minsA.sort(function (p2, q2) { return p2 - q2; });
+    return { dv: dv, lh: cal.lh, la: cal.la, calErr: cal.err, matrix: m, fair: f,
+      gh: sc.gh, ga: sc.ga, minsH: minsH, minsA: minsA, u1: u1, u2: u2, outcome: outcome };
+  }
+
+  /* the BOOKMAKER: prices a match before anyone can bet */
+  function priceMatch(season, md, mid) {
+    var lam = lamsOf(season, md, mid), lh = lam.lh, la = lam.la;
+    var m = matrixOf(lh, la), f = fairOf(m, lh, la);
+    var row = priceRow(f, rngFor(season.master, 'vig|' + md + '|' + mid));
+    return {
+      lh: lh, la: la, matrix: m, fair: f,
+      odds: {
+        '1': row['1'], 'X': row['X'], '2': row['2'],
+        'O1.5': price(f.o15, MARGIN.tot), 'U1.5': price(f.u15, MARGIN.tot),
+        'O2.5': price(f.o25, MARGIN.tot), 'U2.5': price(f.u25, MARGIN.tot),
+        'O3.5': price(f.o35, MARGIN.tot), 'U3.5': price(f.u35, MARGIN.tot),
+        'GG': price(f.gg, MARGIN.ggng), 'NG': price(f.ng, MARGIN.ggng),
+        '1X': price(f.dc1x, MARGIN.dc), '12': price(f.dc12, MARGIN.dc), 'X2': price(f.dcx2, MARGIN.dc),
+        'H1O0.5': price(f.h1o05, MARGIN.h1), 'H1U0.5': price(f.h1u05, MARGIN.h1),
+        'H1O1.5': price(f.h1o15, MARGIN.h1), 'H1U1.5': price(f.h1u15, MARGIN.h1),
+        'HO0.5': price(f.ho05, MARGIN.hou), 'HU0.5': price(f.hu05, MARGIN.hou),
+        'HO1.5': price(f.ho15, MARGIN.hou), 'HU1.5': price(f.hu15, MARGIN.hou),
+        'AO0.5': price(f.ao05, MARGIN.hou), 'AU0.5': price(f.au05, MARGIN.hou),
+        'AO1.5': price(f.ao15, MARGIN.hou), 'AU1.5': price(f.au15, MARGIN.hou),
+        cs: f.csTop.map(function (c) { return { i: c.i, j: c.j, o: price(c.p, MARGIN.cs) }; })
+      }
+    };
+  }
+
+  /* the RNG: score = Poisson(home_xg) : Poisson(away_xg) - the SAME expected
+     goals every price on the card was computed from */
+  function drawMatch(roundMaster, md, mid, pr) {
+    var sr = rngFor(roundMaster, 'sc|' + md + '|' + mid);
+    var u2 = sr(), u3 = sr();
+    var gi = poissonInv(pr.lh, u2), gj = poissonInv(pr.la, u3);
+    var outcome = gi > gj ? 'h' : (gi === gj ? 'd' : 'a');
+    /* goal minutes: each goal is pre-HT with probability H1_FRAC — exactly how
+       the 1st-half prices are computed, so board and settle agree */
+    var mr = rngFor(roundMaster, 'min|' + md + '|' + mid);
+    function minuteOf() {
+      if (mr() < H1_FRAC) return 1 + Math.floor(mr() * 45);
+      return 46 + Math.floor(mr() * 45);
+    }
+    var minsH = [], minsA = [];
+    for (var k1 = 0; k1 < gi; k1++) minsH.push(minuteOf());
+    for (var k2 = 0; k2 < gj; k2++) minsA.push(minuteOf());
+    minsH.sort(function (p, q) { return p - q; });
+    minsA.sort(function (p, q) { return p - q; });
+    return { u2: u2, u3: u3, gh: gi, ga: gj, minsH: minsH, minsA: minsA, outcome: outcome };
+  }
+
+  /* settle every market from the one drawn result */
+  function marketWins(mkt, r) {
+    var gh = r.gh, ga = r.ga, t = gh + ga;
+    var h1g = 0, k;
+    for (k = 0; k < r.minsH.length; k++) if (r.minsH[k] <= 45) h1g++;
+    for (k = 0; k < r.minsA.length; k++) if (r.minsA[k] <= 45) h1g++;
+    if (mkt === '1') return gh > ga;
+    if (mkt === 'X') return gh === ga;
+    if (mkt === '2') return gh < ga;
+    if (mkt === 'O1.5') return t > 1.5;
+    if (mkt === 'U1.5') return t < 1.5;
+    if (mkt === 'O2.5') return t > 2.5;
+    if (mkt === 'U2.5') return t < 2.5;
+    if (mkt === 'O3.5') return t > 3.5;
+    if (mkt === 'U3.5') return t < 3.5;
+    if (mkt === 'GG') return gh > 0 && ga > 0;
+    if (mkt === 'NG') return !(gh > 0 && ga > 0);
+    if (mkt === '1X') return gh >= ga;
+    if (mkt === '12') return gh !== ga;
+    if (mkt === 'X2') return ga >= gh;
+    if (mkt === 'H1O0.5') return h1g > 0.5;
+    if (mkt === 'H1U0.5') return h1g < 0.5;
+    if (mkt === 'H1O1.5') return h1g > 1.5;
+    if (mkt === 'H1U1.5') return h1g < 1.5;
+    if (mkt === 'HO0.5') return gh > 0.5;
+    if (mkt === 'HU0.5') return gh < 0.5;
+    if (mkt === 'HO1.5') return gh > 1.5;
+    if (mkt === 'HU1.5') return gh < 1.5;
+    if (mkt === 'AO0.5') return ga > 0.5;
+    if (mkt === 'AU0.5') return ga < 0.5;
+    if (mkt === 'AO1.5') return ga > 1.5;
+    if (mkt === 'AU1.5') return ga < 1.5;
+    if (mkt.slice(0, 3) === 'CS:') {
+      var pr = mkt.slice(3).split('-');
+      return gh === Number(pr[0]) && ga === Number(pr[1]);
+    }
+    return null;
+  }
+  function marketLabel(mkt) {
+    var M = {
+      '1': 'Home win', 'X': 'Draw', '2': 'Away win',
+      'O1.5': 'Over 1.5', 'U1.5': 'Under 1.5', 'O2.5': 'Over 2.5', 'U2.5': 'Under 2.5', 'O3.5': 'Over 3.5', 'U3.5': 'Under 3.5',
+      'GG': 'GG (both teams score)', 'NG': 'NG (no goal / not both)',
+      '1X': 'Double chance 1X', '12': 'Double chance 12', 'X2': 'Double chance X2',
+      'H1O0.5': '1st half Over 0.5', 'H1U0.5': '1st half Under 0.5', 'H1O1.5': '1st half Over 1.5', 'H1U1.5': '1st half Under 1.5',
+      'HO0.5': 'Home Over 0.5', 'HU0.5': 'Home Under 0.5', 'HO1.5': 'Home Over 1.5', 'HU1.5': 'Home Under 1.5',
+      'AO0.5': 'Away Over 0.5', 'AU0.5': 'Away Under 0.5', 'AO1.5': 'Away Over 1.5', 'AU1.5': 'Away Under 1.5'
+    };
+    return M[mkt] || (mkt.slice(0, 3) === 'CS:' ? 'Correct score ' + mkt.slice(3) : mkt);
+  }
+
+  return {
+    sha256: sha256, mulberry32: mulberry32, rngFor: rngFor, randHex: randHex,
+    makeSeason: makeSeason, priceMatch: priceMatch, drawMatch: drawMatch,
+    marketWins: marketWins, marketLabel: marketLabel, lamsOf: lamsOf, topScoresOf: topScoresOf,
+    poissonInv: poissonInv, priceRow: priceRow, matrixOf: matrixOf,
+    devig: devig, calibrateLams: calibrateLams, simulateFromOdds: simulateFromOdds, price: price,
+    MARGIN: MARGIN, H1_FRAC: H1_FRAC, MD_COUNT: function (n) { return (n - 1) * 2; },
+    CONST: { BASE_H: BASE_H, BASE_A: BASE_A, ATT_SIGMA: ATT_SIGMA, DEF_SIGMA: DEF_SIGMA }
+  };
+})();
+if (typeof globalThis !== 'undefined') globalThis.VFG = VFG;
+/*VFG-ENGINE-END*/
+</script>
+
+<script>
+(function () {
+'use strict';
+var $ = function (id) { return document.getElementById(id); };
+function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+function fmt(n) { return Number(n).toLocaleString('en-GB'); }
+function pct(x) { return (x * 100).toFixed(1) + '%'; }
+
+/* ---------- the five virtual leagues (football.com-style roster) ---------- */
+var LEAGUES = [
+  { id: 'eng', flag: '🏴', name: 'England – Virtual',
+    codes: ['ARS','CHE','LIV','MCI','MUN','TOT','NEW','EVE','FUL','BRE','CRY','IPS','LEE','BOU','AST','HUL','SUN','FOR','COV','WHU'] },
+  { id: 'esp', flag: '🇪🇸', name: 'Spain – Virtual',
+    codes: ['RMA','FCB','ATM','SEV','BIL','ESP','LEV','OSA','RAY','RCD','RBB','GET','RSO','CEL','VCF','MCF','VIL','ELC','ALA','GIR'] },
+  { id: 'ita', flag: '🇮🇹', name: 'Italy – Virtual',
+    codes: ['JUV','MIL','INT','ROM','NAP','LAZ','ATA','FIO','TOR','BOG','UDI','SAM','GEN','EMP','CAG','MON','BRE','PAR','COM','FRO'] },
+  { id: 'ger', flag: '🇩🇪', name: 'Germany – Virtual',
+    codes: ['BAY','DOR','LEV','RBL','SGE','FCA','BMG','WOL','FRA','MAI','UNI','HOF','AUG','BOC','STU','HEI','FRE','KOL','WER','MGB'] },
+  { id: 'fra', flag: '🇫🇷', name: 'France – Virtual',
+    codes: ['PSG','LEN','MAR','LYO','NIC','MON','LIL','REN','STR','TOU','NAN','AUX','NCE','PFC','LOR','AMO','OLM','MAN','B29','LEH'] }
+];
+function leagueById(id) { for (var i = 0; i < LEAGUES.length; i++) if (LEAGUES[i].id === id) return LEAGUES[i]; return LEAGUES[0]; }
+
+var ROUND_MS = 8 * 60 * 1000, STAGGER_MS = 96 * 1000, FIRST_MS = 14 * 1000;
+var TURBO_ROUND_MS = 60 * 1000;
+var REVEAL_STEP = 1000, TURBO_REVEAL_STEP = 240, HOLD_MS = 6000, TURBO_HOLD_MS = 1200;
+var LS_KEY = 'vfg3_state';
+
+function zeroStats() {
+  return { matches: 0, home: 0, draw: 0, away: 0, goals: 0, o25: 0, gg: 0,
+    expH: 0, expD: 0, expA: 0, expGoals: 0, expO25: 0, expGg: 0,
+    staked: 0, returned: 0, placed: 0, won: 0 };
+}
+function defaults() {
+  var lg = {};
+  LEAGUES.forEach(function (L) { lg[L.id] = { no: 1, md: 0, master: '', nextClose: 0, roundMaster: null, commit: '', phase: 'board' }; });
+  return { leagues: lg, results: [], roundInfo: {}, champs: [],
+    balance: 10000, slip: [], bets: [], betHist: [], stats: zeroStats(),
+    lifetime: { staked: 0, returned: 0 }, turbo: false, paused: false, lastStake: 100, tableLg: 'eng', xgLg: 'eng',
+    genIn: '', genSeed: '', genBatch: null };
+}
+function load() {
+  try {
+    var raw = localStorage.getItem(LS_KEY);
+    if (!raw) return null;
+    var s = JSON.parse(raw), d = defaults(), k;
+    for (k in d) if (!(k in s)) s[k] = d[k];
+    for (k in d.leagues) if (!(k in s.leagues)) s.leagues[k] = d.leagues[k];
+    return s;
+  } catch (e) { return null; }
+}
+function save() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {}
+}
+
+var S = load() || defaults();
+var SEAS = {}, PRC = {}, REV = {}, TIMERS = [];
+function seasonOf(lg) {
+  if (!S.leagues[lg].master) S.leagues[lg].master = VFG.randHex(32);
+  if (!SEAS[lg]) SEAS[lg] = VFG.makeSeason(S.leagues[lg].master, leagueById(lg).codes);
+  return SEAS[lg];
+}
+function mdCount(lg) { return seasonOf(lg).fixtures.length; }
+function pricesOf(lg) {
+  var L = S.leagues[lg];
+  if (!PRC[lg] || PRC[lg].md !== L.md) {
+    var arr = [], seas = seasonOf(lg);
+    for (var i = 0; i < seas.fixtures[L.md].length; i++) arr.push(VFG.priceMatch(seas, L.md, i));
+    PRC[lg] = { md: L.md, arr: arr };
+  }
+  return PRC[lg].arr;
+}
+
+function toast(msg) {
+  var t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function () { t.classList.remove('show'); }, 2800);
+}
+function clearTimers() { TIMERS.forEach(clearTimeout); TIMERS = []; }
+
+/* ---------- round lifecycle ---------- */
+function enterBoard(lg, firstIdx) {
+  var L = S.leagues[lg];
+  if (L.md >= mdCount(lg)) { seasonReset(lg); return; }
+  L.phase = 'board';
+  L.roundMaster = VFG.randHex(32);
+  L.commit = VFG.sha256(L.roundMaster);
+  REV[lg] = 0;
+  delete PRC[lg];
+  var span = S.turbo ? TURBO_ROUND_MS : ROUND_MS;
+  if (firstIdx != null) L.nextClose = Date.now() + FIRST_MS + firstIdx * (S.turbo ? 12 : STAGGER_MS);
+  else L.nextClose = Date.now() + Math.max(4000, span - (S.turbo ? 5000 : 17000));
+}
+function seasonReset(lg) {
+  var seas = seasonOf(lg), codes = seas.codes;
+  var tbl = tableOf(lg), champ = tbl[0];
+  S.champs.unshift({ lg: lg, name: champ.name, pts: champ.pts, seasonNo: S.leagues[lg].no });
+  if (S.champs.length > 6) S.champs = S.champs.slice(0, 6);
+  S.leagues[lg].no++;
+  S.leagues[lg].md = 0;
+  S.leagues[lg].master = VFG.randHex(32);   /* fresh ratings and fixtures next season */
+  S.results = S.results.filter(function (r) { return r.lg !== lg; });
+  delete SEAS[lg]; delete PRC[lg];
+  enterBoard(lg);
+  toast(leagueById(lg).name + ': ' + champ.name + ' are champions — season ' + S.leagues[lg].no + ' starts now');
+}
+function newSeasonAll() {
+  clearTimers();
+  var refund = 0;
+  S.bets.forEach(function (b) { refund += b.stake; });
+  if (refund) S.balance += refund;
+  SEAS = {}; PRC = {};
+  S.results = []; S.roundInfo = {}; S.champs = []; S.bets = []; S.slip = []; S.settledRounds = {};
+  LEAGUES.forEach(function (L, i) { S.leagues[L.id].no = 1; S.leagues[L.id].md = 0; S.leagues[L.id].master = VFG.randHex(32); enterBoard(L.id, i); });
+  save(); renderAll();
+  toast('New season generated for all five leagues');
+}
+function drawLeague(lg) {
+  var L = S.leagues[lg];
+  if (L.phase !== 'board') return;
+  var seas = seasonOf(lg), master = L.roundMaster, md = L.md, st = S.stats;
+  var prs = pricesOf(lg);
+  seas.fixtures[md].forEach(function (fx, mid) {
+    var pr = prs[mid];
+    var d = VFG.drawMatch(master, md, mid, pr);
+    S.results.push({ lg: lg, md: md, mid: mid, h: fx.h, a: fx.a, gh: d.gh, ga: d.ga,
+      minsH: d.minsH, minsA: d.minsA, u2: d.u2, u3: d.u3 });
+    st.matches++;
+    if (d.gh > d.ga) st.home++; else if (d.gh === d.ga) st.draw++; else st.away++;
+    st.goals += d.gh + d.ga;
+    if (d.gh + d.ga > 2.5) st.o25++;
+    if (d.gh > 0 && d.ga > 0) st.gg++;
+    st.expH += pr.fair.h; st.expD += pr.fair.d; st.expA += pr.fair.a;
+    st.expGoals += pr.lh + pr.la; st.expO25 += pr.fair.o25; st.expGg += pr.fair.gg;
+  });
+  S.roundInfo[lg + '|' + md] = { seed: master, commit: L.commit };
+  S.slip = S.slip.filter(function (l) { return !(l.lg === lg && l.md === md); });
+  L.phase = 'drawing'; REV[lg] = 0;
+  var n = seas.fixtures[md].length;
+  var step = S.turbo ? TURBO_REVEAL_STEP : REVEAL_STEP;
+  for (var k = 1; k <= n; k++) {
+    (function (x) { TIMERS.push(setTimeout(function () { REV[lg] = x; renderBoard(); }, x * step)); })(k);
+  }
+  TIMERS.push(setTimeout(function () { settle(lg, md); }, n * step));
+  TIMERS.push(setTimeout(function () {
+    if (L.md + 1 >= mdCount(lg)) seasonReset(lg);
+    else { L.md++; enterBoard(lg); }
+    renderAll(); save();
+  }, n * step + (S.turbo ? TURBO_HOLD_MS : HOLD_MS)));
+  renderBoard(); renderHeader(); save();
+}
+function drawNow(lg) {
+  if (S.leagues[lg].phase !== 'board') return;
+  S.paused = false;
+  drawLeague(lg);
+}
+function settle(lg, md) {
+  var key = lg + '|' + md;
+  if (S.settledRounds && S.settledRounds[key]) return;
+  S.settledRounds = S.settledRounds || {};
+  S.settledRounds[key] = true;
+  var sk = Object.keys(S.settledRounds);
+  if (sk.length > 400) { sk.sort(); for (var q = 0; q < sk.length - 400; q++) delete S.settledRounds[sk[q]]; }
+  var res = S.results.filter(function (r) { return r.lg === lg && r.md === md; });
+  var codes = leagueById(lg).codes, stillOpen = [];
+  S.bets.forEach(function (b) {
+    if (b.lg !== lg || b.md !== md) { stillOpen.push(b); return; }
+    var r = res[b.mid];
+    var won = VFG.marketWins(b.mkt, r);
+    var ret = won ? Math.round(b.stake * b.odds * 100) / 100 : 0;
+    S.balance += ret;
+    S.stats.staked += b.stake; S.stats.returned += ret;
+    S.stats.placed++; if (won) S.stats.won++;
+    S.lifetime.staked += b.stake; S.lifetime.returned += ret;
+    S.betHist.unshift({ lg: lg, md: md, label: b.label, sub: b.sub, mktLabel: b.mktLabel, odds: b.odds,
+      stake: b.stake, won: !!won, ret: ret, sc: r.gh + '-' + r.ga });
+  });
+  S.bets = stillOpen;
+  if (S.betHist.length > 60) S.betHist = S.betHist.slice(0, 60);
+  renderSlip(); renderHeader(); save();
+}
+
+/* ---------- rendering ---------- */
+function renderAll() { renderHeader(); renderBoard(); renderSlip(); }
+function renderHeader() {
+  var nOpen = 0, next = Infinity;
+  LEAGUES.forEach(function (L) {
+    var st = S.leagues[L.id];
+    if (st.phase === 'board') { nOpen++; if (st.nextClose < next) next = st.nextClose; }
+  });
+  $('roundPill').textContent = '5 leagues · ' + (nOpen ? 'next round ' + cdText(next - Date.now()) : 'drawing…');
+  $('balPill').textContent = '🪙 ' + fmt(Math.round(S.balance));
+  $('slipTabN').textContent = String(S.slip.length);
+}
+function cdText(ms) {
+  if (ms < 0) ms = 0;
+  var m = Math.floor(ms / 60000), s = Math.floor((ms % 60000) / 1000);
+  return m + ':' + (s < 10 ? '0' : '') + s;
+}
+function chipHTML(lg, mid, mkt, odds) {
+  var picked = S.slip.some(function (l) { return l.lg === lg && l.md === S.leagues[lg].md && l.mid === mid && l.mkt === mkt; });
+  var off = S.leagues[lg].phase !== 'board';
+  var lbl = mkt.slice(0, 3) === 'CS:' ? mkt.slice(3) : mkt;
+  return '<button class="chip' + (picked ? ' pick' : '') + (off ? ' off' : '') + '" data-lg="' + lg + '" data-mkt="' + esc(mkt) + '" data-mid="' + mid + '" data-odds="' + odds + '">' +
+    '<small>' + esc(lbl) + '</small><b>' + odds.toFixed(2) + '</b></button>';
+}
+var XGROUPS = [
+  ['O/U', ['O1.5', 'U1.5', 'O2.5', 'U2.5', 'O3.5', 'U3.5']],
+  ['GG/NG', ['GG', 'NG']],
+  ['DC (DOUBLE CHANCE)', ['1X', '12', 'X2']],
+  ['1ST HALF O/U', ['H1O0.5', 'H1U0.5', 'H1O1.5', 'H1U1.5']],
+  ['HOME O/U', ['HO0.5', 'HU0.5', 'HO1.5', 'HU1.5']],
+  ['AWAY O/U', ['AO0.5', 'AU0.5', 'AO1.5', 'AU1.5']]
+];
+function renderBoard() {
+  var cb = $('champBox');
+  cb.innerHTML = S.champs.slice(0, 3).map(function (c) {
+    return '<div class="card" style="padding:9px 12px"><b>🏆 ' + esc(leagueById(c.lg).name) + '</b> — <b>' + esc(c.name) + '</b> champions, ' +
+      c.pts + ' pts (season ' + c.seasonNo + ')<span class="tiny muted"> · new season auto-started</span></div>';
+  }).join('');
+  var html = LEAGUES.map(function (L) {
+    var lg = L.id, st = S.leagues[lg], seas = seasonOf(lg), prs = pricesOf(lg);
+    var live = st.phase === 'drawing';
+    var cd = '<span class="lg-cd live">LIVE</span>';
+    if (!live) cd = '<span class="lg-cd" data-cd="' + lg + '">' + cdText(st.nextClose - Date.now()) + '</span>';
+    var h = '<div class="lg-block"><div class="lg-bar">' +
+      '<span class="lg-flag">' + L.flag + '</span>' +
+      '<div class="lg-name">' + esc(L.name) + '<span class="tiny muted">Season ' + st.no + ' · MD ' + (st.md + 1) + '/' + mdCount(lg) + ' · 10 matches</span></div>' +
+      cd +
+      '<button class="btn-mini" data-drawnow="' + lg + '" ' + (live ? 'disabled' : '') + '>⚡</button>' +
+      '</div>';
+    if (!live) h += '<div class="cols3"><span></span><span>1</span><span>X</span><span>2</span><span></span></div>';
+    h += seas.fixtures[st.md].map(function (fx, mid) {
+      var pr = prs[mid];
+      var res = S.results.filter(function (r) { return r.lg === lg && r.md === st.md && r.mid === mid; })[0];
+      var myBets = S.bets.filter(function (b) { return b.lg === lg && b.md === st.md && b.mid === mid; });
+      var shown = live && res && mid < REV[lg];
+      var codes = seas.codes;
+      if (shown) {
+        var mins = [];
+        if (res.minsH.length) mins.push('H ' + res.minsH.map(function (m) { return m + "'"; }).join(' '));
+        if (res.minsA.length) mins.push('A ' + res.minsA.map(function (m) { return m + "'"; }).join(' '));
+        var ht = res.minsH.filter(function (m) { return m <= 45; }).length + '-' + res.minsA.filter(function (m) { return m <= 45; }).length;
+        var tags = myBets.map(function (b) {
+          var won = VFG.marketWins(b.mkt, res);
+          return '<span class="betTag ' + (won ? 'won' : 'lost') + '">' + esc(b.mktLabel) + ' ' + (won ? '✓ +' + fmt(Math.round(b.stake * b.odds - b.stake)) : '✗') + '</span>';
+        }).join(' ');
+        var lamR = VFG.lamsOf(seas, st.md, mid);
+        return '<div class="match"><div class="m-grid"><div class="m-teams">' + codes[fx.h] + '<span class="v">—</span>' + codes[fx.a] + '</div></div>' +
+          '<div class="m-res"><span class="score">' + res.gh + '-' + res.ga + '</span>' +
+          '<span class="tiny muted">xG ' + lamR.lh.toFixed(2) + ' \u00b7 ' + lamR.la.toFixed(2) + '</span>' +
+          '<span class="mins">HT ' + ht + (mins.length ? ' · ⚽ ' + mins.join(' · ') : '') + '</span>' + tags + '</div></div>';
+      }
+      var xtra = XGROUPS.reduce(function (acc, g) { return acc + g[1].length; }, 0) + 8;
+      var row = '<div class="match"><div class="m-grid">' +
+        '<div class="m-teams">' + codes[fx.h] + '<span class="v">—</span>' + codes[fx.a] + '</div>' +
+        chipHTML(lg, mid, '1', pr.odds['1']) + chipHTML(lg, mid, 'X', pr.odds['X']) + chipHTML(lg, mid, '2', pr.odds['2']) +
+        '<button class="more-btn" data-more="' + lg + '-' + mid + '">+' + xtra + '</button></div>' +
+        '<div class="tiny muted" style="margin-top:4px">xG ' + pr.lh.toFixed(2) + ' \u2013 ' + pr.la.toFixed(2) +
+        (VFG.topScoresOf(pr.matrix, 1)[0] ? ' \u00b7 likely ' + VFG.topScoresOf(pr.matrix, 1)[0].i + '-' + VFG.topScoresOf(pr.matrix, 1)[0].j : '') + '</div>';
+      if (!live) {
+        row += '<div class="m-extra" id="extra-' + lg + '-' + mid + '">' +
+          XGROUPS.map(function (g) {
+            return '<div class="lbl">' + g[0] + '</div><div class="xrow">' +
+              g[1].map(function (m) { return chipHTML(lg, mid, m, pr.odds[m]); }).join('') + '</div>';
+          }).join('') +
+          '<div class="lbl">CORRECT SCORE (top 8)</div><div class="xrow">' +
+          pr.odds.cs.map(function (c) { return chipHTML(lg, mid, 'CS:' + c.i + '-' + c.j, c.o); }).join('') + '</div>' +
+          '</div>';
+      }
+      return row + '</div>';
+    }).join('');
+    return h + '</div>';
+  }).join('');
+  $('boardList').innerHTML = html;
+}
+function renderResults() {
+  var groups = {};
+  S.results.forEach(function (r) {
+    var k = r.lg + '|' + r.md;
+    (groups[k] = groups[k] || []).push(r);
+  });
+  var keys = Object.keys(groups).sort(function (x, y) {
+    var a = x.split('|'), b = y.split('|');
+    return Number(b[1]) - Number(a[1]) || LEAGUES.findIndex(function (L) { return L.id === b[0]; }) - LEAGUES.findIndex(function (L) { return L.id === a[0]; });
+  }).slice(0, 15);
+  if (!keys.length) { $('resultsBox').innerHTML = '<div class="card"><p class="muted small">No rounds drawn yet.</p></div>'; return; }
+  $('resultsBox').innerHTML = keys.map(function (k) {
+    var parts = k.split('|'), lg = parts[0], md = Number(parts[1]);
+    var info = S.roundInfo[k] || {};
+    var codes = leagueById(lg).codes;
+    var rows = groups[k].map(function (r) {
+      var tag = '';
+      S.betHist.forEach(function (b) {
+        if (b.lg === lg && b.md === md && b.label === codes[r.h] + ' v ' + codes[r.a]) {
+          tag += ' <span class="betTag ' + (b.won ? 'won' : 'lost') + '">' + esc(b.mktLabel) + ' ' + (b.won ? '✓' : '✗') + '</span>';
+        }
+      });
+      return '<div class="rowres"><span style="flex:1"><b>' + codes[r.h] + '</b> — <b>' + codes[r.a] + '</b></span>' +
+        '<span class="sc">' + r.gh + '-' + r.ga + '</span><span class="tiny muted">u₂ ' + r.u2.toFixed(4) + ' · u₃ ' + r.u3.toFixed(4) + '</span>' + tag + '</div>';
+    }).join('');
+    return '<div class="card"><div class="rc-row1"><h2 style="margin:0">' + leagueById(lg).flag + ' ' + esc(leagueById(lg).name) + ' · MD ' + (md + 1) + '</h2>' +
+      '<span class="tiny muted mono">' + esc(info.seed || '') + '</span></div><div style="margin-top:4px">' + rows + '</div></div>';
+  }).join('');
+}
+function tableOf(lg) {
+  var codes = leagueById(lg).codes;
+  var rows = codes.map(function (c, i) {
+    return { i: i, name: c, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, pts: 0, form: [] };
+  });
+  S.results.forEach(function (r) {
+    if (r.lg !== lg) return;
+    var H = rows[r.h], A = rows[r.a];
+    H.p++; A.p++; H.gf += r.gh; H.ga += r.ga; A.gf += r.ga; A.ga += r.gh;
+    if (r.gh > r.ga) { H.w++; A.l++; H.pts += 3; H.form.push('w'); A.form.push('l'); }
+    else if (r.gh === r.ga) { H.d++; A.d++; H.pts++; A.pts++; H.form.push('d'); A.form.push('d'); }
+    else { A.w++; H.l++; A.pts += 3; A.form.push('w'); H.form.push('l'); }
+  });
+  rows.forEach(function (r) { r.gd = r.gf - r.ga; r.form = r.form.slice(-5); });
+  rows.sort(function (x, y) { return y.pts - x.pts || y.gd - x.gd || y.gf - x.gf || x.name.localeCompare(y.name); });
+  return rows;
+}
+function renderTable() {
+  var pills = LEAGUES.map(function (L) {
+    return '<button class="lg-pill' + (S.tableLg === L.id ? ' active' : '') + '" data-tlg="' + L.id + '">' + L.flag + ' ' + esc(L.name.replace(' – Virtual', '')) + '</button>';
+  }).join('');
+  var rows = tableOf(S.tableLg);
+  var h = '<div class="lg-pills">' + pills + '</div><div class="card"><h2>' + esc(leagueById(S.tableLg).name) + ' — season ' + S.leagues[S.tableLg].no + '</h2>' +
+    '<div class="tbl-wrap"><table class="tbl"><thead><tr><th class="lft">#</th><th class="lft">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th><th>Form</th></tr></thead><tbody>';
+  rows.forEach(function (r, idx) {
+    var cls = idx < 4 ? ' class="top"' : (idx >= rows.length - 3 ? ' class="bot"' : '');
+    h += '<tr' + cls + '><td class="lft">' + (idx + 1) + '</td><td class="lft">' + esc(r.name) + '</td><td>' + r.p + '</td><td>' + r.w + '</td><td>' + r.d + '</td><td>' + r.l + '</td><td>' + r.gf + '</td><td>' + r.ga + '</td><td>' + (r.gd > 0 ? '+' : '') + r.gd + '</td><td><b>' + r.pts + '</b></td>' +
+      '<td><span class="form">' + r.form.map(function (f) { return '<span class="' + f + '">' + f.toUpperCase() + '</span>'; }).join('') + '</span></td></tr>';
+  });
+  $('tableBox').innerHTML = h + '</tbody></table></div><p class="tiny muted" style="margin-top:6px">Ratings are fixed for the season — the table reflects the same team strengths the odds were computed from.</p></div>';
+}
+function calibRow(label, obs, exp, fmtFn) {
+  return '<div class="stat-row"><span>' + label + '</span><span><b>' + fmtFn(obs) + '</b> <span class="muted">vs model ' + fmtFn(exp) + '</span></span></div>';
+}
+function renderStats() {
+  var st = S.stats, n = st.matches;
+  var cb = $('calibBox');
+  if (!n) { cb.innerHTML = '<p class="muted small">No matches drawn yet.</p>'; }
+  else {
+    cb.innerHTML =
+      calibRow('Home wins', st.home / n, st.expH / n, pct) +
+      calibRow('Draws', st.draw / n, st.expD / n, pct) +
+      calibRow('Away wins', st.away / n, st.expA / n, pct) +
+      calibRow('Avg goals / match', st.goals / n, st.expGoals / n, function (x) { return x.toFixed(2); }) +
+      calibRow('Over 2.5 hit rate', st.o25 / n, st.expO25 / n, pct) +
+      calibRow('GG hit rate', st.gg / n, st.expGg / n, pct) +
+      '<p class="tiny muted" style="margin-top:7px">' + fmt(n) + ' matches drawn across all five leagues.</p>';
+  }
+  var pb = $('pnlBox');
+  var pl = st.returned - st.staked;
+  var house = st.staked > 0 ? (1 - st.returned / st.staked) * 100 : null;
+  pb.innerHTML =
+    '<div class="stat-row"><span>Balance</span><b>🪙 ' + fmt(Math.round(S.balance)) + '</b></div>' +
+    '<div class="stat-row"><span>Bets placed</span><b>' + fmt(st.placed) + '</b></div>' +
+    '<div class="stat-row"><span>Hit rate</span><b>' + (st.placed ? pct(st.won / st.placed) : '—') + '</b></div>' +
+    '<div class="stat-row"><span>Total staked</span><b>' + fmt(Math.round(st.staked)) + '</b></div>' +
+    '<div class="stat-row"><span>Total returned</span><b>' + fmt(Math.round(st.returned)) + '</b></div>' +
+    '<div class="stat-row"><span>Profit / loss</span><b class="' + (pl >= 0 ? 'tag-g' : 'tag-r') + '">' + (pl >= 0 ? '+' : '') + fmt(Math.round(pl)) + '</b></div>' +
+    '<div class="stat-row"><span>House margin realised</span><b>' + (house === null ? '—' : house.toFixed(1) + '%') + '</b></div>';
+  var rb = $('rngBox');
+  var commits = LEAGUES.map(function (L) {
+    var st2 = S.leagues[L.id];
+    return '<div class="stat-row"><span>' + L.flag + ' ' + esc(L.name) + ' · MD ' + (st2.md + 1) + ' commitment</span><span class="mono" style="text-align:right">' + esc(st2.commit || '—') + '</span></div>';
+  }).join('');
+  var last = S.results.length ? S.results[S.results.length - 1] : null;
+  var lastHtml = '';
+  if (last) {
+    var info = S.roundInfo[last.lg + '|' + last.md] || {};
+    var codes = leagueById(last.lg).codes;
+    var rows = S.results.filter(function (r) { return r.lg === last.lg && r.md === last.md; }).map(function (x) {
+      return '<div class="rowres"><span style="flex:1"><b>' + codes[x.h] + '</b> — <b>' + codes[x.a] + '</b></span>' +
+        '<span class="mono">u₂ ' + x.u2.toFixed(6) + ' · u₃ ' + x.u3.toFixed(6) + '</span><span class="sc">' + x.gh + '-' + x.ga + '</span></div>';
+    }).join('');
+    lastHtml = '<div class="stat-row" style="margin-top:6px"><span>Last completed round — ' + esc(leagueById(last.lg).name) + ' MD ' + (last.md + 1) + ' seed (revealed)</span><span class="mono" style="text-align:right">' + esc(info.seed || '—') + '</span></div>' +
+      '<div style="margin-top:4px">' + rows + '</div>';
+  }
+  rb.innerHTML = commits + lastHtml +
+    '<p class="tiny muted" style="margin-top:7px">u₂ and u₃ drew each side\'s goals straight from its Poisson expected-goals — score = Poisson(home_xg) : Poisson(away_xg), the same xGs every price on the card was computed from.</p>';
+}
+/* ---------- xG views ---------- */
+function xgRowsOf(lg) {
+  var seas = seasonOf(lg);
+  var rows = seas.codes.map(function (c, i) { return { i: i, code: c, p: 0, xg: 0, xga: 0, gf: 0, ga: 0 }; });
+  S.results.forEach(function (r) {
+    if (r.lg !== lg) return;
+    var lam = VFG.lamsOf(seas, r.md, r.mid);
+    var H = rows[r.h], A = rows[r.a];
+    H.p++; A.p++;
+    H.xg += lam.lh; A.xg += lam.la;
+    H.xga += lam.la; A.xga += lam.lh;
+    H.gf += r.gh; A.gf += r.ga;
+    H.ga += r.ga; A.ga += r.gh;
+  });
+  rows.forEach(function (x) { x.xgG = x.p ? x.xg / x.p : 0; x.xgaG = x.p ? x.xga / x.p : 0; x.gfG = x.p ? x.gf / x.p : 0; });
+  rows.sort(function (a, b) { return b.xgG - a.xgG || a.xgaG - b.xgaG; });
+  return rows;
+}
+function xgPerfOf(lg) {
+  var seas = seasonOf(lg), w = 0, l = 0, recent = [];
+  S.results.forEach(function (r) {
+    if (r.lg !== lg) return;
+    var lam = VFG.lamsOf(seas, r.md, r.mid);
+    if (lam.lh === lam.la) return;
+    var favHome = lam.lh > lam.la;
+    var favCode = seas.codes[favHome ? r.h : r.a];
+    var favWon = favHome ? r.gh > r.ga : r.ga > r.gh;
+    if (favWon) w++; else l++;
+    recent.push({ h: seas.codes[r.h], a: seas.codes[r.a], lh: lam.lh, la: lam.la, gh: r.gh, ga: r.ga, fav: favCode, won: favWon });
+  });
+  return { w: w, l: l, n: w + l, recent: recent.slice(-8).reverse() };
+}
+function renderXg() {
+  var lg = S.xgLg, L = leagueById(lg), seas = seasonOf(lg), stL = S.leagues[lg];
+  var pills = '<div class="lg-pills">' + LEAGUES.map(function (L2) {
+    return '<button class="lg-pill' + (S.xgLg === L2.id ? ' active' : '') + '" data-xlg="' + L2.id + '">' + L2.flag + ' ' + esc(L2.name.replace(' \u2013 Virtual', '')) + '</button>';
+  }).join('') + '</div>';
+  var rows = xgRowsOf(lg), mx = 0;
+  rows.forEach(function (r) { if (r.xgG > mx) mx = r.xgG; });
+  var tbl = '<div class="card"><h2>' + L.flag + ' ' + esc(L.name) + ' \u2014 expected-goals table</h2>' +
+    '<div class="tbl-wrap"><table class="tbl"><thead><tr><th class="lft">#</th><th class="lft">Team</th><th>P</th><th>xG / gm</th><th>xGA / gm</th><th>Attack</th><th>Goals / gm</th></tr></thead><tbody>';
+  rows.forEach(function (r, idx) {
+    tbl += '<tr><td class="lft">' + (idx + 1) + '</td><td class="lft">' + esc(r.code) + '</td><td>' + r.p + '</td>' +
+      '<td><b>' + r.xgG.toFixed(2) + '</b></td><td>' + r.xgaG.toFixed(2) + '</td>' +
+      '<td><div class="xgbar"><i style="width:' + (mx ? Math.round(r.xgG / mx * 100) : 0) + '%"></i></div></td>' +
+      '<td>' + (r.p ? r.gfG.toFixed(2) : '\u2014') + '</td></tr>';
+  });
+  tbl += '</tbody></table></div><p class="tiny muted" style="margin-top:6px">xG per game is the exact expected-goals figure the odds engine prices each fixture from (attack rating \u00d7 opponent defence). \u201cGoals / gm\u201d is what actually went in \u2014 the gap is finishing luck.</p></div>';
+  var prs = pricesOf(lg);
+  var up = '<div class="card"><h2>This round \u00b7 expected goals</h2>' + seas.fixtures[stL.md].map(function (fx, mid) {
+    var pr = prs[mid], top = VFG.topScoresOf(pr.matrix, 1)[0];
+    return '<div class="rowres"><span style="flex:1"><b>' + seas.codes[fx.h] + '</b> \u2014 <b>' + seas.codes[fx.a] + '</b></span>' +
+      '<span class="tiny muted">xG ' + pr.lh.toFixed(2) + ' \u2013 ' + pr.la.toFixed(2) + '</span>' +
+      '<span class="sc">' + (top ? top.i + '-' + top.j : '\u2014') + '</span></div>';
+  }).join('') + '</div>';
+  var perf = xgPerfOf(lg);
+  var ph = '<div class="card"><h2>xG favourite \u2014 performance</h2>' +
+    '<div class="rc-row1"><span class="small">Matches where the team with the higher xG won</span><b>' +
+    perf.w + 'W \u00b7 ' + perf.l + 'L' + (perf.n ? ' \u00b7 ' + Math.round(perf.w / perf.n * 100) + '%' : '') + '</b></div>' +
+    (perf.recent.length ? '<div style="margin-top:4px">' + perf.recent.map(function (x) {
+      return '<div class="rowres"><span style="flex:1"><b>' + x.h + '</b> \u2014 <b>' + x.a + '</b> <span class="tiny muted">xG ' + x.lh.toFixed(2) + '\u2013' + x.la.toFixed(2) + ' \u00b7 ' + x.gh + '-' + x.ga + '</span></span>' +
+        '<span class="betTag ' + (x.won ? 'won' : 'lost') + '">' + (x.won ? '\u2705' : '\u274c') + ' ' + x.fav + '</span></div>';
+    }).join('') + '</div>' : '<p class="muted small" style="margin-top:6px">No finished matches in this league yet.</p>') + '</div>';
+  $('xgBox').innerHTML = pills + tbl + up + ph;
+}
+function renderSlip() {
+  var sb = $('slipBox');
+  if (!S.slip.length) {
+    sb.innerHTML = '<p class="muted small">Tap any price on the board to add it here. Bets are singles and settle the moment their league\'s round is drawn.</p>';
+  } else {
+    var legs = S.slip.map(function (l, i) {
+      return '<div class="slip-leg"><span style="flex:1">' + esc(l.label) + '<br><span class="tiny muted">' + esc(l.sub) + ' · ' + esc(l.mktLabel) + ' @ ' + l.odds.toFixed(2) + '</span></span>' +
+        '<button class="x" data-rm="' + i + '">✕</button></div>';
+    }).join('');
+    sb.innerHTML = legs +
+      '<div style="display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap">' +
+      '<span class="small">Stake per bet</span><input class="stake" id="stakeIn" type="number" min="10" step="10" value="' + (S.lastStake || 100) + '">' +
+      '<button class="btn btn-green" id="placeBtn">Place ' + S.slip.length + ' bet' + (S.slip.length > 1 ? 's' : '') + '</button></div>' +
+      '<p class="tiny muted" style="margin-top:7px">Total stake ' + fmt((S.lastStake || 100) * S.slip.length) + ' — balance ' + fmt(Math.round(S.balance)) + '.</p>';
+  }
+  var ob = $('openBetsBox');
+  ob.innerHTML = S.bets.length ? S.bets.map(function (b) {
+    return '<div class="slip-leg"><span style="flex:1">' + esc(b.label) + '<br><span class="tiny muted">' + esc(b.sub) + ' · ' + esc(b.mktLabel) + ' @ ' + b.odds.toFixed(2) + ' · 🪙' + fmt(b.stake) + '</span></span></div>';
+  }).join('') : '<p class="muted small">No open bets.</p>';
+  var bh = $('betHist');
+  bh.innerHTML = S.betHist.length ? S.betHist.slice(0, 30).map(function (b) {
+    return '<div class="slip-leg"><span style="flex:1">' + esc(b.label) + '<br><span class="tiny muted">' + esc(b.sub) + ' · MD' + (b.md + 1) + ' · ' + esc(b.mktLabel) + ' @ ' + b.odds.toFixed(2) + ' · ' + b.sc + '</span></span>' +
+      '<b class="' + (b.won ? 'tag-g' : 'tag-r') + '">' + (b.won ? '+' + fmt(Math.round(b.ret - b.stake)) : '−' + fmt(b.stake)) + '</b></div>';
+  }).join('') : '<p class="muted small">No bets yet.</p>';
+  renderHeader();
+}
+
+/* ---------- tabs ---------- */
+function switchTab(n) {
+  var tabs = document.querySelectorAll('.tab'), ps = document.querySelectorAll('.panel');
+  for (var i = 0; i < tabs.length; i++) tabs[i].classList.toggle('active', tabs[i].getAttribute('data-tab') === n);
+  for (var j = 0; j < ps.length; j++) ps[j].classList.toggle('active', ps[j].id === 'panel-' + n);
+  if (n === 'table') renderTable();
+  if (n === 'xg') renderXg();
+  if (n === 'gen') renderGen();
+  if (n === 'stats') renderStats();
+  if (n === 'results') renderResults();
+  if (n === 'slip') renderSlip();
+}
+$('tabs').addEventListener('click', function (e) {
+  var t = e.target.closest('.tab');
+  if (t) switchTab(t.getAttribute('data-tab'));
+});
+
+/* ---------- board interactions ---------- */
+$('boardList').addEventListener('click', function (e) {
+  var more = e.target.closest('[data-more]');
+  if (more) {
+    var ex = $('extra-' + more.getAttribute('data-more'));
+    if (ex) { ex.classList.toggle('open'); }
+    return;
+  }
+  var dz = e.target.closest('[data-drawnow]');
+  if (dz) { drawNow(dz.getAttribute('data-drawnow')); return; }
+  var chip = e.target.closest('.chip');
+  if (!chip) return;
+  var lg = chip.getAttribute('data-lg');
+  if (S.leagues[lg].phase !== 'board') return;
+  var mid = Number(chip.getAttribute('data-mid'));
+  var mkt = chip.getAttribute('data-mkt');
+  var odds = Number(chip.getAttribute('data-odds'));
+  var st = S.leagues[lg], seas = seasonOf(lg), fx = seas.fixtures[st.md][mid];
+  var label = seas.codes[fx.h] + ' v ' + seas.codes[fx.a];
+  var sub = leagueById(lg).name + ' · MD ' + (st.md + 1);
+  var existing = -1;
+  for (var i = 0; i < S.slip.length; i++) {
+    if (S.slip[i].lg === lg && S.slip[i].md === st.md && S.slip[i].mid === mid && S.slip[i].mkt === mkt) { existing = i; break; }
+  }
+  if (existing >= 0) S.slip.splice(existing, 1);
+  else {
+    if (S.slip.length >= 12) { toast('Slip is full (12 legs)'); return; }
+    S.slip.push({ lg: lg, md: st.md, mid: mid, mkt: mkt, odds: odds, label: label, sub: sub, mktLabel: VFG.marketLabel(mkt) });
+  }
+  save(); renderBoard(); renderSlip();
+});
+$('tableBox').addEventListener('click', function (e) {
+  var p = e.target.closest('[data-tlg]');
+  if (p) { S.tableLg = p.getAttribute('data-tlg'); save(); renderTable(); }
+});
+$('xgBox').addEventListener('click', function (e) {
+  var p = e.target.closest('[data-xlg]');
+  if (p) { S.xgLg = p.getAttribute('data-xlg'); save(); renderXg(); }
+});
+$('genBtn').addEventListener('click', simulateBatch);
+$('genCapture').addEventListener('click', captureLive);
+$('genClear').addEventListener('click', function () {
+  S.genIn = ''; S.genBatch = null;
+  $('genIn').value = '';
+  $('genParse').textContent = '';
+  $('genCaptureNote').innerHTML = 'Capture pulls today’s real fixtures with real-time 1X2 prices — SofaScore multi-book averages first, ESPN/DraftKings as fallback — then simulates them straight away.';
+  save(); renderGen();
+  toast('Fixtures cleared');
+});
+$('genReroll').addEventListener('click', function () { S.genSeed = VFG.randHex(16); simulateBatch(); });
+$('genExample').addEventListener('click', function () {
+  $('genIn').value = GEN_EXAMPLE; S.genIn = GEN_EXAMPLE; save();
+  $('genParse').textContent = 'Example loaded \u2014 real football.com fixtures with their prices.';
+});
+$('genIn').addEventListener('input', function () { S.genIn = $('genIn').value; save(); });
+$('slipBox').addEventListener('click', function (e) {
+  var rm = e.target.closest('[data-rm]');
+  if (rm) { S.slip.splice(Number(rm.getAttribute('data-rm')), 1); save(); renderSlip(); renderBoard(); return; }
+  if (e.target.id === 'placeBtn') {
+    var stakeIn = $('stakeIn');
+    var stake = Math.round(Number(stakeIn && stakeIn.value) || 0);
+    if (stake < 10) { toast('Minimum stake is 10'); return; }
+    var total = stake * S.slip.length;
+    if (total > S.balance) { toast('Not enough balance'); return; }
+    S.lastStake = stake;
+    S.balance -= total;
+    S.slip.forEach(function (l) {
+      S.bets.push({ lg: l.lg, md: l.md, mid: l.mid, mkt: l.mkt, odds: l.odds, label: l.label, sub: l.sub, mktLabel: l.mktLabel, stake: stake });
+    });
+    S.slip = [];
+    save(); renderSlip(); renderHeader();
+    toast('Bets placed — they settle when their league\'s round is drawn');
+  }
+});
+$('slipBox').addEventListener('input', function (e) {
+  if (e.target.id === 'stakeIn') {
+    S.lastStake = Math.max(10, Math.round(Number(e.target.value) || 10));
+    var p = $('slipBox').querySelector('.tiny.muted');
+    if (p && S.slip.length) p.textContent = 'Total stake ' + fmt(S.lastStake * S.slip.length) + ' — balance ' + fmt(Math.round(S.balance)) + '.';
+  }
+});
+
+/* ---------- custom fixture generator ---------- */
+var GEN_EXAMPLE = 'Leeds United v Newcastle 2.35 3.64 3.13\n' +
+  'Torino v Roma 6.44 4.72 1.53\n' +
+  'Como 1907 v Parma Calcio 1.24 7.10 13.72\n' +
+  'Inter v Udinese 1.51 4.60 6.10\n' +
+  'Villarreal v Elche 1.69 4.57 4.54';
+function parseFixtureLine(line) {
+  var l = line.trim();
+  if (!l || l.charAt(0) === '#') return null;   /* # lines are section labels */
+  var nums = l.match(/\d+[.,]\d+/g) || [];
+  var o1, ox, o2, defaulted = false;
+  if (nums.length >= 3) {
+    o1 = parseFloat(nums[nums.length - 3].replace(',', '.'));
+    ox = parseFloat(nums[nums.length - 2].replace(',', '.'));
+    o2 = parseFloat(nums[nums.length - 1].replace(',', '.'));
+  } else if (nums.length === 0) {
+    o1 = 2.40; ox = 3.40; o2 = 2.90; defaulted = true;   /* no prices given -> even board */
+  } else {
+    return { error: 'need three prices (1 X 2) - or none to use defaults' };
+  }
+  var text = l;
+  if (!defaulted) {
+    for (var k = 0; k < 3; k++) {
+      var n = nums[nums.length - 1 - k].replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      text = text.replace(new RegExp(n + '\\s*$'), '').replace(/[|,;\s]+$/, '');
+    }
+  }
+  var teams = text.split(/\s+(?:v\.?|vs\.?|versus|x|\u2014|\u2013|-)\s+/i).map(function (t) { return t.trim(); }).filter(function (t) { return t; });
+  if (teams.length < 2) return { error: 'cannot read two team names - use "Home v Away"' };
+  if (!(o1 > 1 && ox > 1 && o2 > 1 && o1 < 60 && ox < 60 && o2 < 60)) return { error: 'prices must be between 1.01 and 60' };
+  return { home: teams[0], away: teams[1], o1: o1, ox: ox, o2: o2, defaulted: defaulted };
+}
+/* ---------- auto-capture: real fixtures + real-time odds ---------- */
+var SOFA = 'https://api.sofascore.com/api/v1';
+function fmtOdds(x) { return (Math.round(parseFloat(x) * 100) / 100).toFixed(2); }
+function sofaGrab2(path) {
+  return fetch(SOFA + path, { headers: { 'Accept': 'application/json' } })
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
+}
+function sofaBooks(d) {              /* tolerant multi-book 1X2 parser (same as the main app) */
+  var books = [];
+  function oddsFrom(o) {
+    if (!o) return null;
+    var a = parseFloat(o['1'] != null ? o['1'] : (o.home != null ? o.home : o.o1)),
+        x = parseFloat(o['X'] != null ? o['X'] : (o.draw != null ? o.draw : o.ox)),
+        b = parseFloat(o['2'] != null ? o['2'] : (o.away != null ? o.away : o.o2));
+    return (a > 1 && x > 1 && b > 1) ? { o1: a, ox: x, o2: b } : null;
+  }
+  (d.odds || []).forEach(function (bm) {
+    var o = oddsFrom(bm.odds);
+    if (!o && bm.choices) {
+      var c = {};
+      bm.choices.forEach(function (ch) { c[ch.name || ch.choice] = parseFloat(ch.odd || ch.oddsValue || ch.odds); });
+      o = oddsFrom(c);
+    }
+    if (o) books.push(o);
+  });
+  return books;
+}
+function captureSofa(dateStr, cap) {
+  return sofaGrab2('/sport/football/scheduled-events/' + dateStr).then(function (d) {
+    var ns = (d.events || []).filter(function (e) {
+      return (e.status || {}).type === 'notstarted' && (e.homeTeam || {}).name && (e.awayTeam || {}).name;
+    });
+    ns.sort(function (x, y) {
+      var ux = ((x.homeTeam || {}).userCount || 0) + ((x.awayTeam || {}).userCount || 0);
+      var uy = ((y.homeTeam || {}).userCount || 0) + ((y.awayTeam || {}).userCount || 0);
+      return uy - ux;
+    });
+    return Promise.all(ns.slice(0, cap).map(function (e) {
+      return sofaGrab2('/event/' + e.id + '/odds/summary').then(function (od) {
+        var books = sofaBooks(od || {});
+        if (!books.length) return null;
+        var a = 0, x = 0, b = 0;
+        books.forEach(function (B) { a += B.o1; x += B.ox; b += B.o2; });
+        var n = books.length;
+        return e.homeTeam.name + ' v ' + e.awayTeam.name + ' ' + fmtOdds(a / n) + ' ' + fmtOdds(x / n) + ' ' + fmtOdds(b / n);
+      })['catch'](function () { return null; });
+    }));
+  }).then(function (rows) { return rows.filter(function (r) { return r; }); });
+}
+function espnGrab2(path) {
+  return fetch('https://site.web.api.espn.com' + path, { headers: { 'Accept': 'application/json' } })
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    ['catch'](function () {
+      return fetch('/espnw' + path, { headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.ok ? r.json() : null; })['catch'](function () { return null; });
+    });
+}
+function espnLine(e) {               /* DraftKings moneyline -> decimal 1X2 (same as the main app) */
+  var o = ((((e.competitions || [{}])[0].odds) || [])[0]);
+  if (!o) return null;
+  var ml = o.moneyline || {};
+  function dec(side) {
+    var v = (((ml[side] || {}).close) || {}).odds;
+    if (v == null) return null;
+    v = String(v).trim();
+    if (v.charAt(0) !== '+' && v.charAt(0) !== '-') return null;
+    var n = Math.abs(parseFloat(v));
+    if (!isFinite(n) || n <= 0) return null;
+    return Math.round((v.charAt(0) === '+' ? 1 + n / 100 : 1 + 100 / n) * 100) / 100;
+  }
+  var c1 = dec('home'), cx = dec('draw'), c2 = dec('away');
+  if (!(c1 > 1 && cx > 1 && c2 > 1)) return null;
+  var comps = ((e.competitions || [{}])[0].competitors) || [];
+  var hm = null, aw = null;
+  comps.forEach(function (c) {
+    if (c.homeAway === 'home') hm = ((c.team || {}).displayName) || null;
+    else if (c.homeAway === 'away') aw = ((c.team || {}).displayName) || null;
+  });
+  if (!hm || !aw) return null;
+  return hm + ' v ' + aw + ' ' + fmtOdds(c1) + ' ' + fmtOdds(cx) + ' ' + fmtOdds(c2);
+}
+function captureEspn(dateStr) {
+  var ymd = dateStr.replace(/-/g, '');
+  return espnGrab2('/apis/site/v2/sports/soccer/all/scoreboard?dates=' + ymd).then(function (d) {
+    var out = [];
+    (((d && d.events) || [])).forEach(function (e) {
+      if (((e.status || {}).type || {}).state !== 'pre') return;
+      var l = espnLine(e);
+      if (l) out.push(l);
+    });
+    return out;
+  })['catch'](function () { return []; });
+}
+function localDateStr(off) {
+  var d = new Date(Date.now() + (off || 0) * 86400000);
+  return d.toLocaleDateString('en-CA');
+}
+function captureLive() {
+  var btn = $('genCapture');
+  btn.disabled = true; btn.textContent = '\ud83d\udce5 Capturing\u2026';
+  $('genParse').textContent = 'Fetching real fixtures and live odds\u2026';
+  var today = localDateStr(0);
+  captureSofa(today, 20)['catch'](function () { return []; }).then(function (rows) {
+    if (rows.length >= 10) return rows;
+    return captureSofa(localDateStr(1), 12)['catch'](function () { return []; })
+      .then(function (r2) { return rows.concat(r2); });
+  }).then(function (sofa) {
+    if (sofa.length >= 5) return { sofa: sofa, espn: [] };
+    return captureEspn(today)['catch'](function () { return []; }).then(function (es) {
+      if (es.length >= 5) return { sofa: sofa, espn: es };
+      return captureEspn(localDateStr(1))['catch'](function () { return []; })
+        .then(function (es2) { return { sofa: sofa, espn: es.concat(es2) }; });
+    });
+  }).then(function (res) {
+    btn.disabled = false; btn.textContent = '\ud83d\udce5 Capture live fixtures';
+    var sofa = (res.sofa || []).slice(0, 24), espn = (res.espn || []).slice(0, 24);
+    if (!sofa.length && !espn.length) {
+      $('genParse').textContent = '';
+      toast('No live-priced fixtures reachable right now \u2014 type them in or retry');
+      return;
+    }
+    var lines = [], src = [];
+    if (sofa.length) { lines.push('# Live fixtures \u00b7 real odds via SofaScore'); src.push('SofaScore'); }
+    lines = lines.concat(sofa);
+    if (espn.length) { lines.push('# Live fixtures \u00b7 real odds via ESPN/DraftKings'); src.push('ESPN'); }
+    lines = lines.concat(espn);
+    S.genIn = lines.join('\n');
+    $('genIn').value = S.genIn;
+    S.genSeed = VFG.randHex(16);
+    save();
+    toast('Captured ' + (sofa.length + espn.length) + ' real fixtures with live odds \u2014 simulating');
+    simulateBatch();
+    $('genCaptureNote').innerHTML = 'Last capture: ' + (sofa.length + espn.length) + ' real fixture(s) \u00b7 ' + src.join(' + ') +
+      ' \u00b7 ' + new Date().toLocaleTimeString() + ' \u2014 real teams, real-time prices.';
+  });
+}
+function simulateBatch() {
+  var lines = ($('genIn').value || '').split(/\n+/), items = [], bad = 0, def = 0;
+  lines.forEach(function (ln) {
+    var f = parseFixtureLine(ln);
+    if (!f) return;
+    if (f.error) { items.push({ raw: ln.trim(), error: f.error }); bad++; return; }
+    if (f.defaulted) def++;
+    var res = VFG.simulateFromOdds(S.genSeed, f.home + '|' + f.away, f.o1, f.ox, f.o2);
+    items.push({ home: f.home, away: f.away, o1: f.o1, ox: f.ox, o2: f.o2, defaulted: f.defaulted, res: res });
+  });
+  S.genBatch = { seed: S.genSeed, items: items };
+  var okN = items.length - bad;
+  $('genParse').innerHTML = okN + ' fixture(s) simulated' + (def ? ' (' + def + ' on default prices)' : '') +
+    (bad ? ' \u00b7 <span style="color:var(--red)">' + bad + ' line(s) could not be read</span>' : '');
+  save(); renderGen();
+}
+function renderGen() {
+  var out = $('genOut'), b = S.genBatch;
+  if (!b || !b.items || !b.items.length) { out.innerHTML = ''; return; }
+  var okN = b.items.filter(function (x) { return !x.error; }).length;
+  var h = '<div class="card" style="padding:9px 12px"><span class="tiny muted">Batch seed <span class="mono">' + esc(b.seed) + '</span> \u00b7 ' + okN + ' fixture(s) simulated \u2014 the same seed and the same input reproduce these exact results. Outcomes are drawn from the margin-free probabilities of the prices you entered.</span></div>';
+  h += b.items.map(function (it) {
+    if (it.error) {
+      return '<div class="match"><div class="small" style="color:var(--red)">\u2717 ' + esc(it.raw) + '</div>' +
+        '<div class="tiny" style="color:var(--red)">' + esc(it.error) + '</div></div>';
+    }
+    var r = it.res;
+    var tag = r.outcome === 'h' ? 'HOME WIN' : (r.outcome === 'd' ? 'DRAW' : 'AWAY WIN');
+    var htH = r.minsH.filter(function (m) { return m <= 45; }).length;
+    var htA = r.minsA.filter(function (m) { return m <= 45; }).length;
+    var mins = [];
+    if (r.minsH.length) mins.push('H ' + r.minsH.map(function (m) { return m + "'"; }).join(' '));
+    if (r.minsA.length) mins.push('A ' + r.minsA.map(function (m) { return m + "'"; }).join(' '));
+    var win = function (lbl, ok) { return '<span class="betTag ' + (ok ? 'won' : 'lost') + '">' + lbl + (ok ? ' \u2713' : ' \u2717') + '</span>'; };
+    var t = r.gh + r.ga;
+    var dvP = function (x) { return (x * 100).toFixed(1) + '%'; };
+    var px = function (pr, mg) { return Math.max(1.01, Math.floor((1 / (pr * (1 + mg))) * 100) / 100).toFixed(2); };
+    var top = VFG.topScoresOf(r.matrix, 1)[0];
+    return '<div class="match">' +
+      '<div class="m-teams" style="font-size:13.5px">' + esc(it.home) + '<span class="v">\u2014</span>' + esc(it.away) +
+      ' <span class="score" style="margin-left:6px">' + r.gh + '-' + r.ga + '</span> <span class="betTag won">' + tag + '</span></div>' +
+      '<div class="tiny muted" style="margin-top:5px">your prices: ' + it.o1.toFixed(2) + ' / ' + it.ox.toFixed(2) + ' / ' + it.o2.toFixed(2) +
+      (it.defaulted ? ' (defaults \u2014 none given)' : '') + ' \u00b7 de-vig ' + dvP(r.dv.h) + ' / ' + dvP(r.dv.d) + ' / ' + dvP(r.dv.a) +
+      ' \u00b7 model xG ' + r.lh.toFixed(2) + ' \u2013 ' + r.la.toFixed(2) + ' \u00b7 HT ' + htH + '-' + htA +
+      (mins.length ? ' \u00b7 \u26bd ' + mins.join(' \u00b7 ') : '') + '</div>' +
+      '<div style="margin-top:7px;display:flex;gap:5px;flex-wrap:wrap">' +
+      win('1 @ ' + it.o1.toFixed(2), r.outcome === 'h') + win('X @ ' + it.ox.toFixed(2), r.outcome === 'd') + win('2 @ ' + it.o2.toFixed(2), r.outcome === 'a') +
+      win('O2.5', t > 2.5) + win('U2.5', t < 2.5) + win('GG', r.gh > 0 && r.ga > 0) + win('NG', !(r.gh > 0 && r.ga > 0)) +
+      win('DC 1X', r.gh >= r.ga) + win('DC 12', r.gh !== r.ga) + win('DC X2', r.ga >= r.gh) + '</div>' +
+      '<div class="tiny muted" style="margin-top:6px">engine board: O2.5 ' + px(r.fair.o25, 0.045) + ' \u00b7 U2.5 ' + px(r.fair.u25, 0.045) +
+      ' \u00b7 GG ' + px(r.fair.gg, 0.045) + ' \u00b7 NG ' + px(r.fair.ng, 0.045) +
+      ' \u00b7 1st-half O0.5 ' + px(r.fair.h1o05, 0.05) +
+      ' \u00b7 CS ' + top.i + '-' + top.j + ' ' + px(top.p, 0.18) + '</div></div>';
+  }).join('');
+  out.innerHTML = h;
+}
+
+/* ---------- controls ---------- */
+$('pauseBtn').addEventListener('click', function () {
+  S.paused = !S.paused;
+  this.textContent = S.paused ? '▶ Resume' : '⏸ Pause';
+  if (!S.paused) {
+    LEAGUES.forEach(function (L) {
+      var st = S.leagues[L.id];
+      if (st.phase === 'board' && st.nextClose < Date.now()) st.nextClose = Date.now() + 5000;
+    });
+  }
+  save();
+});
+$('turboBtn').addEventListener('click', function () {
+  S.turbo = !S.turbo;
+  this.textContent = '🐇 Turbo: ' + (S.turbo ? 'on' : 'off');
+  save();
+  if (S.turbo) toast('Turbo on — rounds close every ~12 seconds');
+});
+$('newSeasonBtn').addEventListener('click', newSeasonAll);
+$('verifyBtn').addEventListener('click', function () {
+  if (!S.results.length) { toast('No completed rounds to verify yet'); return; }
+  var last = S.results[S.results.length - 1];
+  var lg = last.lg, md = last.md;
+  var info = S.roundInfo[lg + '|' + md];
+  if (!info || !info.seed) { toast('Seed for that round is not stored'); return; }
+  var seas = seasonOf(lg);
+  if (md >= seas.fixtures.length) { toast('Season data for that round has rolled over'); return; }
+  var res = S.results.filter(function (r) { return r.lg === lg && r.md === md; });
+  var ok = true, checked = 0;
+  res.forEach(function (r) {
+    var pr = VFG.priceMatch(seas, md, r.mid);
+    var d = VFG.drawMatch(info.seed, md, r.mid, pr);
+    checked++;
+    if (d.gh !== r.gh || d.ga !== r.ga) ok = false;
+  });
+  var commitOk = VFG.sha256(info.seed) === info.commit;
+  toast((ok && commitOk ? '✓ ' + leagueById(lg).name + ' MD' + (md + 1) + ' verified — seed reproduces all ' + checked + ' results and matches its commitment'
+    : '✗ Verification FAILED'));
+});
+
+/* ---------- clock ---------- */
+setInterval(function () {
+  if (S.paused) return;
+  var now = Date.now();
+  LEAGUES.forEach(function (L) {
+    var st = S.leagues[L.id];
+    if (st.phase === 'board') {
+      if (st.nextClose <= now) drawLeague(L.id);
+      else {
+        var el = document.querySelector('[data-cd="' + L.id + '"]');
+        if (el) el.textContent = cdText(st.nextClose - now);
+      }
+    }
+  });
+  /* top countdown: soonest closing league */
+  var next = Infinity;
+  LEAGUES.forEach(function (L) {
+    var st = S.leagues[L.id];
+    if (st.phase === 'board' && st.nextClose < next) next = st.nextClose;
+  });
+  if (next < Infinity) {
+    var rem = Math.max(0, next - now);
+    $('countdown').textContent = cdText(rem);
+    var span = S.turbo ? 12000 : STAGGER_MS;
+    var frac = Math.min(1, rem / span);
+    if (frac > 1 || frac < 0) frac = 1;
+    $('cdBar').style.width = Math.max(3, Math.round(frac * 100)) + '%';
+  } else {
+    $('countdown').textContent = '…';
+  }
+}, 250);
+
+/* ---------- boot ---------- */
+function boot() {
+  LEAGUES.forEach(function (L, i) {
+    var st = S.leagues[L.id];
+    if (!st.master) st.master = VFG.randHex(32);
+    if (st.phase === 'drawing') {
+      /* closed mid-reveal: settle and move on */
+      var drawn = S.results.filter(function (r) { return r.lg === L.id; });
+      var mds = drawn.map(function (r) { return r.md; });
+      var drawnMd = mds.length ? Math.max.apply(null, mds) : -1;
+      if (drawnMd >= 0) settle(L.id, drawnMd);
+      st.md = drawnMd + 1;
+      if (st.md >= mdCount(L.id)) { st.md = 0; st.no++; st.master = VFG.randHex(32); S.results = S.results.filter(function (r) { return r.lg !== L.id; }); delete SEAS[L.id]; }
+      enterBoard(L.id);
+    } else if (!st.nextClose || st.nextClose <= Date.now()) {
+      enterBoard(L.id, i);
+    }
+    delete PRC[L.id];
+  });
+  save();
+  if (!S.genSeed) S.genSeed = VFG.randHex(16);
+  $('genIn').value = S.genIn || '';
+  $('pauseBtn').textContent = S.paused ? '▶ Resume' : '⏸ Pause';
+  $('turboBtn').textContent = '🐇 Turbo: ' + (S.turbo ? 'on' : 'off');
+  renderAll();
+}
+boot();
+/* ---------- real scanner: the user's formulas on today's real fixtures ---------- */
+var SCAN = { AVG: 1.35, HOME: 1.12, AWAY: 0.93, FORM_N: 10, MIN_N: 5, FIX_CAP: 18, CHUNK: 3 };
+var RS = { running: false, at: 0, rows: [], teamCache: {} };
+
+function espnLineObj(e) {
+  var o = ((((e.competitions || [{}])[0].odds) || [])[0]);
+  if (!o) return null;
+  var ml = o.moneyline || {};
+  function dec(side) {
+    var v = (((ml[side] || {}).close) || {}).odds;
+    if (v == null) return null;
+    v = String(v).trim();
+    if (v.charAt(0) !== '+' && v.charAt(0) !== '-') return null;
+    var n = Math.abs(parseFloat(v));
+    if (!isFinite(n) || n <= 0) return null;
+    return Math.round((v.charAt(0) === '+' ? 1 + n / 100 : 1 + 100 / n) * 100) / 100;
+  }
+  var c1 = dec('home'), cx = dec('draw'), c2 = dec('away');
+  if (!(c1 > 1 && cx > 1 && c2 > 1)) return null;
+  var comps = ((e.competitions || [{}])[0].competitors) || [], hm = null, aw = null;
+  comps.forEach(function (c) {
+    if (c.homeAway === 'home') hm = ((c.team || {}).displayName) || null;
+    else if (c.homeAway === 'away') aw = ((c.team || {}).displayName) || null;
+  });
+  if (!hm || !aw) return null;
+  return { home: hm, away: aw, o1: c1, ox: cx, o2: c2 };
+}
+function captureEspnObj(dateStr) {
+  var ymd = dateStr.replace(/-/g, '');
+  return espnGrab2('/apis/site/v2/sports/soccer/all/scoreboard?dates=' + ymd).then(function (d) {
+    var out = [];
+    (((d && d.events) || [])).forEach(function (e) {
+      if ((((e.status || {}).type) || {}).state !== 'pre') return;
+      var o = espnLineObj(e);
+      if (o) out.push({ src: 'espn', id: e.id, home: o.home, away: o.away, hid: null, aid: null,
+        lg: 'ESPN \u00b7 DraftKings', ts: e.date ? Date.parse(e.date) / 1000 : null,
+        odds: { o1: o.o1, ox: o.ox, o2: o.o2, n: 1 } });
+    });
+    return out;
+  })['catch'](function () { return []; });
+}
+function scanFixtures() {
+  var today = localDateStr(0);
+  function fromSofa(dstr) {
+    return sofaGrab2('/sport/football/scheduled-events/' + dstr).then(function (d) {
+      var ns = (d.events || []).filter(function (e) {
+        return (e.status || {}).type === 'notstarted' && ((e.homeTeam || {}).name) && ((e.awayTeam || {}).name);
+      });
+      ns.sort(function (x, y) {
+        var ux = ((x.homeTeam || {}).userCount || 0) + ((x.awayTeam || {}).userCount || 0);
+        var uy = ((y.homeTeam || {}).userCount || 0) + ((y.awayTeam || {}).userCount || 0);
+        return uy - ux;
+      });
+      return ns.slice(0, SCAN.FIX_CAP).map(function (e) {
+        return { src: 'sofa', id: e.id, home: e.homeTeam.name, away: e.awayTeam.name,
+          hid: (e.homeTeam || {}).id || null, aid: (e.awayTeam || {}).id || null,
+          lg: ((e.tournament && e.tournament.category && e.tournament.category.name ? e.tournament.category.name + ' \u00b7 ' : '') + (e.tournament && e.tournament.name ? e.tournament.name : '')),
+          ts: e.startTimestamp || null };
+      });
+    })['catch'](function () { return []; });
+  }
+  return fromSofa(today).then(function (list) {
+    if (list.length >= 5) return list;
+    return fromSofa(localDateStr(1)).then(function (more) { return list.concat(more).slice(0, SCAN.FIX_CAP); });
+  }).then(function (list) {
+    if (list.length >= 5) return list;
+    return captureEspnObj(today).then(function (es) { return list.concat(es); });
+  });
+}
+function scanRatings(tid) {
+  if (tid == null) return Promise.resolve(null);
+  if (RS.teamCache[tid] !== undefined) return Promise.resolve(RS.teamCache[tid]);
+  return sofaGrab2('/team/' + tid + '/events/last/0').then(function (d) {
+    var gf = 0, ga = 0, n = 0;
+    (d.events || []).forEach(function (e) {
+      var st = e.status || {};
+      var fin = st.type === 'finished' || st.type === 'ended' || st.description === 'FT';
+      var hs = (e.homeScore || {}).current, as = (e.awayScore || {}).current;
+      if (!fin || hs == null || as == null) return;
+      var isH = ((e.homeTeam || {}).id) === tid, isA = ((e.awayTeam || {}).id) === tid;
+      if (!isH && !isA) return;
+      gf += isH ? hs : as; ga += isH ? as : hs; n++;
+    });
+    var r = (n >= SCAN.MIN_N) ? { atk: (gf / n) / SCAN.AVG, def: (ga / n) / SCAN.AVG, n: n, gf: gf, ga: ga } : null;
+    RS.teamCache[tid] = r;
+    return r;
+  })['catch'](function () { RS.teamCache[tid] = null; return null; });
+}
+function scanOdds(fx) {
+  if (fx.odds) return Promise.resolve(fx.odds);
+  return sofaGrab2('/event/' + fx.id + '/odds/summary').then(function (od) {
+    var books = sofaBooks(od || {});
+    if (!books.length) return null;
+    var a = 0, x = 0, b = 0;
+    books.forEach(function (B) { a += B.o1; x += B.ox; b += B.o2; });
+    var n = books.length;
+    return { o1: a / n, ox: x / n, o2: b / n, n: n };
+  })['catch'](function () { return null; });
+}
+function scanModel(fx, rh, ra, odds) {
+  var dv = VFG.devig(odds.o1, odds.ox, odds.o2);
+  var lh, la, basis;
+  if (rh && ra) {
+    basis = 'form';
+    lh = SCAN.AVG * SCAN.HOME * rh.atk * ra.def;   /* home_xg = ATK_home x DEF_away */
+    la = SCAN.AVG * SCAN.AWAY * ra.atk * rh.def;   /* away_xg = ATK_away x DEF_home */
+  } else {
+    basis = 'market';
+    var cal = VFG.calibrateLams(dv.h, dv.d, dv.a);
+    lh = cal.lh; la = cal.la;
+  }
+  var m = VFG.matrixOf(lh, la), h = 0, d = 0, a = 0, i, j;
+  for (i = 0; i <= 10; i++) for (j = 0; j <= 10; j++) {
+    if (i > j) h += m[i][j]; else if (i === j) d += m[i][j]; else a += m[i][j];
+  }
+  var probs = { h: h, d: d, a: a };
+  var ev = { h: h * odds.o1 - 1, d: d * odds.ox - 1, a: a * odds.o2 - 1 };
+  var bestK = 'h';
+  if (ev.d > ev[bestK]) bestK = 'd';
+  if (ev.a > ev[bestK]) bestK = 'a';
+  return { basis: basis, lh: lh, la: la, probs: probs,
+    trueOdds: { h: 1 / h, d: 1 / d, a: 1 / a }, ev: ev, bestK: bestK, bestEv: ev[bestK],
+    top: VFG.topScoresOf(m, 3), dv: dv };
+}
+function scanReal() {
+  var btn = $('rsScanBtn');
+  RS.running = true; RS.rows = []; RS.at = 0;
+  btn.disabled = true; btn.textContent = '\ud83d\udd0e Scanning\u2026';
+  rsPaintProgress(0, 0);
+  scanFixtures().then(function (list) {
+    if (!list.length) {
+      RS.running = false; btn.disabled = false; btn.textContent = '\ud83d\udd0e Scan today\u2019s real fixtures';
+      rsPaintIdle(true);
+      toast('No live-priced real fixtures reachable right now \u2014 retry in a minute');
+      return;
+    }
+    function chunk(start) {
+      var part = list.slice(start, start + SCAN.CHUNK);
+      if (!part.length) return Promise.resolve();
+      return Promise.all(part.map(function (fx) {
+        return scanOdds(fx).then(function (odds) {
+          if (!odds) return null;
+          return Promise.all([scanRatings(fx.hid), scanRatings(fx.aid)]).then(function (rr) {
+            RS.rows.push({ fx: fx, odds: odds, rh: rr[0], ra: rr[1], mo: scanModel(fx, rr[0], rr[1], odds) });
+          });
+        })['catch'](function () { return null; });
+      })).then(function () {
+        rsPaintProgress(Math.min(start + SCAN.CHUNK, list.length), list.length);
+        return chunk(start + SCAN.CHUNK);
+      });
+    }
+    return chunk(0).then(function () {
+      RS.running = false; RS.at = Date.now();
+      RS.rows.sort(function (x, y) { return y.mo.bestEv - x.mo.bestEv; });
+      btn.disabled = false; btn.textContent = '\ud83d\udd0e Scan today\u2019s real fixtures';
+      rsPaintResults();
+      toast('Scan complete \u2014 ' + RS.rows.length + ' real fixture(s) ranked by edge');
+    });
+  })['catch'](function () {
+    RS.running = false; btn.disabled = false; btn.textContent = '\ud83d\udd0e Scan today\u2019s real fixtures';
+    rsPaintIdle(true);
+  });
+}
+function rsEvBadge(ev) {
+  var cls = ev >= 0.04 ? 'hot' : (ev >= 0 ? 'pos' : 'neg');
+  return '<span style="border-radius:8px;padding:3px 8px;font-weight:800;font-size:12px;display:inline-block;' +
+    (cls === 'hot' ? 'background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.5);color:#fcd34d'
+      : cls === 'pos' ? 'background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.4);color:#86efac'
+      : 'background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.35);color:#cbd5e1') +
+    '">' + (ev >= 0 ? '+' : '') + Math.round(ev * 100) + '%</span>';
+}
+function rsLbl(k) { return k === 'h' ? 'HOME' : (k === 'd' ? 'DRAW' : 'AWAY'); }
+function rsKo(ts) { return ts ? new Date(ts * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''; }
+function rsPaintIdle(empty) {
+  var b = $('rsBody');
+  if (!b) return;
+  b.innerHTML = '<div class="card"><p class="muted small">' + (empty
+    ? 'No live-priced real fixtures were reachable \u2014 SofaScore and ESPN both came back empty. Retry in a minute.'
+    : 'Hit <b>Scan</b> to capture today\u2019s real fixtures with live prices and rank them by edge \u2014 where the books\u2019 price exceeds the model\u2019s true odds.') + '</p></div>';
+}
+function rsPaintProgress(done, total) {
+  var b = $('rsBody');
+  if (!b) return;
+  var pct = total ? Math.round(done / total * 100) : 6;
+  b.innerHTML = '<div class="card"><p class="muted small" style="margin:8px 0">Capturing real fixtures \u2014 ' + done + ' of ' + total + '\u2026</p>' +
+    '<div class="bar"><i style="display:block;height:100%;width:' + pct + '%;background:#22c55e"></i></div>' +
+    '<p class="tiny muted" style="margin-top:6px">Fixtures \u00b7 live multi-book odds \u00b7 each team\u2019s last 10 real matches \u2014 keep this tab open.</p></div>';
+}
+function rsPaintResults() {
+  var b = $('rsBody');
+  if (!b) return;
+  var h = '<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">' +
+    '<h2 style="margin:0">Scan results \u00b7 ranked by Edge %</h2>' +
+    '<button class="btn btn-ghost" id="rsAgain" style="margin:0">Re-scan</button></div>' +
+    '<p class="tiny muted" style="margin:7px 0 5px">' + RS.rows.length + ' real fixture(s) scanned at ' +
+    new Date(RS.at).toLocaleTimeString() + ' \u2014 Edge % = true_prob \u00d7 bookie_odds \u2212 1 vs the live multi-book average. Tap a row for the full workup.</p>';
+  if (!RS.rows.length) {
+    h += '<p class="muted small">Nothing priced to scan \u2014 retry in a minute.</p>';
+  } else {
+    h += '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12px">' +
+      '<thead><tr style="color:var(--muted);font-size:10px;text-align:left">' +
+      '<th style="padding:4px 6px">FIXTURE</th><th>BASIS</th><th>xG</th><th>SCORE</th><th>BOOK AVG</th><th>BEST EDGE</th></tr></thead><tbody>';
+    RS.rows.forEach(function (r, ix) {
+      var mo = r.mo, od = r.odds;
+      h += '<tr data-rsrow="' + ix + '" style="cursor:pointer;border-bottom:1px solid rgba(255,255,255,.07)">' +
+        '<td style="padding:5px 6px"><b>' + esc(r.fx.home) + ' v ' + esc(r.fx.away) + '</b><br><span class="tiny muted">' +
+        esc(r.fx.lg || '') + (r.fx.ts ? ' \u00b7 ' + rsKo(r.fx.ts) : '') + (r.odds.n > 1 ? ' \u00b7 ' + r.odds.n + ' books' : '') + '</span></td>' +
+        '<td style="padding:5px 6px"><span class="tiny" style="padding:2px 6px;border-radius:6px;' +
+        (mo.basis === 'form' ? 'background:rgba(34,197,94,.14);color:#86efac' : 'background:rgba(148,163,184,.14);color:#cbd5e1') + '">' +
+        (mo.basis === 'form' ? 'FORM' : 'MARKET') + '</span></td>' +
+        '<td style="padding:5px 6px;font-variant-numeric:tabular-nums">' + mo.lh.toFixed(2) + ' : ' + mo.la.toFixed(2) + '</td>' +
+        '<td style="padding:5px 6px"><b>' + mo.top[0].i + '-' + mo.top[0].j + '</b></td>' +
+        '<td style="padding:5px 6px;font-variant-numeric:tabular-nums">' + fmtOdds(od.o1) + '/' + fmtOdds(od.ox) + '/' + fmtOdds(od.o2) + '</td>' +
+        '<td style="padding:5px 6px;white-space:nowrap">' + rsEvBadge(mo.bestEv) + ' <b>' + rsLbl(mo.bestK) + '</b></td></tr>';
+    });
+    h += '</tbody></table></div><p class="tiny muted" style="margin-top:6px">FORM = xG from real last-10 attack/defence \u00b7 MARKET = xG calibrated from the odds (no independent edge) \u00b7 true odds and the full Poisson workup on every row.</p>';
+  }
+  h += '</div>';
+  b.innerHTML = h;
+  var ag = $('rsAgain');
+  if (ag) ag.addEventListener('click', scanReal);
+  b.querySelectorAll('[data-rsrow]').forEach(function (el) {
+    el.addEventListener('click', function () { rsPaintDetail(RS.rows[Number(el.getAttribute('data-rsrow'))]); });
+  });
+}
+function rsPaintDetail(r) {
+  var b = $('rsBody');
+  if (!b || !r) return;
+  var fx = r.fx, mo = r.mo, od = r.odds;
+  var h = '<div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap">' +
+    '<h2 style="margin:0">' + esc(fx.home) + ' v ' + esc(fx.away) + '</h2>' +
+    '<button class="btn btn-ghost" id="rsBack" style="margin:0">\u2190 All fixtures</button></div>' +
+    '<p class="tiny muted" style="margin-top:3px">' + esc(fx.lg || '') + (fx.ts ? ' \u00b7 kickoff ' + rsKo(fx.ts) : '') +
+    ' \u00b7 ' + (fx.src === 'espn' ? 'ESPN/DraftKings' : 'SofaScore') + (od.n > 1 ? ' \u00b7 ' + od.n + ' books averaged' : '') + '</p>';
+  if (mo.basis === 'form') {
+    h += '<p class="small" style="margin-top:8px"><b>home_xg = ATK_home \u00d7 DEF_away</b> = ' + r.rh.atk.toFixed(2) + ' \u00d7 ' + r.ra.def.toFixed(2) +
+      ' \u00d7 1.35 league avg \u00d7 1.12 home adv = <b>' + mo.lh.toFixed(2) + '</b><br>' +
+      '<b>away_xg = ATK_away \u00d7 DEF_home</b> = ' + r.ra.atk.toFixed(2) + ' \u00d7 ' + r.rh.def.toFixed(2) +
+      ' \u00d7 1.35 \u00d7 0.93 = <b>' + mo.la.toFixed(2) + '</b></p>' +
+      '<p class="tiny muted">ATK/DEF from the last 10 real matches each \u2014 ' + esc(fx.home) + ': ' + r.rh.gf + ' scored, ' + r.rh.ga +
+      ' conceded \u00b7 ' + esc(fx.away) + ': ' + r.ra.gf + ' scored, ' + r.ra.ga + ' conceded.</p>';
+  } else {
+    h += '<p class="small" style="margin-top:8px">Form feed unreachable for this one \u2014 xG <b>' + mo.lh.toFixed(2) + ' : ' + mo.la.toFixed(2) +
+      '</b> calibrated from the de-vigged market itself (no independent edge claimed).</p>';
+  }
+  h += '<div style="overflow-x:auto;margin-top:8px"><table style="width:100%;border-collapse:collapse;font-size:12px">' +
+    '<thead><tr style="color:var(--muted);font-size:10px;text-align:left"><th style="padding:4px 6px">OUTCOME</th><th>TRUE ODDS</th><th>MODEL %</th><th>BOOK AVG</th><th>EDGE</th></tr></thead><tbody>';
+  [['h', 'HOME WIN'], ['d', 'DRAW'], ['a', 'AWAY WIN']].forEach(function (kv) {
+    var k = kv[0];
+    h += '<tr style="border-bottom:1px solid rgba(255,255,255,.07)"><td style="padding:5px 6px"><b>' + kv[1] + '</b></td>' +
+      '<td style="padding:5px 6px;font-variant-numeric:tabular-nums">' + fmtOdds(mo.trueOdds[k]) + '</td>' +
+      '<td style="padding:5px 6px;font-variant-numeric:tabular-nums">' + Math.round(mo.probs[k] * 100) + '%</td>' +
+      '<td style="padding:5px 6px;font-variant-numeric:tabular-nums">' + fmtOdds(k === 'h' ? od.o1 : (k === 'd' ? od.ox : od.o2)) + '</td>' +
+      '<td style="padding:5px 6px;white-space:nowrap">' + rsEvBadge(mo.ev[k]) + '</td></tr>';
+  });
+  h += '</tbody></table></div>';
+  h += '<p class="small" style="margin-top:9px"><b>Most likely score \u2014 Poisson(' + mo.lh.toFixed(2) + ') : Poisson(' + mo.la.toFixed(2) + '):</b> ' +
+    mo.top.map(function (t) { return '<span class="chip" style="margin:2px 4px 2px 0;display:inline-block">' + t.i + '-' + t.j +
+      ' <span class="tiny muted">' + Math.round(t.p * 100) + '%</span></span>'; }).join('') + '</p>';
+  h += '</div>';
+  b.innerHTML = h;
+  var bk = $('rsBack');
+  if (bk) bk.addEventListener('click', rsPaintResults);
+}
+$('rsScanBtn').addEventListener('click', scanReal);
+
+S.LEAGUES = LEAGUES; S._pricesOf = pricesOf; S.RS = RS;   /* debug/verify handle */
+window.VFGS = S;
+window.addEventListener('beforeunload', save);
+})();
+</script>
+</body></html>
