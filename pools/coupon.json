@@ -1,5 +1,4 @@
 {
- "updatedAt": "2026-10-21T09:00:00+01:00",
  "uk": {
   "week": 17,
   "season": "2026/2027",
@@ -9,9 +8,9 @@
    4,
    25,
    38,
-   47,
-   15,
-   9
+   2,
+   6,
+   8
   ],
   "matches": [
    {
@@ -90,7 +89,7 @@
     "away": "Swansea",
     "league": "Championship",
     "drawPct": 28,
-    "drawPrice": 3.5,
+    "drawPrice": 3.4,
     "book": "Betfair",
     "result": null
    },
@@ -121,7 +120,7 @@
     "league": "Championship",
     "drawPct": 19,
     "drawPrice": 5.0,
-    "book": "Betano",
+    "book": "Betfair",
     "result": null
    },
    {
@@ -130,8 +129,8 @@
     "away": "Wycombe",
     "league": "League One",
     "drawPct": 26,
-    "drawPrice": 3.5,
-    "book": "Betfair",
+    "drawPrice": 3.65,
+    "book": "1xBet",
     "result": null
    },
    {
@@ -139,7 +138,7 @@
     "home": "Blackpool",
     "away": "Mansfield",
     "league": "League One",
-    "drawPct": 27,
+    "drawPct": 26,
     "drawPrice": 3.6,
     "book": "Betfair",
     "result": null
@@ -149,9 +148,9 @@
     "home": "Bromley",
     "away": "Peterborough",
     "league": "League One",
-    "drawPct": 25,
-    "drawPrice": 3.8,
-    "book": "Betfair",
+    "drawPct": 24,
+    "drawPrice": 3.9,
+    "book": "Betano",
     "result": null
    },
    {
@@ -180,8 +179,8 @@
     "away": "Sheffield Wed",
     "league": "League One",
     "drawPct": 27,
-    "drawPrice": 3.6,
-    "book": "Betfair",
+    "drawPrice": 3.58,
+    "book": "1xBet",
     "result": null
    },
    {
@@ -230,7 +229,7 @@
     "away": "Oldham",
     "league": "League Two",
     "drawPct": 26,
-    "drawPrice": 3.75,
+    "drawPrice": 3.8,
     "book": "Betfair",
     "result": null
    },
@@ -240,7 +239,7 @@
     "away": "Crewe",
     "league": "League Two",
     "drawPct": 24,
-    "drawPrice": 3.8,
+    "drawPrice": 4.2,
     "book": "Betfair",
     "result": null
    },
@@ -250,7 +249,7 @@
     "away": "Tranmere",
     "league": "League Two",
     "drawPct": 27,
-    "drawPrice": 3.5,
+    "drawPrice": 3.6,
     "book": "Betfair",
     "result": null
    },
@@ -270,7 +269,7 @@
     "away": "Grimsby",
     "league": "League Two",
     "drawPct": 27,
-    "drawPrice": 3.4,
+    "drawPrice": 3.5,
     "book": "Betfair",
     "result": null
    },
@@ -330,8 +329,8 @@
     "away": "St Johnstone",
     "league": "Scottish Premiership",
     "drawPct": 15,
-    "drawPrice": 6.2,
-    "book": "Betano",
+    "drawPrice": 6.35,
+    "book": "1xBet",
     "result": null
    },
    {
@@ -340,7 +339,7 @@
     "away": "Dundee FC",
     "league": "Scottish Premiership",
     "drawPct": 26,
-    "drawPrice": 3.8,
+    "drawPrice": 3.75,
     "book": "Betano",
     "result": null
    },
@@ -380,7 +379,7 @@
     "away": "Dunfermline",
     "league": "Scottish Championship",
     "drawPct": 25,
-    "drawPrice": 3.9,
+    "drawPrice": 3.8,
     "book": "Betfair",
     "result": null
    },
@@ -450,7 +449,7 @@
     "away": "Espanyol",
     "league": "La Liga",
     "drawPct": 26,
-    "drawPrice": 3.75,
+    "drawPrice": 3.8,
     "book": "Betfair",
     "result": null
    },
@@ -541,5 +540,6 @@
     }
    ]
   }
- ]
+ ],
+ "updatedAt": "2026-10-21T00:19:43+00:00"
 }

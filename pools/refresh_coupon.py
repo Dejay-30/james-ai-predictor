@@ -1,0 +1,249 @@
+#!/usr/bin/env python3
+"""Auto-refresh pools/coupon.json from the real sources.
+
+Runs on GitHub Actions daily (and on demand). Server-side, so CORS never
+applies. Graceful: any source that fails keeps its previous values - the
+coupon is never wiped by a bad fetch.
+
+Sources:
+  - Coupon fixtures + week number: poolsupdate.com/advance_fixtures.php
+  - Market draw % (margin removed) + best prices: poolsagents.com (+ /week-N-2026/)
+  - Expert banker keys: fortunesoccer.com/tips/week-N-football-tips/
+  - Results (grading, after the weekend): ablefast.com/result/<date>
+"""
+import json
+import re
+import sys
+import urllib.request
+from datetime import date, datetime, timedelta
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+COUPON = ROOT / "pools" / "coupon.json"
+UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/125 Safari/537.36"}
+MONTHS = {m: i + 1 for i, m in enumerate(
+    ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"])}
+
+
+def fetch(url):
+    req = urllib.request.Request(url, headers=UA)
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return r.read().decode("utf-8", "replace")
+
+
+def load_current():
+    if COUPON.exists():
+        try:
+            return json.loads(COUPON.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return {"uk": None, "aussie": None, "experts": []}
+
+
+def next_saturday(d):
+    return d + timedelta(days=(5 - d.weekday()) % 7)
+
+
+def parse_month_day(txt, year):
+    m = re.search(r"(\d{1,2})\s+(\w{3})", txt.lower())
+    if not m or m.group(2)[:3] not in MONTHS:
+        return None
+    try:
+        return date(year, MONTHS[m.group(2)[:3]], int(m.group(1)))
+    except ValueError:
+        return None
+
+
+def parse_poolsupdate(html):
+    """Current week's 49 fixtures + week number + coupon date."""
+    m = re.search(r"Currently showing:\s*Week (\d+) Pools fixtures \d+ \(From: ([^)]+)\)", html)
+    if not m:
+        return None
+    week = int(m.group(1))
+    frm = parse_month_day(m.group(2), date.today().year)
+    if not frm:
+        return None
+    sat = next_saturday(frm)
+    rows = {}
+    for row in re.findall(r"\|\s*(\d{1,2})\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|", html):
+        try:
+            no = int(row[0])
+        except ValueError:
+            continue
+        if 1 <= no <= 49:
+            rows[no] = [row[1].strip(), row[2].strip()]
+    if len(rows) < 40:
+        return None
+    matches = [{"no": n, "home": rows[n][0], "away": rows[n][1]} for n in sorted(rows)]
+    return {"week": week, "date": sat.isoformat(), "matches": matches}
+
+
+def parse_poolsagents_week(html):
+    """The week page's semantic coupon table: <tr id="noN"> with draw/price/book cells."""
+    i = html.find('id="coupon"')
+    if i < 0:
+        return {}
+    tbl = html[i:html.find("</table>", i)] if html.find("</table>", i) > 0 else html[i:i + 60000]
+    out = {}
+    for tr in re.findall(r'<tr id="no(\d{1,2})"[^>]*>(.*?)</tr>', tbl, re.S):
+        no, body = int(tr[0]), tr[1]
+        tds = re.findall(r'<td[^>]*>(.*?)</td>', body, re.S)
+        if len(tds) < 5:
+            continue
+        draw = tds[2].strip().rstrip('%')
+        price = tds[3].strip()
+        book = re.sub(r'<[^>]+>', '', tds[4]).strip()
+        if draw.isdigit() and 5 <= int(draw) <= 60:
+            out[no] = {"drawPct": int(draw),
+                       "drawPrice": float(price) if re.match(r'^\d+\.\d+$', price) else None,
+                       "book": book or None}
+    return out if len(out) >= 20 else {}
+
+
+def parse_fortunesoccer(html):
+    """Expert picks: '**N – Home vs Away**' ... 'Prediction: X-Y Team'."""
+    picks = []
+    blocks = re.split(r"\*\*(\d{1,2})\s*[–-]\s*", html)
+    for i in range(1, len(blocks) - 1, 2):
+        no = int(blocks[i])
+        body = blocks[i + 1]
+        if not (1 <= no <= 49):
+            continue
+        pm = re.search(r"Prediction:\s*([^<\n]{2,60})", body)
+        if not pm:
+            continue
+        pred = pm.group(1).strip()
+        score = re.match(r"(\d-\d)", pred)
+        # first sentence of substance as the note
+        txt = re.sub(r"<[^>]+>", " ", body)
+        txt = re.sub(r"\s+", " ", txt)
+        sm = re.search(r"(?:\*\*)?\s*([A-Z][^.!?]{40,180}[.!?])", txt)
+        note = sm.group(1).strip() if sm else ""
+        picks.append({"no": no, "pred": score.group(1) if score else pred[:12],
+                      "note": note[:160]})
+    return picks
+
+
+def parse_ablefast_results(html, coupon_date):
+    """Results per number from ablefast's semantic cells: data-home-score / data-away-score."""
+    out = {}
+    for tr in re.findall(r'<tr[^>]*>(.*?)</tr>', html, re.S):
+        mn = re.search(r'coupon-number">(\d{1,2})<', tr)
+        hs = re.search(r'data-home-score>(\d+)<', tr)
+        aw = re.search(r'data-away-score>(\d+)<', tr)
+        if mn and hs and aw:
+            no = int(mn.group(1))
+            if 1 <= no <= 49:
+                out[no] = "%s-%s" % (hs.group(1), aw.group(1))
+    return out if len(out) >= 20 else {}
+
+
+def main():
+    cur = load_current()
+    coupon = {"uk": cur.get("uk"), "aussie": cur.get("aussie"),
+              "aussieNote": cur.get("aussieNote"), "experts": cur.get("experts", [])}
+
+    # 1. fixtures + week
+    try:
+        pu = parse_poolsupdate(fetch("https://poolsupdate.com/advance_fixtures.php"))
+    except Exception as e:
+        print("poolsupdate failed:", e); pu = None
+    if pu:
+        prev = coupon["uk"] or {}
+        same_week = prev.get("week") == pu["week"] and prev.get("matches")
+        coupon["uk"] = {"week": pu["week"], "season": prev.get("season", "2026/2027"),
+                        "date": pu["date"], "matches": pu["matches"],
+                        "expectedDraws": prev.get("expectedDraws"),
+                        "strongest": prev.get("strongest"),
+                        "credit": "Coupon: the published pools coupon (PoolsUpdate). "
+                                  "Market draw % (margin removed) + best prices: PoolsAgents.com. "
+                                  "Expert picks: FortuneSoccer."}
+        # carry results forward within the same week
+        if same_week:
+            prev_res = {m["no"]: m.get("result") for m in prev["matches"]}
+            for m in coupon["uk"]["matches"]:
+                m["result"] = prev_res.get(m["no"])
+        else:
+            for m in coupon["uk"]["matches"]:
+                m["result"] = None
+    uk = coupon["uk"]
+    if not uk:
+        print("no coupon basis - keeping previous file")
+        write(coupon)
+        return
+
+    # 2. market draw % + prices
+    week_no = uk["week"]
+    try:
+        pa = parse_poolsagents_week(fetch("https://www.poolsagents.com/week-%d-2026/" % week_no))
+    except Exception as e:
+        print("poolsagents failed:", e); pa = {}
+    for m in uk["matches"]:
+        info = pa.get(m["no"])
+        if info:
+            m["drawPct"] = info["drawPct"]; m["drawPrice"] = info["drawPrice"]; m["book"] = info["book"]
+        elif not m.get("drawPct"):
+            m["drawPct"] = None; m["drawPrice"] = None; m["book"] = None
+    priced = [m for m in uk["matches"] if m.get("drawPct")]
+    if priced:
+        uk["expectedDraws"] = round(sum(m["drawPct"] for m in priced) / 100.0, 1)
+        uk["strongest"] = [m["no"] for m in sorted(priced, key=lambda x: -x["drawPct"])[:6]]
+
+    # 3. expert picks (fresh each run for the current week)
+    picks = []
+    try:
+        picks = parse_fortunesoccer(fetch("https://www.fortunesoccer.com/tips/week-%d-football-tips/" % week_no))
+    except Exception as e:
+        print("fortunesoccer failed:", e)
+    if picks:
+        coupon["experts"] = [{"source": "FortuneSoccer",
+                              "url": "https://www.fortunesoccer.com/tips/week-%d-football-tips/" % week_no,
+                              "picks": picks}]
+
+    # 4. results (grading) once the coupon date has passed
+    d = date.fromisoformat(uk["date"])
+    if date.today() >= d:
+        try:
+            res = parse_ablefast_results(fetch("https://ablefast.com/result/" + uk["date"]), uk["date"])
+            if res:
+                for m in uk["matches"]:
+                    if m["no"] in res:
+                        m["result"] = res[m["no"]]
+        except Exception as e:
+            print("ablefast failed:", e)
+
+    # 5. aussie season detection
+    try:
+        ab = fetch("https://ablefast.com/")
+        if "AUSSIE" in ab[:6000]:
+            coupon["aussieNote"] = ("The Aussie pools coupon is active this week - the Australian "
+                                    "season runs roughly November to June.")
+        else:
+            coupon["aussie"] = None
+            coupon["aussieNote"] = ("The Aussie pools coupon runs its own season (roughly Nov-Jun). "
+                                    "No Aussie coupon this week - the active coupon is the UK 49.")
+    except Exception as e:
+        print("ablefast season check failed:", e)
+
+    coupon["updatedAt"] = datetime.now().astimezone().isoformat(timespec="seconds")
+    write(coupon)
+    graded = sum(1 for m in uk["matches"] if m.get("result"))
+    print("week %d | %d matches | %d priced | %d expert picks | %d graded" %
+          (uk["week"], len(uk["matches"]), len(priced), len(coupon["experts"][0]["picks"]) if coupon["experts"] else 0, graded))
+
+
+def write(coupon):
+    COUPON.parent.mkdir(parents=True, exist_ok=True)
+    old = COUPON.read_text(encoding="utf-8") if COUPON.exists() else ""
+    new = json.dumps(coupon, ensure_ascii=False, indent=1)
+    if new == old:
+        print("no change")
+        return
+    tmp = COUPON.with_suffix(".tmp")
+    tmp.write_text(new, encoding="utf-8")
+    tmp.replace(COUPON)
+    print("coupon.json updated")
+
+
+if __name__ == "__main__":
+    sys.exit(main())
