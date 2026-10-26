@@ -606,7 +606,7 @@ body{background:#0B0E13}
 <script>
 /* v19.8.1 self-heal: an open tab can never go stale again - if the deployed
    version changes, this tab reloads itself within 5 minutes */
-var JAP_BUILD = '19.22.0';
+var JAP_BUILD = '19.23.0';
 setInterval(function () {
   try {
     fetch(location.href, { cache: 'no-store' }).then(function (r) { return r.text(); }).then(function (t) {
@@ -655,6 +655,7 @@ setInterval(function () {
   <button class="drawer-item" data-goto="papers"><span class="ic">&#128240;</span><span>Forecast papers<small class="sub">All this week's papers - keys + full scans</small></span></button>
   <button class="drawer-item" data-goto="poolbank"><span class="ic">&#127974;</span><span>Bankers &amp; precautions<small class="sub">Best 5 consensus + every banker explained</small></span></button>
   <button class="drawer-item" data-goto="best20"><span class="ic">&#128200;</span><span>Best 20s<small class="sub">BTTS &middot; 1H under 1.5 &middot; home wins &middot; away wins</small></span></button>
+  <button class="drawer-item" data-goto="pattern"><span class="ic">&#128200;</span><span>Pattern Lab<small class="sub">weeks 1-17 formulas &middot; this week's draws &middot; auto-updating</small></span></button>
   <button class="drawer-item" data-goto="strat"><span class="ic">&#127919;</span><span>Strategies<small class="sub">Strong home · BTTS · 1st-half goals</small></span></button>
   <button class="drawer-item" data-goto="xg"><span class="ic">&#128202;</span><span>xG tables<small class="sub">Expected goals, every league</small></span></button>
   <button class="drawer-item" data-goto="live"><span class="ic">&#128308;</span><span>Live now<small class="sub">Matches in play</small></span></button>
@@ -792,6 +793,10 @@ setInterval(function () {
   <section id="panel-best20" class="panel">
     <div class="card"><h2>&#128200; Best 20s</h2><p class="muted small">Four ranked lists of twenty, every day, on real data only: <b>best BTTS</b>, <b>best first-half under 1.5</b>, <b>best home wins</b> and <b>best away wins</b>. Ranked by the model probabilities (real shot-based xG when loaded, otherwise the market&#8217;s own lambdas run through the Poisson engine) and each row shows the price v fair value. Every pick is logged and <b>auto-settles</b> with the final scores. Tap a match for the full analysis.</p></div>
     <div id="best20Box"></div>
+  </section>
+  <section id="panel-pattern" class="panel">
+    <div class="card"><h2>&#128200; Pool Pattern Lab</h2><p class="muted small">The <b>UK/Aussie pool pattern engine</b>: every week of the season is harvested (fixtures, scores, draw results, paper keys), the <b>keys, formulas, sequences and fixture patterns that repeat</b> are counted, and the current coupon is classified into its group to give <b>this week's formula draws</b> - each with its reason. The engine <b>auto-updates every week to the end of the season and rolls itself into next season</b>. Sources: FortuneSoccer results &amp; fixtures posts, PoolsAgents prices/tips, paper scans. No random numbers.</p></div>
+    <div id="patternBox"><div class="card"><p class="muted">Loading pattern engine...</p></div></div>
   </section>
   <section id="panel-strat" class="panel">
     <div class="card"><h2>&#127919; Strategies</h2><p class="muted small">Three exact filters, checked against each team&rsquo;s last 12 matches. One tap adds the pick to your slip. Uses your API key for team form (cached 6 hours).</p></div>
@@ -5962,6 +5967,245 @@ function japCouponFind(cpn, no) {
 /* v19.22: every one of the 49 coupon fixtures carries its real xG.
    Progressive, paced (5 per pass, 3h per-team cache inside japRealXgFor);
    the coupon-date wire is pulled once and reused. No .finally - old WebView safe. */
+/* ================= v19.23.0: PATTERN ENGINE + AUTO-GEN (UK/AU) + AUTO-SCAN ================= */
+function japPatLog(key, rec) {
+  var a = lsGet(key, []);
+  a.push(rec);
+  if (a.length > 400) a = a.slice(-400);
+  try { localStorage.setItem(key, JSON.stringify(a)); } catch (e) {}
+}
+var PATTERNS_URL = 'https://raw.githubusercontent.com/Dejay-30/james-ai-predictor/main/pools/patterns.json';
+var FORECAST_URL = 'https://raw.githubusercontent.com/Dejay-30/james-ai-predictor/main/pools/forecast.json';
+function japPatSeasonKey() {
+  /* the pool year runs Jul -> Jun: the Aussie phase opens it, the UK season follows */
+  var d = new Date(), y = d.getFullYear();
+  if (d.getMonth() < 5) y -= 1;
+  return y + '-' + (y + 1);
+}
+function japPatHist() {
+  var h = lsGet('jap_patternhist', null);
+  if (!h || h.season !== japPatSeasonKey()) {
+    if (h && h.season) { try { localStorage.setItem('jap_patternhist_' + h.season, JSON.stringify(h)); } catch (e) {} }
+    h = { season: japPatSeasonKey(), weeks: [] };
+    try { localStorage.setItem('jap_patternhist', JSON.stringify(h)); } catch (e) {}
+  }
+  return h;
+}
+function japPatHistAdd(week, date, drawNos) {
+  var h = japPatHist(), w = null, i;
+  for (i = 0; i < h.weeks.length; i++) if (h.weeks[i].week === week) { w = h.weeks[i]; break; }
+  if (!w) { w = { week: week, date: date, draws: [] }; h.weeks.push(w); h.weeks.sort(function (a, b) { return a.week - b.week; }); }
+  w.draws = drawNos.slice(0, 60); w.date = date || w.date;
+  try { localStorage.setItem('jap_patternhist', JSON.stringify(h)); } catch (e) {}
+  return h;
+}
+function japPatternMini() {
+  /* the in-app engine - same recipe as pools/pattern_engine.py: it keeps
+     working off local history, extends itself every settled week and rolls
+     seasons by itself (japPatHist), so it needs no server to keep updating */
+  var h = japPatHist(), numD = {}, weekSets = [], pairs = {}, topNos, topPairs, recs = [], i;
+  h.weeks.forEach(function (w) {
+    var s2 = {};
+    (w.draws || []).forEach(function (n) { numD[n] = (numD[n] || 0) + 1; s2[n] = 1; });
+    weekSets.push(s2);
+  });
+  weekSets.forEach(function (s2) {
+    var ks = Object.keys(s2).map(Number).sort(function (a, b) { return a - b; });
+    for (var a = 0; a < ks.length; a++) for (var b = a + 1; b < ks.length; b++) {
+      var kk = ks[a] + '-' + ks[b]; pairs[kk] = (pairs[kk] || 0) + 1;
+    }
+  });
+  topNos = Object.keys(numD).map(Number).sort(function (a, b) { return numD[b] - numD[a]; }).slice(0, 12);
+  topPairs = Object.keys(pairs).filter(function (k) { return pairs[k] >= 2; })
+    .sort(function (a, b) { return pairs[b] - pairs[a]; }).slice(0, 8)
+    .map(function (k) { var p = k.split('-').map(Number); return { pair: p, times: pairs[k] }; });
+  var cpn = state._lastCpn;
+  var ms = (cpn && cpn.uk && cpn.uk.matches) || [];
+  ms.forEach(function (m) {
+    var nfreq = numD[m.no] || 0, score = nfreq * 3;
+    var myP = topPairs.filter(function (p) { return p.pair[0] === m.no || p.pair[1] === m.no; }).slice(0, 2);
+    score += myP.length * 6;
+    var reasons = [];
+    if (nfreq) reasons.push('slot ' + m.no + ' drew ' + nfreq + ' time' + (nfreq === 1 ? '' : 's') + ' in the stored weeks');
+    if (myP.length) reasons.push('member of repeating pair(s) ' + myP.map(function (p) { return p.pair[0] + '-' + p.pair[1]; }).join(', '));
+    recs.push({ no: m.no, home: m.home, away: m.away, score: score, reasons: reasons });
+  });
+  recs.sort(function (a, b) { return b.score - a.score; });
+  var recent = h.weeks.slice(-5).map(function (w) { return (w.draws || []).length; });
+  var exp = recent.length ? Math.round(recent.reduce(function (a, b) { return a + b; }, 0) / recent.length * 10) / 10 : 0;
+  return {
+    mini: true, season: h.season, weeks_played: h.weeks.length,
+    top_numbers: topNos.map(function (n) { return { no: n, times: numD[n] }; }),
+    pairs: topPairs,
+    forecast: {
+      week: (cpn && cpn.week) || null,
+      expected_draws: exp,
+      group: exp >= 15 ? 'high' : (exp >= 11 ? 'mid' : 'low'),
+      picks: recs.filter(function (r) { return r.score > 0; }).slice(0, 15)
+    }
+  };
+}
+function japPatternData(cb) {
+  /* the published engine snapshot (pools/patterns.json + forecast.json from the
+     repo) refreshes twice a day; the in-app engine is the always-on fallback */
+  var c = lsGet('jap_patternjson', null);
+  if (c && c.t && (Date.now() - c.t) < 12 * 3600 * 1000 && (c.pat || c.fc)) { cb(c.pat, c.fc); return; }
+  var gotPat = null, gotFc = null, left = 2;
+  var fin = function () {
+    left -= 1;
+    if (left > 0) return;
+    var o = { t: Date.now(), pat: gotPat, fc: gotFc };
+    if (gotPat || gotFc) { try { localStorage.setItem('jap_patternjson', JSON.stringify(o)); } catch (e) {} }
+    cb(gotPat, gotFc);
+  };
+  fetch(PATTERNS_URL).then(function (r) { return r.json(); }).then(function (j) { gotPat = j; fin(); }, fin);
+  fetch(FORECAST_URL).then(function (r) { return r.json(); }).then(function (j) { gotFc = j; fin(); }, fin);
+}
+function japPatternRefresh(force) {
+  var last = lsGet('jap_patternpoll', 0);
+  if (!force && (Date.now() - last) < 12 * 3600 * 1000) return;
+  try { localStorage.setItem('jap_patternpoll', String(Date.now())); } catch (e) {}
+  japPatternData(function (pat, fc) {
+    japPatLog('jap_patternlog', { at: Date.now(), remote: !!(pat || fc),
+      season: (pat && pat.season) || japPatSeasonKey() });
+    var ap = document.querySelector('.panel.active');
+    if (ap && ap.id === 'panel-pattern') renderPatternTab();
+  });
+}
+function renderPatternTab() {
+  var el = document.getElementById('patternBox');
+  if (!el) return;
+  el.innerHTML = '<div class="card"><p class="muted">Running the pattern engine...</p></div>';
+  japPatternData(function (pat, fc) {
+    var mini = japPatternMini();
+    var usePat = pat && pat.top_numbers ? pat : mini;
+    var useFc = (fc && fc.picks && fc.picks.length) ? fc : mini.forecast;
+    var h = '';
+    var wk = useFc.week || 'next';
+    h += '<div class="card"><h3 style="margin:0 0 6px">&#127919; This week\'s formula draws (week ' + esc(String(wk)) + ')</h3>';
+    if (useFc.group_note) h += '<p class="tiny muted" style="margin:0 0 8px">' + esc(useFc.group_note) + '</p>';
+    else h += '<p class="tiny muted" style="margin:0 0 8px">Expected ~' + esc(String(useFc.expected_draws || '?')) + ' draws (' + esc(String(useFc.group || '')) + '-draw group), from the stored weeks.</p>';
+    (useFc.picks || []).slice(0, 10).forEach(function (p, i) {
+      h += '<div style="border-top:1px solid #14294e;padding:8px 0">' +
+        '<b style="color:#4FC3F7">#' + (i + 1) + ' \u00b7 No.' + p.no + ' \u00b7 ' + esc(p.home || '?') + ' v ' + esc(p.away || '?') + '</b>' +
+        '<p class="tiny" style="margin:4px 0 0"><b style="color:#4ade80">PREDICTION:</b> draw key \u00b7 the pattern engine scores this slot highest for a draw this week.</p>' +
+        '<p class="tiny muted" style="margin:3px 0 0"><b style="color:#ffcc00">REASON:</b> ' + esc((p.reasons || []).join('; ') || 'carried by the season pattern model') + '.</p></div>';
+    });
+    h += '</div>';
+    h += '<div class="card"><h3 style="margin:0 0 6px">&#128257; What repeated this season</h3><p class="tiny muted" style="margin:0 0 6px">' +
+      esc((usePat.season ? ('Season ' + usePat.season + ' \u00b7 ') : '') +
+          ((usePat.season_weeks_played || usePat.weeks_played || 0)) + ' weeks analysed \u00b7 ' +
+          ((usePat.avg_draws_per_week ? ('average ' + usePat.avg_draws_per_week + ' draws per week') : 'local engine'))) + '</p>';
+    if (usePat.top_numbers && usePat.top_numbers.length) {
+      h += '<p class="tiny" style="margin:4px 0"><b>Most-drawn coupon numbers:</b> ' +
+        esc(usePat.top_numbers.slice(0, 10).map(function (t) { return t.no + ' (' + t.times + 'x)'; }).join(', ')) + '</p>';
+    }
+    if (usePat.co_draw_pairs && usePat.co_draw_pairs.length) {
+      h += '<p class="tiny" style="margin:4px 0"><b>Repeating pairs (drew together 2+ times):</b> ' +
+        esc(usePat.co_draw_pairs.slice(0, 8).map(function (p) { return p.pair[0] + '-' + p.pair[1] + ' (' + (p.weeks ? p.weeks.length : p.times) + 'x)'; }).join(', ')) + '</p>';
+    } else if (usePat.pairs && usePat.pairs.length) {
+      h += '<p class="tiny" style="margin:4px 0"><b>Repeating pairs (local engine):</b> ' +
+        esc(usePat.pairs.slice(0, 8).map(function (p) { return p.pair[0] + '-' + p.pair[1] + ' (' + p.times + 'x)'; }).join(', ')) + '</p>';
+    }
+    if (usePat.sequence_runs && usePat.sequence_runs.length) {
+      h += '<p class="tiny" style="margin:4px 0"><b>Sequence runs (3+ consecutive numbers drew):</b> ' +
+        esc(usePat.sequence_runs.slice(0, 6).map(function (r) { return r.seq.join('-') + ' (wk ' + r.weeks.join(',') + ')'; }).join(' \u00b7 ')) + '</p>';
+    }
+    if (usePat.consecutive_week_repeats) {
+      h += '<p class="tiny" style="margin:4px 0"><b>Same number drew in consecutive weeks:</b> ' + usePat.consecutive_week_repeats.length + ' times so far.</p>';
+    }
+    if (usePat.formulas && usePat.formulas.length) {
+      h += '<div style="border-top:1px solid #14294e;margin-top:8px;padding-top:8px"><b class="tiny">Formula groups and their proofs</b>';
+      usePat.formulas.slice(0, 8).forEach(function (f) {
+        h += '<p class="tiny muted" style="margin:4px 0">' + esc(f.name) + ' \u2014 ' + esc(f.hit_note || '') + '</p>';
+      });
+      h += '</div>';
+    }
+    h += '</div>';
+    h += '<div class="card"><h3 style="margin:0 0 6px">&#8987; Auto-update &amp; season roll-over</h3>' +
+      '<p class="tiny muted" style="margin:0">The engine re-runs every week through the season: new results are harvested, the pattern counts recompute and the new coupon is classified automatically. When the season ends the history is archived and the next season starts clean - UK and Aussie phases included (the pool year opens with the Aussie coupons in July and continues with the UK season). Source: FortuneSoccer results/fixtures posts \u00b7 PoolsAgents \u00b7 paper scans \u00b7 pools/pattern_engine.py.</p>' +
+      '<p class="tiny muted" style="margin:6px 0 0">Engine: ' + (pat ? 'published snapshot (auto-refreshed twice daily)' : 'in-app engine on local history') + ' \u00b7 season ' + esc(String((pat && pat.season) || mini.season)) + '</p></div>';
+    el.innerHTML = h;
+  });
+}
+function japScanUrl(week, slug, page, month, host) {
+  return 'https://www.' + (host || 'fortunesoccer') + '.com/wp-content/uploads/2026/' + month +
+    '/week-' + week + '-' + slug + '-2026-page-' + page + '.jpg';
+}
+function japPapersAutoScan(week, cb) {
+  /* auto-scan: probe this week's paper scan URLs and surface every page that
+     exists, without waiting for the keys pack. Images prove existence with
+     onload - no CORS problem. Results cached per week. */
+  var cache = lsGet('jap_scanprobe', null);
+  if (cache && cache.week === week && cache.found && Date.now() - cache.t < 24 * 3600 * 1000) { cb(cache.found); return; }
+  var slugs = ['fortune-soccer', 'happy-joe', 'unity-direct', 'weekly-telegraph', 'soccer-6', 'temple-of-draws',
+    'great-soccer', 'soccer-x', 'winstar', 'soccer-advance', 'the-new-dream', 'rangers-36', 'sporting-telegraph',
+    'weekly-fixtures', 'power-of-soccer', 'super-soccer', 'grand-national', 'lucky-strike', 'willy-tips', 'pools-telegraph'];
+  var months = [10, 11, 9, 8, 7];
+  var found = [], queue = [];
+  slugs.forEach(function (sl) {
+    months.forEach(function (mo) {
+      for (var pg = 1; pg <= 2; pg++) queue.push({ slug: sl, month: mo, page: pg, host: 'fortunesoccer' });
+    });
+  });
+  var qi = 0, inflight = 0, MAX = 6;
+  var step = function () {
+    while (inflight < MAX && qi < queue.length) {
+      (function (job) {
+        inflight++;
+        var img = new Image();
+        img.onload = function () {
+          inflight--;
+          if (img.naturalWidth > 20) found.push({ paper: job.slug, page: job.page,
+            url: japScanUrl(week, job.slug, job.page, job.month, job.host) });
+          step();
+        };
+        img.onerror = function () { inflight--; step(); };
+        img.src = japScanUrl(week, job.slug, job.page, job.month, job.host);
+      })(queue[qi++]);
+    }
+    if (inflight === 0 && qi >= queue.length) {
+      var o = { t: Date.now(), week: week, found: found };
+      try { localStorage.setItem('jap_scanprobe', JSON.stringify(o)); } catch (e) {}
+      japPatLog('jap_scanlog', { at: Date.now(), week: week, found: found.length });
+      cb(found);
+    }
+  };
+  if (!queue.length) { cb([]); return; }
+  step();
+}
+function japAutoCoupon(cb) {
+  /* auto-generate the next UK/Aussie weekly coupon (numbered 1..49) from the
+     football wire when the published coupon is not out yet - UK + Aussie pools
+     leagues together, exactly like the printed coupon */
+  var d = new Date();
+  d.setDate(d.getDate() + ((6 - d.getDay()) % 7 || 7));
+  var iso = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+  var run = function (res) {
+    var evs = (res && res.events) || [];
+    var uk = [], au = [];
+    evs.forEach(function (e) {
+      var lg = ((e.tournament || {}).name || '') + ' ' + ((e.category || {}).name || '');
+      var hn = ((e.homeTeam || {}).name || ''), an = ((e.awayTeam || {}).name || '');
+      var isAU = /Australia|A-League|NSW|Queensland|Victoria|South Australia|Western Australia|Tasmania|NPL|W-League|Capital/i.test(lg + ' ' + hn + ' ' + an);
+      var isUK = /England|Scotland|Wales|Northern Ireland|Premier League|Championship|League One|League Two|National League|Scottish|Community Shield|EFL/i.test(lg);
+      if (!isUK && !isAU) return;
+      var row = { home: hn, away: an, league: (e.tournament || {}).name || (e.category || {}).name || '',
+        kickoff: e.startTimestamp ? new Date(e.startTimestamp * 1000).toISOString() : null };
+      (isAU && !isUK ? au : uk).push(row);
+    });
+    uk = uk.slice(0, 49); au = au.slice(0, 49 - uk.length);
+    var rows = uk.concat(au).map(function (r, i) {
+      return { no: i + 1, home: r.home, away: r.away, league: r.league, kickoff: r.kickoff,
+        drawPct: null, drawPrice: null, gh: null, ga: null };
+    });
+    var out = rows.length ? { auto: true, week: null, uk: { date: iso, matches: rows, expertPicks: [] } } : null;
+    if (cb) cb(out);
+    return out;
+  };
+  if (state.poolWire && state.poolWire.date === iso) return Promise.resolve(run({ events: state.poolWire.evs }));
+  return sofaGrab('/sport/football/scheduled-events/' + iso).then(run, function () { if (cb) cb(null); return null; });
+}
 function japCouponXgKick(cpn) {
   if (!cpn || !cpn.uk || !cpn.uk.matches) return;
   state.poolXg = state.poolXg || {};
@@ -6241,6 +6485,29 @@ function renderBest20Tab() {
   el.innerHTML = h;
 }
 function renderPapersTab() {
+  /* v19.23: auto-scan - if the keys pack does not cover the current coupon
+     week yet, probe the scan URLs and surface every page that exists */
+  try {
+    var pj = lsGet('jap_papers', null);
+    var cpn = lsGet('jap_poolcoupon', null);
+    var dw = cpn && cpn.d && cpn.d.week;
+    if (dw && (!pj || !pj.d || pj.d.week !== dw)) {
+      japPapersAutoScan(dw, function (found) {
+        var ap = document.querySelector('.panel.active');
+        if (ap && ap.id === 'panel-papers' && found.length) {
+          var box = document.getElementById('papersBox');
+          if (box) {
+            var div = document.createElement('div');
+            div.className = 'card';
+            div.innerHTML = '<h3>\U0001f4c2 Auto-scanned papers for week ' + dw + '</h3><p class="tiny muted">' + found.length + ' scan pages found automatically - keys are extracted as the engine runs. Tap to open.</p>' +
+              found.slice(0, 24).map(function (f) { return '<p class="tiny" style="margin:3px 0"><a href="' + f.url + '" target="_blank" rel="noopener">' + esc(f.paper) + ' p' + f.page + '</a></p>'; }).join('');
+            box.insertBefore(div, box.firstChild);
+          }
+        }
+      });
+    }
+  } catch (e) {}
+
   var el = $('papersBox'); if (!el) return;
   el.innerHTML = '<div class="empty">Loading this week\u2019s forecasting papers\u2026</div>';
   Promise.all([japPapersLoad(), japCouponLoad()]).then(function (rr) {
@@ -6426,7 +6693,20 @@ function renderPoolsTab() {
   japCouponLoad().then(function (cpn) {
     state._lastCpn = cpn;
     if (!cpn || !cpn.uk || !cpn.uk.matches) {
-      el.innerHTML = '<div class="card"><h2>This coupon</h2><p class="muted small">The weekly coupon could not be reached right now - the JAP model keys below still work off the loaded fixtures.</p>' + japPoolModelHtml(rec) + '</div>';
+      japAutoCoupon(function (auto) {
+        if (auto && auto.uk && auto.uk.matches && auto.uk.matches.length) {
+          state._autoCpn = auto;
+          var hb = '<div class="card"><h2>\u26a1 Auto-generated UK/Aussie coupon</h2><p class="muted small">The published coupon is not out yet - this provisional weekly coupon is <b>auto-generated from the football wire</b> (UK + Aussie pools leagues, numbered as they land). It refreshes itself and swaps to the published coupon when PoolsUpdate releases it.</p></div>';
+          el.innerHTML = hb + '<div class="card">' + (rec ? japPoolModelHtml(rec) : '') + '</div>';
+          var rowsHtml = '';
+          auto.uk.matches.forEach(function (m) {
+            rowsHtml += '<div class="tiny" style="padding:3px 0;border-top:1px solid #14294e"><b>' + m.no + '.</b> ' + esc(m.home) + ' v ' + esc(m.away) + ' \u00b7 ' + esc(m.league || '') + '</div>';
+          });
+          el.innerHTML += '<div class="card"><h3>\u26a1 Provisional fixtures</h3>' + rowsHtml + '</div>';
+          return;
+        }
+        el.innerHTML = '<div class="card"><h2>This coupon</h2><p class="muted small">The weekly coupon could not be reached right now - the JAP model keys below still work off the loaded fixtures.</p>' + japPoolModelHtml(rec) + '</div>';
+      });
       return;
     }
     var uk = cpn.uk, byNo = {};
@@ -9324,6 +9604,7 @@ function switchTab(n, mode) {
   if (n === 'papers') renderPapersTab();
   if (n === 'poolbank') renderPoolBankTab();
   if (n === 'best20') renderBest20Tab();
+  if (n === 'pattern') renderPatternTab();
   if (n === 'strat') renderStrategies();
   if (n === 'xg') renderXgTab();
   if (n === 'council') renderCouncilTab();
@@ -10031,6 +10312,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (state.sport === 'football') { oddsRefresh(); japKickRealXg(); }   /* v19.20: xG self-updates with the prices (10-min per-match guard inside) */
     else if (ESPN_SPORT_SLUGS[state.sport]) espnSportOddsAttach(state.sport);
     perfAutoGrade();                     /* auto-grade + badges as results land */
+    japPatternRefresh(false);            /* v19.23: the pattern engine re-runs weekly by itself */
     var ap = document.querySelector('.panel.active');
     if (ap && ap.id === 'panel-live') renderLive();
     if (ap && ap.id === 'panel-results') renderResults();

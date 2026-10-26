@@ -1,0 +1,233 @@
+[
+ {
+  "week": 1,
+  "date": "2026-07-04",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 14
+ },
+ {
+  "week": 2,
+  "date": "2026-07-11",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 12
+ },
+ {
+  "week": 3,
+  "date": "2026-07-18",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 11
+ },
+ {
+  "week": 4,
+  "date": "2026-07-25",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 8
+ },
+ {
+  "week": 5,
+  "date": "2026-08-01",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 11
+ },
+ {
+  "week": 6,
+  "date": "2026-08-08",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 14
+ },
+ {
+  "week": 7,
+  "date": "2026-08-15",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 10
+ },
+ {
+  "week": 8,
+  "date": "2026-08-22",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 17
+ },
+ {
+  "week": 9,
+  "date": "2026-08-29",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 14
+ },
+ {
+  "week": 10,
+  "date": "2026-09-05",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 19
+ },
+ {
+  "week": 11,
+  "date": "2026-09-12",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 15
+ },
+ {
+  "week": 12,
+  "date": "2026-09-19",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 19
+ },
+ {
+  "week": 13,
+  "date": "2026-09-26",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 14
+ },
+ {
+  "week": 14,
+  "date": "2026-10-03",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 7
+ },
+ {
+  "week": 15,
+  "date": "2026-10-10",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 12
+ },
+ {
+  "week": 16,
+  "date": "2026-10-17",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 10
+ },
+ {
+  "week": 17,
+  "date": "2026-10-24",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 10
+ },
+ {
+  "week": 18,
+  "date": "2026-10-31",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 0
+ },
+ {
+  "week": 19,
+  "date": "2026-11-07",
+  "source": "fortunesoccer-results",
+  "n": 48,
+  "draws": 0
+ },
+ {
+  "week": 20,
+  "date": "2026-11-14",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 0
+ },
+ {
+  "week": 21,
+  "date": "2026-11-21",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 0
+ },
+ {
+  "week": 22,
+  "date": "2026-11-28",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 0
+ },
+ {
+  "week": 23,
+  "date": "2026-12-05",
+  "source": "fortunesoccer-results",
+  "n": 48,
+  "draws": 0
+ },
+ {
+  "week": 24,
+  "date": "2026-12-12",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 0
+ },
+ {
+  "week": 25,
+  "date": "2026-12-19",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 0
+ },
+ {
+  "week": 26,
+  "date": "2026-12-26",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 0
+ },
+ {
+  "week": 49,
+  "date": "2026-06-06",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 11
+ },
+ {
+  "week": 50,
+  "date": "2026-06-13",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 11
+ },
+ {
+  "week": 51,
+  "date": "2026-06-20",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 9
+ },
+ {
+  "week": 52,
+  "date": "2026-06-27",
+  "source": "fortunesoccer-results",
+  "n": 49,
+  "draws": 9
+ },
+ {
+  "week": 53,
+  "date": null,
+  "source": null,
+  "n": 0,
+  "draws": 0
+ },
+ {
+  "week": 54,
+  "date": null,
+  "source": null,
+  "n": 0,
+  "draws": 0
+ },
+ {
+  "week": 55,
+  "date": null,
+  "source": null,
+  "n": 0,
+  "draws": 0
+ }
+]
