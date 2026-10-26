@@ -138,6 +138,63 @@ def parse_ablefast_results(html, coupon_date):
     return out if len(out) >= 20 else {}
 
 
+PAPERS = ROOT / "pools" / "papers.json"
+FS_PG = "https://www.fortunesoccer.com/wp-content/uploads/2026/{y}/week-{w}-{slug}-2026-page-{n}.jpg"
+UF_PG = "https://www.ukfootballpools.com/wp-content/uploads/2026/{y}/week-{w}-{slug}-2026-page-{n}.jpg"
+UF_SPECIAL = "https://www.ukfootballpools.com/wp-content/uploads/2026/{y}/week-{w}-right-on-fixtures-2026-{which}.jpg"
+
+
+def probe(url):
+    try:
+        req = urllib.request.Request(url, headers=UA, method="HEAD")
+        with urllib.request.urlopen(req, timeout=12) as r:
+            return r.status == 200
+    except Exception:
+        return False
+
+
+def refresh_papers(week, coupon_date):
+    """Roll papers.json to the current coupon week: re-probe scan URLs, drop stale keys."""
+    if not PAPERS.exists():
+        return
+    try:
+        pj = json.loads(PAPERS.read_text(encoding="utf-8"))
+    except Exception:
+        return
+    if pj.get("week") == week and pj.get("date") == coupon_date:
+        print("papers: already on week %d - keys untouched" % week)
+        return
+    y = coupon_date[:4]
+    n_changed = 0
+    for p in pj.get("papers", []):
+        if p["id"] == "right-on-fixtures":
+            pages = [UF_SPECIAL.format(y=y, w=week, which=w) for w in ("front-page", "back-page")]
+            pages = [u for u in pages if probe(u)]
+        else:
+            tpl = UF_PG if any("ukfootballpools.com" in u for u in p.get("pages", [])) else FS_PG
+            slug = p["id"]
+            pages = []
+            for n in range(1, 25):
+                u = tpl.format(y=y, w=week, slug=slug, n=n)
+                if not probe(u):
+                    break
+                pages.append(u)
+        if pages:
+            p["pages"] = pages
+            n_changed += 1
+        # keys were read from the OLD week's scans - they no longer apply
+        p["keys"] = {}
+        p["note"] = ("Week %d scans are up - open them on the Forecast papers tab. Keys not yet "
+                     "re-read from the new sheets; ask 'refresh the papers' to have them extracted." % week)
+    pj["week"] = week
+    pj["date"] = coupon_date
+    pj["updatedAt"] = datetime.now().astimezone().isoformat(timespec="seconds")
+    tmp = PAPERS.with_suffix(".tmp")
+    tmp.write_text(json.dumps(pj, ensure_ascii=False, indent=1), encoding="utf-8")
+    tmp.replace(PAPERS)
+    print("papers: rolled to week %d (%d papers re-probed)" % (week, n_changed))
+
+
 def main():
     cur = load_current()
     coupon = {"uk": cur.get("uk"), "aussie": cur.get("aussie"),
@@ -226,6 +283,7 @@ def main():
         print("ablefast season check failed:", e)
 
     coupon["updatedAt"] = datetime.now().astimezone().isoformat(timespec="seconds")
+    refresh_papers(uk["week"], uk["date"])
     write(coupon)
     graded = sum(1 for m in uk["matches"] if m.get("result"))
     print("week %d | %d matches | %d priced | %d expert picks | %d graded" %

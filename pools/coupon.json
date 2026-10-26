@@ -21,7 +21,7 @@
     "drawPct": 20,
     "drawPrice": 4.93,
     "book": "1xBet",
-    "result": null
+    "result": "2-0"
    },
    {
     "no": 2,
@@ -31,7 +31,7 @@
     "drawPct": 28,
     "drawPrice": 3.61,
     "book": "1xBet",
-    "result": null
+    "result": "0-1"
    },
    {
     "no": 3,
@@ -41,7 +41,7 @@
     "drawPct": 22,
     "drawPrice": 4.41,
     "book": "1xBet",
-    "result": null
+    "result": "0-2"
    },
    {
     "no": 4,
@@ -51,7 +51,7 @@
     "drawPct": 29,
     "drawPrice": 3.3,
     "book": "Betfair",
-    "result": null
+    "result": "2-0"
    },
    {
     "no": 5,
@@ -61,7 +61,7 @@
     "drawPct": 25,
     "drawPrice": 3.75,
     "book": "Betfair",
-    "result": null
+    "result": "1-0"
    },
    {
     "no": 6,
@@ -71,7 +71,7 @@
     "drawPct": 28,
     "drawPrice": 3.5,
     "book": "Betfair",
-    "result": null
+    "result": "4-1"
    },
    {
     "no": 7,
@@ -81,7 +81,7 @@
     "drawPct": 27,
     "drawPrice": 3.52,
     "book": "1xBet",
-    "result": null
+    "result": "1-1"
    },
    {
     "no": 8,
@@ -91,7 +91,7 @@
     "drawPct": 28,
     "drawPrice": 3.4,
     "book": "Betfair",
-    "result": null
+    "result": "5-0"
    },
    {
     "no": 9,
@@ -101,7 +101,7 @@
     "drawPct": 28,
     "drawPrice": 3.4,
     "book": "Betfair",
-    "result": null
+    "result": "0-0"
    },
    {
     "no": 10,
@@ -111,7 +111,7 @@
     "drawPct": 22,
     "drawPrice": 4.33,
     "book": "Betfair",
-    "result": null
+    "result": "2-3"
    },
    {
     "no": 11,
@@ -121,7 +121,7 @@
     "drawPct": 19,
     "drawPrice": 5.0,
     "book": "Betfair",
-    "result": null
+    "result": "1-0"
    },
    {
     "no": 12,
@@ -131,7 +131,7 @@
     "drawPct": 26,
     "drawPrice": 3.65,
     "book": "1xBet",
-    "result": null
+    "result": "1-1"
    },
    {
     "no": 13,
@@ -141,7 +141,7 @@
     "drawPct": 26,
     "drawPrice": 3.6,
     "book": "Betfair",
-    "result": null
+    "result": "1-4"
    },
    {
     "no": 14,
@@ -151,7 +151,7 @@
     "drawPct": 24,
     "drawPrice": 3.9,
     "book": "Betano",
-    "result": null
+    "result": "1-1"
    },
    {
     "no": 15,
@@ -161,7 +161,7 @@
     "drawPct": 28,
     "drawPrice": 3.4,
     "book": "Betfair",
-    "result": null
+    "result": "2-1"
    },
    {
     "no": 16,
@@ -171,7 +171,7 @@
     "drawPct": 26,
     "drawPrice": 3.6,
     "book": "Betfair",
-    "result": null
+    "result": "2-3"
    },
    {
     "no": 17,
@@ -181,7 +181,7 @@
     "drawPct": 27,
     "drawPrice": 3.58,
     "book": "1xBet",
-    "result": null
+    "result": "2-0"
    },
    {
     "no": 18,
@@ -191,7 +191,7 @@
     "drawPct": null,
     "drawPrice": null,
     "book": null,
-    "result": null
+    "result": "1-1"
    },
    {
     "no": 19,
@@ -201,7 +201,7 @@
     "drawPct": null,
     "drawPrice": null,
     "book": null,
-    "result": null
+    "result": "0-0"
    },
    {
     "no": 20,
@@ -211,7 +211,7 @@
     "drawPct": null,
     "drawPrice": null,
     "book": null,
-    "result": null
+    "result": "2-1"
    },
    {
     "no": 21,
@@ -221,7 +221,7 @@
     "drawPct": null,
     "drawPrice": null,
     "book": null,
-    "result": null
+    "result": "0-1"
    },
    {
     "no": 22,
@@ -231,7 +231,7 @@
     "drawPct": 26,
     "drawPrice": 3.8,
     "book": "Betfair",
-    "result": null
+    "result": "1-1"
    },
    {
     "no": 23,
@@ -241,7 +241,7 @@
     "drawPct": 24,
     "drawPrice": 4.2,
     "book": "Betfair",
-    "result": null
+    "result": "5-1"
    },
    {
     "no": 24,
@@ -251,7 +251,7 @@
     "drawPct": 27,
     "drawPrice": 3.6,
     "book": "Betfair",
-    "result": null
+    "result": "1-1"
    },
    {
     "no": 25,
@@ -261,7 +261,7 @@
     "drawPct": 29,
     "drawPrice": 3.3,
     "book": "Betfair",
-    "result": null
+    "result": "2-1"
    },
    {
     "no": 26,
@@ -271,7 +271,7 @@
     "drawPct": 27,
     "drawPrice": 3.5,
     "book": "Betfair",
-    "result": null
+    "result": "1-4"
    },
    {
     "no": 27,
@@ -281,7 +281,7 @@
     "drawPct": null,
     "drawPrice": null,
     "book": null,
-    "result": null
+    "result": "0-5"
    },
    {
     "no": 28,
@@ -291,7 +291,7 @@
     "drawPct": null,
     "drawPrice": null,
     "book": null,
-    "result": null
+    "result": "3-3"
    },
    {
     "no": 29,
@@ -301,7 +301,7 @@
     "drawPct": null,
     "drawPrice": null,
     "book": null,
-    "result": null
+    "result": "2-0"
    },
    {
     "no": 30,
@@ -311,7 +311,7 @@
     "drawPct": 27,
     "drawPrice": 3.55,
     "book": "Betano",
-    "result": null
+    "result": "3-2"
    },
    {
     "no": 31,
@@ -321,7 +321,7 @@
     "drawPct": 25,
     "drawPrice": 3.85,
     "book": "Betano",
-    "result": null
+    "result": "3-0"
    },
    {
     "no": 32,
@@ -331,7 +331,7 @@
     "drawPct": 15,
     "drawPrice": 6.35,
     "book": "1xBet",
-    "result": null
+    "result": "4-0"
    },
    {
     "no": 33,
@@ -341,7 +341,7 @@
     "drawPct": 26,
     "drawPrice": 3.75,
     "book": "Betano",
-    "result": null
+    "result": "2-1"
    },
    {
     "no": 34,
@@ -361,7 +361,7 @@
     "drawPct": 19,
     "drawPrice": 5.0,
     "book": "Betfair",
-    "result": null
+    "result": "1-0"
    },
    {
     "no": 36,
@@ -371,7 +371,7 @@
     "drawPct": 22,
     "drawPrice": 4.33,
     "book": "Betfair",
-    "result": null
+    "result": "4-0"
    },
    {
     "no": 37,
@@ -381,7 +381,7 @@
     "drawPct": 25,
     "drawPrice": 3.8,
     "book": "Betfair",
-    "result": null
+    "result": "0-1"
    },
    {
     "no": 38,
@@ -391,7 +391,7 @@
     "drawPct": 29,
     "drawPrice": 3.3,
     "book": "Betfair",
-    "result": null
+    "result": "0-2"
    },
    {
     "no": 39,
@@ -401,7 +401,7 @@
     "drawPct": 24,
     "drawPrice": 4.0,
     "book": "Betfair",
-    "result": null
+    "result": "0-1"
    },
    {
     "no": 40,
@@ -421,7 +421,7 @@
     "drawPct": 19,
     "drawPrice": 5.0,
     "book": "Betfair",
-    "result": null
+    "result": "2-1"
    },
    {
     "no": 42,
@@ -431,7 +431,7 @@
     "drawPct": 27,
     "drawPrice": 3.6,
     "book": "Betfair",
-    "result": null
+    "result": "3-0"
    },
    {
     "no": 43,
@@ -441,7 +441,7 @@
     "drawPct": 18,
     "drawPrice": 5.5,
     "book": "Betfair",
-    "result": null
+    "result": "4-0"
    },
    {
     "no": 44,
@@ -451,7 +451,7 @@
     "drawPct": 26,
     "drawPrice": 3.8,
     "book": "Betfair",
-    "result": null
+    "result": "2-1"
    },
    {
     "no": 45,
@@ -461,7 +461,7 @@
     "drawPct": 26,
     "drawPrice": 3.8,
     "book": "Betfair",
-    "result": null
+    "result": "1-2"
    },
    {
     "no": 46,
@@ -471,7 +471,7 @@
     "drawPct": 16,
     "drawPrice": 6.48,
     "book": "1xBet",
-    "result": null
+    "result": "1-0"
    },
    {
     "no": 47,
@@ -481,7 +481,7 @@
     "drawPct": 28,
     "drawPrice": 3.54,
     "book": "1xBet",
-    "result": null
+    "result": "3-3"
    },
    {
     "no": 48,
@@ -491,7 +491,7 @@
     "drawPct": 22,
     "drawPrice": 4.58,
     "book": "1xBet",
-    "result": null
+    "result": "2-1"
    },
    {
     "no": 49,
@@ -501,7 +501,7 @@
     "drawPct": 19,
     "drawPrice": 5.39,
     "book": "1xBet",
-    "result": null
+    "result": "1-0"
    }
   ],
   "credit": "Coupon: the published pools coupon (PoolsUpdate, AbleFast). Market draw % (margin removed) + best prices: PoolsAgents.com. Expert picks: FortuneSoccer."
@@ -541,5 +541,5 @@
    ]
   }
  ],
- "updatedAt": "2026-10-21T00:19:43+00:00"
+ "updatedAt": "2026-10-26T05:37:58+00:00"
 }
