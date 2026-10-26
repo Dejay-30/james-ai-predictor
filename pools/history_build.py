@@ -95,11 +95,18 @@ def parse_fs_fixtures(html):
     matches = []
     for tr in rows:
         c = cells_of(tr)
-        if len(c) >= 3 and re.fullmatch(r"\d+", c[0]):
-            m = re.match(r"(.+?)\s+v\s+(.+)", c[1])
+        if len(c) >= 2 and re.fullmatch(r"\d+", c[0] or ""):
+            toks = [x for x in c[1:] if x]
+            home = away = day = ""
+            m = re.match(r"(.+?)\s+v\s+(.+)", toks[0]) if toks else None
             if m:
-                matches.append({"no": int(c[0]), "home": m.group(1).strip(), "away": m.group(2).strip(),
-                                "day": c[2] if len(c) > 2 else ""})
+                home, away = m.group(1).strip(), m.group(2).strip()
+                day = toks[-1] if len(toks) > 1 else ""
+            elif len(toks) >= 2:
+                home, away = toks[0], toks[1]
+                day = toks[-1] if len(toks) > 2 else ""
+            if home and away:
+                matches.append({"no": int(c[0]), "home": home, "away": away, "day": day})
     return {"week": week, "date": date, "matches": matches}
 
 

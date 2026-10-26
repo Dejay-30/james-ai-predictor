@@ -78,6 +78,36 @@ def parse_poolsupdate(html):
     return {"week": week, "date": sat.isoformat(), "matches": matches}
 
 
+def parse_fs_fixtures(html):
+    """FortuneSoccer advance-fixtures post -> numbered coupon rows."""
+    txt = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html))
+    wm = re.search(r"WEEK:\s*(\d+)\s*;\s*SEASON:([^;]+);\s*DATE:\s*([0-9A-Za-z-]+)", txt)
+    week = int(wm.group(1)) if wm else None
+    date_s = None
+    if wm:
+        dm = re.match(r"(\d+)-(\d+)-(\d+)", wm.group(3).strip())
+        if dm:
+            date_s = "%04d-%02d-%02d" % (int(dm.group(3)), int(dm.group(2)), int(dm.group(1)))
+    rows = re.findall(r"<tr[^>]*>(.*?)</tr>", html, re.S)
+    matches = []
+    for tr in rows:
+        c = [re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", x)).strip()
+             for x in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", tr, re.S)]
+        if len(c) >= 2 and re.fullmatch(r"\d+", c[0] or ""):
+            toks = [x for x in c[1:] if x]
+            home = away = day = ""
+            m = re.match(r"(.+?)\s+v\s+(.+)", toks[0]) if toks else None
+            if m:
+                home, away = m.group(1).strip(), m.group(2).strip()
+                day = toks[-1] if len(toks) > 1 else ""
+            elif len(toks) >= 2:
+                home, away = toks[0], toks[1]
+                day = toks[-1] if len(toks) > 2 else ""
+            if home and away:
+                matches.append({"no": int(c[0]), "home": home, "away": away, "day": day})
+    return {"week": week, "date": date_s, "matches": matches}
+
+
 def parse_poolsagents_week(html):
     """The week page's semantic coupon table: <tr id="noN"> with draw/price/book cells."""
     i = html.find('id="coupon"')
@@ -223,6 +253,37 @@ def main():
         else:
             for m in coupon["uk"]["matches"]:
                 m["result"] = None
+    # 1b. roll-on-stale fallback: PoolsUpdate can lag a day or two after the
+    # next coupon's fixtures publish. When the stored week's Saturday has
+    # passed, rebuild from FortuneSoccer's official advance fixtures post
+    # (numbered exactly like the printed coupon). The past week stays fully
+    # browsable under the app's Pools calendar (pools/history/uk/).
+    target = next_saturday(date.today())
+    uk_now = coupon.get("uk") or {}
+    if uk_now.get("date") and date.fromisoformat(uk_now["date"]) < target:
+        stale_week = int(uk_now.get("week") or 0)
+        fs = None
+        for n in range(stale_week + 1, stale_week + 5):
+            h = fetch("https://www.fortunesoccer.com/fixtures/week-%d-pool-fixtures/" % n)
+            fx = parse_fs_fixtures(h) if h else None
+            if fx and fx.get("matches") and fx.get("date") and date.fromisoformat(fx["date"]) == target:
+                fs = fx
+                fs["week"] = n
+                break
+        if fs:
+            coupon["uk"] = {"week": fs["week"], "season": uk_now.get("season", "2026/2027"),
+                            "date": fs["date"],
+                            "matches": [{"no": m["no"], "home": m["home"], "away": m["away"],
+                                         "league": m.get("league", ""),
+                                         "drawPct": None, "drawPrice": None, "book": None,
+                                         "result": None} for m in fs["matches"]],
+                            "expectedDraws": None, "strongest": None,
+                            "credit": "Coupon: auto-generated from the official FortuneSoccer advance "
+                                      "fixtures post (PoolsUpdate has not published this week yet). "
+                                      "Market draw % + best prices: PoolsAgents.com fill in as they land."}
+            print("coupon: rolled to week %d from the FortuneSoccer fixtures post (PoolsUpdate still showing week %d)" % (fs["week"], stale_week))
+        else:
+            print("coupon: week %d is stale but no fixtures post found yet for %s" % (stale_week, target))
     uk = coupon["uk"]
     if not uk:
         print("no coupon basis - keeping previous file")
@@ -256,6 +317,13 @@ def main():
         coupon["experts"] = [{"source": "FortuneSoccer",
                               "url": "https://www.fortunesoccer.com/tips/week-%d-football-tips/" % week_no,
                               "picks": picks}]
+    else:
+        # stale picks from a previous week must not survive a week roll
+        old_url = ""
+        if coupon.get("experts"):
+            old_url = (coupon["experts"][0] or {}).get("url", "")
+        if ("week-%d" % week_no) not in old_url:
+            coupon["experts"] = []
 
     # 4. results (grading) once the coupon date has passed
     d = date.fromisoformat(uk["date"])
