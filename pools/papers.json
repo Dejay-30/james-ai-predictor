@@ -1,0 +1,1202 @@
+{
+ "week": 17,
+ "date": "2026-10-24",
+ "season": "2026/2027",
+ "updatedAt": "2026-10-21T01:34:45+00:00",
+ "credit": "Paper scans published by FortuneSoccer.com and UKFootballPools.com - view the originals at their sites. Keys read from the published week 17 sheets. JAP adds the combined verdict and the FootyStats xG model check on top.",
+ "papers": [
+  {
+   "id": "bob-morton",
+   "name": "Bob Morton",
+   "family": "RSK Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-bob-morton-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-bob-morton-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-bob-morton-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-bob-morton-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "28",
+     "30",
+     "35"
+    ],
+    "nap": [
+     "15",
+     "31",
+     "36"
+    ],
+    "pairs": [
+     [
+      9,
+      37
+     ],
+     [
+      11,
+      26
+     ],
+     [
+      21,
+      1
+     ],
+     [
+      37,
+      6
+     ]
+    ],
+    "tips": [
+     11,
+     26,
+     21,
+     1,
+     37,
+     6,
+     3,
+     12,
+     13,
+     36,
+     23,
+     38,
+     25,
+     48
+    ]
+   },
+   "note": "NAP 15-31-36. Joker Pair 9x37. Triple Pair Bankers: 11x26 (Wolves x Gillingham), 21x1 (Stevenage x Arsenal), 37x6 (QPR x Lincoln). Green box choice: 28 Rotherham / 30 Dundee Utd / 35 Livingston."
+  },
+  {
+   "id": "capital-international",
+   "name": "Capital International",
+   "family": "RSK Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-capital-international-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-capital-international-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-capital-international-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-capital-international-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "2",
+     "23",
+     "26",
+     "31"
+    ],
+    "tips": [
+     15,
+     30,
+     4,
+     8,
+     19,
+     43,
+     12,
+     14,
+     16,
+     24,
+     39,
+     33,
+     28,
+     37
+    ],
+    "pairs": [
+     [
+      15,
+      30
+     ]
+    ],
+    "note_nums": [
+     5
+    ]
+   },
+   "note": "Bankers/Triple Chance: 2 Coventry, 23 Chesterf'd, 26 Gillingham, 31 Falkirk. Editor's Top 2 = 15 & 30. Draws most likely at 4, 8, 15, 19, 31, 43. Can-not-draw 5 (Cardiff v Birmingham). Try 12-14-16-19-24."
+  },
+  {
+   "id": "soccer-x-research",
+   "name": "Soccer 'X' Research",
+   "family": "RSK Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-soccer-x-research-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-soccer-x-research-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-soccer-x-research-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-soccer-x-research-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "27",
+     "33"
+    ],
+    "tips": [
+     38,
+     23,
+     17,
+     31,
+     25,
+     2,
+     29,
+     8,
+     12,
+     15,
+     16,
+     22,
+     26,
+     28,
+     39,
+     41,
+     4,
+     32,
+     3,
+     19,
+     11,
+     43,
+     7,
+     20,
+     34,
+     36,
+     21
+    ],
+    "pairs": [
+     [
+      12,
+      15
+     ],
+     [
+      27,
+      33
+     ]
+    ]
+   },
+   "note": "This Week's Draw Picture 27x33. Special X tips: 38 Raith, 23 Chesterfield, 17 Doncaster, 31 Falkirk, 25 Exeter, 2 Coventry, 29 York. 12 & 15 for one X. Jackpot 12. Best six includes Barnet 22, Reading 20, Racing S 44."
+  },
+  {
+   "id": "premier-soccer",
+   "name": "Premier Soccer",
+   "family": "Forecast Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-premier-soccer-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-premier-soccer-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-premier-soccer-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-premier-soccer-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "18",
+     "19"
+    ],
+    "nap": [
+     "5",
+     "7",
+     "17"
+    ],
+    "tips": [
+     23,
+     24,
+     25,
+     37,
+     38,
+     15,
+     16,
+     13,
+     14,
+     33,
+     34,
+     26,
+     35,
+     44,
+     47
+    ],
+    "pairs": [
+     [
+      18,
+      19
+     ]
+    ]
+   },
+   "note": "BANK ON 18 Notts Co & 19 Doncaster for one draw (marked 18-17). 3-for-2 draws: 23-24-25. 37 OR 38. X-rayed 2BK: Burton 15, Cambridge U 16. NAP line 5-7-17."
+  },
+  {
+   "id": "new-soccer",
+   "name": "New Soccer",
+   "family": "Forecast Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-new-soccer-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-new-soccer-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-new-soccer-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-new-soccer-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "5",
+     "6",
+     "7"
+    ],
+    "nap": [
+     "16"
+    ],
+    "tips": [
+     23,
+     28,
+     30,
+     45,
+     24,
+     40,
+     39,
+     6,
+     14,
+     8,
+     12,
+     2,
+     5,
+     44,
+     47,
+     31,
+     37,
+     36,
+     15
+    ],
+    "pairs": [
+     [
+      28,
+      30
+     ],
+     [
+      39,
+      40
+     ]
+    ]
+   },
+   "note": "Super Trio 05-06-07. Star of the Week 16 NAP & 23. Expert Pair 28 Rotherham x 30 Dundee Utd - must produce one draw Saturday. Best one X: Valencia 45. Front Pair 39/40. Special Draw: Cove Rangers 40 v East Kilbride. 5th Dream 06-14-23-28-40."
+  },
+  {
+   "id": "london-weekend",
+   "name": "London Weekend Forecast",
+   "family": "Forecast Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-london-weekend-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-london-weekend-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-london-weekend-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-london-weekend-2026-page-4.jpg"
+   ],
+   "keys": {
+    "tips": [
+     1,
+     8,
+     15,
+     18,
+     23,
+     29,
+     17,
+     12,
+     37,
+     47,
+     4,
+     13,
+     10,
+     19,
+     27,
+     14,
+     48,
+     44,
+     46,
+     36,
+     25,
+     26,
+     21,
+     24,
+     35
+    ],
+    "pairs": [
+     [
+      17,
+      18
+     ],
+     [
+      12,
+      37
+     ],
+     [
+      29,
+      47
+     ]
+    ]
+   },
+   "note": "Solid Six Draws: 1-8-15-18-23-29. Sure Pairs 17/18, 12/37, 29/47. Hi Score Draws grid 4-13-10-15 / 19-15-27-14 / 48-44-46-36. Easy Win X: Bromley 14, R.Santander 44, Wimbledon 12, Blackburn 4, Chesterf'd 23."
+  },
+  {
+   "id": "winner-target",
+   "name": "Winner Target",
+   "family": "Forecast Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-winner-target-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-winner-target-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-winner-target-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-winner-target-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "9",
+     "11",
+     "14"
+    ],
+    "nap": [
+     "19",
+     "23",
+     "28"
+    ],
+    "pairs": [
+     [
+      16,
+      17
+     ]
+    ],
+    "tips": [
+     12,
+     13,
+     25,
+     26,
+     2,
+     10,
+     39,
+     1,
+     15,
+     21
+    ],
+    "choice": [
+     9,
+     11,
+     14
+    ]
+   },
+   "note": "Bank on Stoke 9, Wolves 11 and Bromley 14 for two draws - the Stoke v Bristol C clash could end a draw (Bristol strong away), Watford could hold Wolves, and Preston are sure to hold Bromley. Best Naps 19:23:28. Pair Bankers 16x17. Winner Numbers 12-13-19-25-26. Final draw: Alloa 39."
+  },
+  {
+   "id": "happy-joe",
+   "name": "Happy Joe",
+   "family": "Pool Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.ukfootballpools.com/wp-content/uploads/2026/10/week-17-happy-joe-2026-page-1.jpg",
+    "https://www.ukfootballpools.com/wp-content/uploads/2026/10/week-17-happy-joe-2026-page-2.jpg",
+    "https://www.ukfootballpools.com/wp-content/uploads/2026/10/week-17-happy-joe-2026-page-3.jpg",
+    "https://www.ukfootballpools.com/wp-content/uploads/2026/10/week-17-happy-joe-2026-page-4.jpg"
+   ],
+   "keys": {
+    "tips": [
+     23,
+     26,
+     30,
+     33,
+     36,
+     37,
+     2,
+     4,
+     5,
+     37,
+     22
+    ],
+    "pairs": [
+     [
+      23,
+      26
+     ],
+     [
+      30,
+      33
+     ],
+     [
+      36,
+      37
+     ]
+    ]
+   },
+   "note": "3 Hot-Pairs: 23x26 (Chesterfield x Gillingham), 30x33 (Dundee Utd x St Mirren), 36x37 (Partick x Queen's Pk). Big pair 36x37. Lucky Nos watch 2-4-5. Gillingham 26 Grimsby named in the danger box."
+  },
+  {
+   "id": "right-on-fixtures",
+   "name": "Right On Fixtures",
+   "family": "Pool Papers",
+   "npages": 2,
+   "pages": [
+    "https://www.ukfootballpools.com/wp-content/uploads/2026/10/week-17-right-on-fixtures-2026-front-page.jpg",
+    "https://www.ukfootballpools.com/wp-content/uploads/2026/10/week-17-right-on-fixtures-2026-back-page.jpg"
+   ],
+   "keys": {},
+   "note": "Front/back scan - keys in the sheets."
+  },
+  {
+   "id": "temple-of-draws",
+   "name": "Temple of Draws",
+   "family": "Pool Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.ukfootballpools.com/wp-content/uploads/2026/10/week-17-temple-of-draws-2026-page-1.jpg",
+    "https://www.ukfootballpools.com/wp-content/uploads/2026/10/week-17-temple-of-draws-2026-page-2.jpg",
+    "https://www.ukfootballpools.com/wp-content/uploads/2026/10/week-17-temple-of-draws-2026-page-3.jpg",
+    "https://www.ukfootballpools.com/wp-content/uploads/2026/10/week-17-temple-of-draws-2026-page-4.jpg"
+   ],
+   "keys": {
+    "tips": [
+     25,
+     26,
+     9,
+     10,
+     36,
+     37,
+     24,
+     12,
+     13,
+     44,
+     45,
+     4,
+     5,
+     6,
+     14,
+     15,
+     16,
+     28,
+     2,
+     16,
+     11
+    ],
+    "pairs": [
+     [
+      25,
+      26
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      24,
+      25
+     ],
+     [
+      12,
+      13
+     ],
+     [
+      36,
+      37
+     ]
+    ]
+   },
+   "note": "Picture Weekend Pair 25x26. Jubilation Pair (compulsory) 9x10. Salvation Pair 36 to 37. Professor in Pool Pair: best 24/25, good 12/13. Sure for one: 44 or 45. West Ham or Wolves nap 16. Lucky Numbers 4-5-6 / 14-15-16."
+  },
+  {
+   "id": "winstar",
+   "name": "Winstar",
+   "family": "Pool Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.ukfootballpools.com/wp-content/uploads/2026/10/week-17-winstar-2026-page-1.jpg",
+    "https://www.ukfootballpools.com/wp-content/uploads/2026/10/week-17-winstar-2026-page-2.jpg",
+    "https://www.ukfootballpools.com/wp-content/uploads/2026/10/week-17-winstar-2026-page-3.jpg",
+    "https://www.ukfootballpools.com/wp-content/uploads/2026/10/week-17-winstar-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "19"
+    ],
+    "tips": [
+     16,
+     2,
+     20,
+     11,
+     10,
+     21,
+     9,
+     23,
+     24,
+     27,
+     37,
+     35,
+     33,
+     6,
+     13,
+     26,
+     36,
+     14,
+     34
+    ],
+    "pairs": [
+     [
+      9,
+      23
+     ]
+    ]
+   },
+   "note": "Authentic: Oxford U 19. Pointer: Cambridge U 16. Joint Point 9x23. Centre Star 11 (with 2/20/10/21). Best Draws eight: 16, 24, 27, 37, 19, 11, 23, 9."
+  },
+  {
+   "id": "great-soccer",
+   "name": "The Great Soccer",
+   "family": "Late News Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-great-soccer-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-great-soccer-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-great-soccer-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-great-soccer-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "14"
+    ],
+    "tips": [
+     15,
+     16,
+     35,
+     36,
+     39,
+     44,
+     45,
+     47,
+     28,
+     23,
+     31,
+     17,
+     35,
+     2,
+     3
+    ],
+    "choice": [
+     14,
+     15
+    ],
+    "pairs": [
+     [
+      44,
+      45
+     ],
+     [
+      45,
+      47
+     ]
+    ]
+   },
+   "note": "Banker Box 14x (Bromley). Power 'H' form: 14 OR 15 must for one X. Meet me at Cambridge U 16 - perm (A) 16 Cambridge, (B) 35 Livingston, (C) 36 Partick, (D) 39 Alloa. Denis Smith Form X Trio: 44 Racing-Espanyol, 45 Valencia-Villarreal, 47 Napoli-Roma - must for 2 draws Saturday."
+  },
+  {
+   "id": "magnificent-soccer",
+   "name": "Magnificent Soccer",
+   "family": "Late News Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-magnificent-soccer-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-magnificent-soccer-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-magnificent-soccer-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-magnificent-soccer-2026-page-4.jpg"
+   ],
+   "keys": {
+    "tips": [
+     33,
+     34,
+     12,
+     47,
+     17,
+     18,
+     44,
+     45,
+     26,
+     15,
+     21,
+     28,
+     40,
+     41,
+     35,
+     36
+    ],
+    "pairs": [
+     [
+      33,
+      34
+     ],
+     [
+      44,
+      45
+     ]
+    ]
+   },
+   "note": "Double 33x34. Fortune Box 12-33-47. Sharp Attacker 33-17-44 / 34-18-45. 'XXX' Espanyol 44, 'XXX' Villarreal 45. Meet me at Burton A 15 'x' 17 Leyton O. Bottom strip 26-12-15-33-47."
+  },
+  {
+   "id": "happy-weekend",
+   "name": "Happy Weekend Soccer",
+   "family": "Late News Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-happy-weekend-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-happy-weekend-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-happy-weekend-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-happy-weekend-2026-page-4.jpg"
+   ],
+   "keys": {
+    "tips": [
+     44,
+     45,
+     36,
+     37,
+     38,
+     38,
+     47,
+     12,
+     23,
+     24,
+     25,
+     26,
+     27,
+     10,
+     11,
+     16,
+     24,
+     38,
+     2,
+     3,
+     9
+    ],
+    "pairs": [
+     [
+      44,
+      45
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      36,
+      37
+     ],
+     [
+      37,
+      38
+     ]
+    ]
+   },
+   "note": "Double Decker 44x45 (47 Napoli). The Best Trio 36-37-38. General Result 38-47-12. Gossip Sequence 23-24-25-26-27 around Rotherham 28. Pair 10x11 (West Ham x Wolves). Final Verdict: Cambridge 16, Crawley 24, Raith 38. Hi Score Quiz 15-18-17-16-19."
+  },
+  {
+   "id": "tripple-xxx-soccer",
+   "name": "Tripple XXX Soccer",
+   "family": "Late News Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-tripple-xxx-soccer-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-tripple-xxx-soccer-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-tripple-xxx-soccer-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-tripple-xxx-soccer-2026-page-4.jpg"
+   ],
+   "keys": {
+    "tips": [
+     12,
+     26,
+     33,
+     28,
+     30,
+     45,
+     41,
+     47,
+     4,
+     6,
+     31,
+     23,
+     36,
+     41,
+     47,
+     9,
+     6
+    ],
+    "pairs": [
+     [
+      12,
+      26
+     ],
+     [
+      26,
+      31
+     ],
+     [
+      4,
+      6
+     ]
+    ]
+   },
+   "note": "Hot Pair 12x26 (Wimbledon x Gillingham). Data Code 33. Check One 41, Check Two 47. Heroes of the Week pair 4x6. Smart Pair 26 Gillingham x 31 Falkirk. News box: Lincoln 6 x3, Stoke 9 x3 NAP."
+  },
+  {
+   "id": "unity-pools-guide",
+   "name": "Unity Pools Guide",
+   "family": "Late News Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-unity-pools-guide-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-unity-pools-guide-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-unity-pools-guide-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-unity-pools-guide-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "47"
+    ],
+    "tips": [
+     23,
+     5,
+     44,
+     24,
+     6,
+     45,
+     30,
+     31,
+     33,
+     8,
+     9,
+     37,
+     38,
+     15,
+     24,
+     36,
+     19,
+     40,
+     16,
+     41,
+     28,
+     35
+    ],
+    "pairs": [
+     [
+      30,
+      31
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      23,
+      33
+     ]
+    ]
+   },
+   "note": "Direct One Banker: Napoli 47 v Roma. Joker Numbers 23-05-44 / 24-06-45. Big pair 30x31. Allan Rod Corner 23 to 33. 08x09. Hot Three 37/38, 15/24, 36. Best Five 15-19-40-16-41. Five Fixed Odds: Wimbledon 12, Burton 15, Chesterfield 23, Partick 36, Napoli 47."
+  },
+  {
+   "id": "bigwin-soccer",
+   "name": "Bigwin Soccer",
+   "family": "Late News Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-bigwin-soccer-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-bigwin-soccer-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-bigwin-soccer-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-bigwin-soccer-2026-page-4.jpg"
+   ],
+   "keys": {
+    "tips": [
+     12,
+     18,
+     15,
+     23,
+     5,
+     9,
+     7,
+     8,
+     16,
+     18,
+     30,
+     35,
+     34,
+     41,
+     39,
+     40,
+     2,
+     4,
+     13,
+     31
+    ],
+    "pairs": [
+     [
+      12,
+      18
+     ],
+     [
+      15,
+      23
+     ],
+     [
+      5,
+      9
+     ],
+     [
+      39,
+      40
+     ]
+    ]
+   },
+   "note": "Compilers Super X 12*18. Pair 15x23 (hammered 3x). 5 XX 9. CBK line 5-7-8-16-18. This Week's Draw sheet: Notts Co 18 Stockport, Cambridge U 16 Plymouth, Preston 7 West Brom, Dundee U 30 Aberdeen, Livingston 35 Arbroath."
+  },
+  {
+   "id": "pools-telegraph",
+   "name": "Pools Telegraph",
+   "family": "Late News Papers",
+   "npages": 16,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-4.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-5.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-6.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-7.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-8.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-9.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-10.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-11.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-12.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-13.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-14.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-15.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-pools-telegraph-2026-page-16.jpg"
+   ],
+   "keys": {},
+   "note": "16-page late-news sheet - keys in the scans."
+  },
+  {
+   "id": "final-results",
+   "name": "Final Results",
+   "family": "Weekly Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-final-results-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-final-results-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-final-results-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-final-results-2026-page-4.jpg"
+   ],
+   "keys": {
+    "tips": [
+     13,
+     14,
+     19,
+     23,
+     28,
+     31,
+     24,
+     25,
+     37,
+     39,
+     39,
+     31,
+     16,
+     28,
+     34,
+     15
+    ],
+    "pairs": [
+     [
+      14,
+      15
+     ],
+     [
+      37,
+      34
+     ],
+     [
+      24,
+      36
+     ],
+     [
+      28,
+      39
+     ]
+    ]
+   },
+   "note": "Fortune Box 24. Big line 13-14-19 with strip 23x28x31. Nos at stake 25-37-39. Golden Pairs A 14/15, B 37/34, C 24/36. 4 Draws: Rotherham 28, Falkirk 31, Queen's Pk 37, G.Morton 34. Best Bets 39-31-16."
+  },
+  {
+   "id": "the-new-dream",
+   "name": "The New Dream",
+   "family": "Weekly Papers",
+   "npages": 8,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-the-new-dream-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-the-new-dream-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-the-new-dream-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-the-new-dream-2026-page-4.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-the-new-dream-2026-page-5.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-the-new-dream-2026-page-6.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-the-new-dream-2026-page-7.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-the-new-dream-2026-page-8.jpg"
+   ],
+   "keys": {
+    "nap": [
+     "31",
+     "23",
+     "15",
+     "39"
+    ],
+    "tips": [
+     15,
+     45,
+     19,
+     16,
+     24,
+     36,
+     30,
+     39,
+     28,
+     31,
+     12,
+     44,
+     14,
+     25,
+     34,
+     37,
+     23
+    ],
+    "pairs": [
+     [
+      15,
+      45
+     ],
+     [
+      24,
+      36
+     ],
+     [
+      30,
+      39
+     ],
+     [
+      28,
+      31
+     ],
+     [
+      12,
+      15
+     ],
+     [
+      14,
+      15
+     ],
+     [
+      15,
+      16
+     ],
+     [
+      44,
+      45
+     ]
+    ]
+   },
+   "note": "15 GIFT 45. GOLD 15-19-16. NAP 31-23-15-39. SILVER 24 & 36. Papa Jolly 14 & 15. Free 16 (X1) / 34 (X2) / 23 (XX). Dream Nos 15&16, 44&45. Draws to watch 30/39, 28/31, 12/15."
+  },
+  {
+   "id": "weekly-telegraph",
+   "name": "Weekly Telegraph",
+   "family": "Weekly Papers",
+   "npages": 16,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-4.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-5.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-6.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-7.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-8.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-9.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-10.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-11.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-12.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-13.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-14.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-15.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-weekly-telegraph-2026-page-16.jpg"
+   ],
+   "keys": {},
+   "note": "16-page weekly telegraph - keys in the scans."
+  },
+  {
+   "id": "mirror-punters-guide",
+   "name": "Mirror Punters Guide Int'l",
+   "family": "Fortune Late News",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-mirror-punters-guide-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-mirror-punters-guide-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-mirror-punters-guide-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-mirror-punters-guide-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "15"
+    ],
+    "tips": [
+     1,
+     10,
+     19,
+     2,
+     4,
+     14,
+     28,
+     31,
+     12,
+     13,
+     23,
+     44,
+     45,
+     26,
+     21,
+     9,
+     11
+    ],
+    "pairs": [
+     [
+      1,
+      2
+     ],
+     [
+      14,
+      15
+     ]
+    ]
+   },
+   "note": "Top form draws in League One - Burton A. 15 for a banker draw? Cambridge U. and Doncaster for one draw; Crewe may draw again with Chesterf'd...23. Best Scottish draws: Falkirk, Livingston, Partick, Alloa and Montrose for 1 or 2 draws. Two Top Pairs 1x2 and 14x15. Editor tips 4-28-31. Top of the week 4-12-13-19-28-31."
+  },
+  {
+   "id": "sport-x-officer",
+   "name": "Sport 'X' Officer",
+   "family": "Fortune Late News",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sport-x-officer-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sport-x-officer-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sport-x-officer-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sport-x-officer-2026-page-4.jpg"
+   ],
+   "keys": {
+    "tips": [
+     4,
+     6,
+     18,
+     23,
+     10,
+     15,
+     12,
+     26,
+     2,
+     5,
+     7,
+     8,
+     31,
+     33,
+     45,
+     47,
+     7,
+     19,
+     30,
+     36,
+     41,
+     2,
+     4,
+     5,
+     6,
+     8,
+     9,
+     12
+    ],
+    "pairs": [
+     [
+      4,
+      6
+     ],
+     [
+      18,
+      23
+     ],
+     [
+      12,
+      26
+     ],
+     [
+      45,
+      47
+     ],
+     [
+      2,
+      3
+     ]
+    ]
+   },
+   "note": "Photo Banker 4x6 (Fortune Soccer). 18 PAIR 23. Racing Pair 12/26. Cambridge U=16 AND Falkirk=31. Jackpot Six: 7 Preston, 19 Oxford Utd, 26 Gillingham, 30 Dundee Utd, 36 Partick, 41 Hamilton. Hot X Pair 45x47. Meet me at St Mirren 33. Late news wk16: 10 pair 15, 23 pair 46."
+  },
+  {
+   "id": "sporting-informant",
+   "name": "Sporting Informant",
+   "family": "Fortune Late News",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sporting-informant-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sporting-informant-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sporting-informant-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sporting-informant-2026-page-4.jpg"
+   ],
+   "keys": {},
+   "note": "Late-news sheet - keys in the scans."
+  },
+  {
+   "id": "sporting-telegraph",
+   "name": "Sporting Telegraph",
+   "family": "Telegraph Papers",
+   "npages": 8,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sporting-telegraph-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sporting-telegraph-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sporting-telegraph-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sporting-telegraph-2026-page-4.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sporting-telegraph-2026-page-5.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sporting-telegraph-2026-page-6.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sporting-telegraph-2026-page-7.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-sporting-telegraph-2026-page-8.jpg"
+   ],
+   "keys": {},
+   "note": "8-page telegraph - keys in the scans."
+  },
+  {
+   "id": "zetters-pools-guide",
+   "name": "Zetters Pools Guide",
+   "family": "Telegraph Papers",
+   "npages": 4,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-zetters-pools-guide-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-zetters-pools-guide-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-zetters-pools-guide-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-zetters-pools-guide-2026-page-4.jpg"
+   ],
+   "keys": {},
+   "note": "Guide sheet - keys in the scans."
+  },
+  {
+   "id": "willy-tips",
+   "name": "Willy Tips Journal",
+   "family": "Telegraph Papers",
+   "npages": 8,
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-willy-tips-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-willy-tips-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-willy-tips-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-willy-tips-2026-page-4.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-willy-tips-2026-page-5.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-willy-tips-2026-page-6.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-willy-tips-2026-page-7.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-17-willy-tips-2026-page-8.jpg"
+   ],
+   "keys": {},
+   "note": "8-page journal - keys in the scans."
+  }
+ ]
+}
