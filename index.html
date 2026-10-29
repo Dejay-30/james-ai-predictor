@@ -606,7 +606,7 @@ body{background:#0B0E13}
 <script>
 /* v19.8.1 self-heal: an open tab can never go stale again - if the deployed
    version changes, this tab reloads itself within 5 minutes */
-var JAP_BUILD = '19.27.0';
+var JAP_BUILD = '19.27.1';
 window.japAutoRefreshStopped = true;
 function japVerNewer(a, b) {
   var x = String(a).split('.'), y = String(b).split('.'), d;
@@ -630,7 +630,7 @@ function japAutoUpdate() {
     })['catch'](function () {});
   } catch (e) {}
 }
-var jpf = $('appVerFoot');
+var jpf = document.getElementById('appVerFoot');
 if (jpf) jpf.textContent = 'v' + JAP_BUILD;
 setTimeout(japAutoUpdate, 2500);
 setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: background auto-refresh is off by the user's request */
