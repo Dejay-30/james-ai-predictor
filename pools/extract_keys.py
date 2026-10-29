@@ -100,7 +100,7 @@ def parse(text, fx):
             a, b = int(a), int(b)
             if a == b or min(a, b) < 2:
                 continue
-            p = '%dx%d' % (a, b)
+            p = [a, b]
             if p not in keys['pairs']:
                 keys['pairs'].append(p)
     caps = {'banker': 8, 'nap': 5, 'draw': 12, 'tips': 5, 'pairs': 6}

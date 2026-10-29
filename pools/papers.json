@@ -3,7 +3,7 @@
  "date": "2026-10-31",
  "season": "2026/2027",
  "updatedAt": "2026-10-29T07:07:00+00:00",
- "credit": "Paper scans published by FortuneSoccer.com and UKFootballPools.com - view the originals at their sites. Keys read from the published week 17 sheets. JAP adds the combined verdict and the FootyStats xG model check on top.",
+ "credit": "Paper scans published by FortuneSoccer.com and UKFootballPools.com - view the originals at their sites. Keys are read from each week's published sheets (OCR pass over the scans). JAP adds the combined verdict and the FootyStats xG model check on top.",
  "papers": [
   {
    "id": "bob-morton",
@@ -42,12 +42,30 @@
      "17"
     ],
     "pairs": [
-     "31x10",
-     "24x12",
-     "21x10",
-     "4x45",
-     "34x10",
-     "11x25"
+     [
+      31,
+      10
+     ],
+     [
+      24,
+      12
+     ],
+     [
+      21,
+      10
+     ],
+     [
+      4,
+      45
+     ],
+     [
+      34,
+      10
+     ],
+     [
+      11,
+      25
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -79,12 +97,30 @@
      "15"
     ],
     "pairs": [
-     "31x10",
-     "12x4",
-     "7x22",
-     "9x42",
-     "2x44",
-     "2x22"
+     [
+      31,
+      10
+     ],
+     [
+      12,
+      4
+     ],
+     [
+      7,
+      22
+     ],
+     [
+      9,
+      42
+     ],
+     [
+      2,
+      44
+     ],
+     [
+      2,
+      22
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -115,12 +151,30 @@
      "2"
     ],
     "pairs": [
-     "42x3",
-     "6x7",
-     "44x3",
-     "49x2",
-     "25x2",
-     "2x30"
+     [
+      42,
+      3
+     ],
+     [
+      6,
+      7
+     ],
+     [
+      44,
+      3
+     ],
+     [
+      49,
+      2
+     ],
+     [
+      25,
+      2
+     ],
+     [
+      2,
+      30
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -160,10 +214,22 @@
      "2"
     ],
     "pairs": [
-     "36x46",
-     "48x3",
-     "23x6",
-     "49x34"
+     [
+      36,
+      46
+     ],
+     [
+      48,
+      3
+     ],
+     [
+      23,
+      6
+     ],
+     [
+      49,
+      34
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -204,11 +270,26 @@
      "15"
     ],
     "pairs": [
-     "2x5",
-     "8x11",
-     "40x15",
-     "3x17",
-     "28x9"
+     [
+      2,
+      5
+     ],
+     [
+      8,
+      11
+     ],
+     [
+      40,
+      15
+     ],
+     [
+      3,
+      17
+     ],
+     [
+      28,
+      9
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -261,10 +342,22 @@
      "9"
     ],
     "pairs": [
-     "26x27",
-     "4x8",
-     "2x4",
-     "4x6"
+     [
+      26,
+      27
+     ],
+     [
+      4,
+      8
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      4,
+      6
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -289,8 +382,14 @@
      "35"
     ],
     "pairs": [
-     "36x37",
-     "21x4"
+     [
+      36,
+      37
+     ],
+     [
+      21,
+      4
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -309,10 +408,22 @@
      "26"
     ],
     "pairs": [
-     "2x42",
-     "27x25",
-     "48x40",
-     "41x4"
+     [
+      2,
+      42
+     ],
+     [
+      27,
+      25
+     ],
+     [
+      48,
+      40
+     ],
+     [
+      41,
+      4
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -340,10 +451,22 @@
      "36"
     ],
     "pairs": [
-     "30x28",
-     "9x19",
-     "22x2",
-     "4x2"
+     [
+      30,
+      28
+     ],
+     [
+      9,
+      19
+     ],
+     [
+      22,
+      2
+     ],
+     [
+      4,
+      2
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -369,10 +492,22 @@
      "8"
     ],
     "pairs": [
-     "11x2",
-     "2x7",
-     "18x42",
-     "4x2"
+     [
+      11,
+      2
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      18,
+      42
+     ],
+     [
+      4,
+      2
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -404,12 +539,30 @@
      "13"
     ],
     "pairs": [
-     "24x44",
-     "9x7",
-     "20x2",
-     "3x13",
-     "35x2",
-     "13x2"
+     [
+      24,
+      44
+     ],
+     [
+      9,
+      7
+     ],
+     [
+      20,
+      2
+     ],
+     [
+      3,
+      13
+     ],
+     [
+      35,
+      2
+     ],
+     [
+      13,
+      2
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -441,9 +594,18 @@
      "31"
     ],
     "pairs": [
-     "2x25",
-     "12x25",
-     "4x46"
+     [
+      2,
+      25
+     ],
+     [
+      12,
+      25
+     ],
+     [
+      4,
+      46
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -469,11 +631,26 @@
      "29"
     ],
     "pairs": [
-     "2x26",
-     "33x44",
-     "2x5",
-     "31x12",
-     "26x3"
+     [
+      2,
+      26
+     ],
+     [
+      33,
+      44
+     ],
+     [
+      2,
+      5
+     ],
+     [
+      31,
+      12
+     ],
+     [
+      26,
+      3
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -543,9 +720,18 @@
      "40"
     ],
     "pairs": [
-     "4x8",
-     "40x4",
-     "41x4"
+     [
+      4,
+      8
+     ],
+     [
+      40,
+      4
+     ],
+     [
+      41,
+      4
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -590,7 +776,10 @@
      "3"
     ],
     "pairs": [
-     "19x43"
+     [
+      19,
+      43
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -611,12 +800,30 @@
      "40"
     ],
     "pairs": [
-     "12x18",
-     "9x3",
-     "11x26",
-     "47x43",
-     "11x3",
-     "7x9"
+     [
+      12,
+      18
+     ],
+     [
+      9,
+      3
+     ],
+     [
+      11,
+      26
+     ],
+     [
+      47,
+      43
+     ],
+     [
+      11,
+      3
+     ],
+     [
+      7,
+      9
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -683,12 +890,30 @@
      "17"
     ],
     "pairs": [
-     "7x20",
-     "22x27",
-     "13x28",
-     "4x22",
-     "38x4",
-     "22x2"
+     [
+      7,
+      20
+     ],
+     [
+      22,
+      27
+     ],
+     [
+      13,
+      28
+     ],
+     [
+      4,
+      22
+     ],
+     [
+      38,
+      4
+     ],
+     [
+      22,
+      2
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -719,9 +944,18 @@
      "23"
     ],
     "pairs": [
-     "2x4",
-     "4x47",
-     "4x2"
+     [
+      2,
+      4
+     ],
+     [
+      4,
+      47
+     ],
+     [
+      4,
+      2
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -752,8 +986,14 @@
      "30"
     ],
     "pairs": [
-     "24x28",
-     "4x31"
+     [
+      24,
+      28
+     ],
+     [
+      4,
+      31
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -779,12 +1019,30 @@
      "33"
     ],
     "pairs": [
-     "2x3",
-     "2x7",
-     "4x2",
-     "11x2",
-     "2x30",
-     "2x35"
+     [
+      2,
+      3
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      11,
+      2
+     ],
+     [
+      2,
+      30
+     ],
+     [
+      2,
+      35
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -819,8 +1077,14 @@
      "7"
     ],
     "pairs": [
-     "10x2",
-     "4x40"
+     [
+      10,
+      2
+     ],
+     [
+      4,
+      40
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."
@@ -854,9 +1118,18 @@
      "39"
     ],
     "pairs": [
-     "2x4",
-     "7x4",
-     "2x3"
+     [
+      2,
+      4
+     ],
+     [
+      7,
+      4
+     ],
+     [
+      2,
+      3
+     ]
     ]
    },
    "note": "Keys read from the week 18 scans."

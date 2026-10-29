@@ -6650,7 +6650,10 @@ function japPaperKeysByNo(papers) {
     (k.tips || []).forEach(function (n) { mark(n, 'key'); });
     (k.choice || []).forEach(function (n) { mark(n, 'precaution'); });
     (k.note_nums || []).forEach(function (n) { mark(n, 'key'); });
-    (k.pairs || []).forEach(function (pr) { (pr || []).forEach(function (n) { mark(n, 'pair'); }); });
+    (k.pairs || []).forEach(function (pr) {
+      var pp = Array.isArray(pr) ? pr : String(pr).split(/[xX]/);
+      pp.forEach(function (n) { mark(parseInt(n, 10), 'pair'); });
+    });
     Object.keys(seen).forEach(function (no) {
       if (!byNo[no]) byNo[no] = [];
       byNo[no].push({ name: p.name, id: p.id, kind: seen[no], note: p.note || '' });
@@ -6873,7 +6876,8 @@ function renderPapersTab() {
         chip(k.choice, 'OR', '#ffcc00');
         chip(k.tips, 'key', '#88a4d8');
         (k.pairs || []).forEach(function (pr) {
-          chips += '<span class="badge" data-poolno="' + esc(String(pr[0])) + '" style="cursor:pointer;margin:1px 2px;background:#c084fc22;color:#c084fc">pair ' + esc(pr.map(String).join('\u00d7')) + '</span>';
+          var pp = Array.isArray(pr) ? pr.map(String) : String(pr).split(/[xX]/);
+          chips += '<span class="badge" data-poolno="' + esc(pp[0]) + '" style="cursor:pointer;margin:1px 2px;background:#c084fc22;color:#c084fc">pair ' + esc(pp.join('\u00d7')) + '</span>';
         });
         h += '<div style="border-top:1px solid #14294e;padding:8px 0">' +
           '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px">' +
