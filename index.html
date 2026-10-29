@@ -606,8 +606,30 @@ body{background:#0B0E13}
 <script>
 /* v19.8.1 self-heal: an open tab can never go stale again - if the deployed
    version changes, this tab reloads itself within 5 minutes */
-var JAP_BUILD = '19.25.0';
-window.japAutoRefreshStopped = true;   /* v19.25: background auto-refresh is off by the user's request */
+var JAP_BUILD = '19.26.0';
+window.japAutoRefreshStopped = true;
+function japVersionBanner() {
+  /* one check per app open - never periodic. If the deployed app is newer,
+     offer a tap-to-update instead of reloading behind the user's back. */
+  try {
+    fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.text(); }).then(function (t) {
+      var m = t.match(/James AI Predictor v(\d+\.\d+(?:\.\d+)?)/);
+      if (!m || m[1] === JAP_BUILD) return;
+      var b = document.createElement('div');
+      b.style.cssText = 'position:fixed;left:10px;right:10px;bottom:12px;z-index:9999;background:#123;border:2px solid #4FC3F7;border-radius:12px;padding:12px 14px';
+      b.innerHTML = '<b style="color:#4FC3F7">Update available (v' + m[1] + ')</b>' +
+        '<div class="tiny muted" style="margin:4px 0 8px">You are on v' + JAP_BUILD + '. Tap to update to the latest fixes.</div>';
+      var btn = document.createElement('button');
+      btn.className = 'btn';
+      btn.textContent = 'Update now';
+      btn.onclick = function () { location.reload(); };
+      b.appendChild(btn);
+      document.body.appendChild(b);
+    })['catch'](function () {});
+  } catch (e) {}
+}
+setTimeout(japVersionBanner, 4000);
+setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: background auto-refresh is off by the user's request */
 /* v19.25: self-heal reload REMOVED - the user asked to stop the app refreshing itself. Updates apply when the user reloads. */
 </script>
 
@@ -648,7 +670,7 @@ window.japAutoRefreshStopped = true;   /* v19.25: background auto-refresh is off
   <button class="drawer-item" data-goto="pools"><span class="ic">&#127920;</span><span>Pools coupon<small class="sub">Banker keys + GG keys, auto-graded</small></span></button>
   <button class="drawer-item" data-goto="papers"><span class="ic">&#128240;</span><span>Forecast papers<small class="sub">All this week's papers - keys + full scans</small></span></button>
   <button class="drawer-item" data-goto="poolbank"><span class="ic">&#127974;</span><span>Bankers &amp; precautions<small class="sub">Best 5 consensus + every banker explained</small></span></button>
-  <button class="drawer-item" data-goto="best20"><span class="ic">&#128200;</span><span>Best 20s<small class="sub">BTTS &middot; 1H under 1.5 &middot; home wins &middot; away wins</small></span></button>
+  <button class="drawer-item" data-goto="must5"><span class="ic">&#127942;</span><span>Must 5s<small class="sub">home/away &middot; BTTS &middot; 1H U/O 1.5 &middot; FT over 2.5 &middot; odds 1.36-1.64</small></span></button>
   <button class="drawer-item" data-goto="pattern"><span class="ic">&#128200;</span><span>Pattern Lab<small class="sub">weeks 1-17 formulas &middot; this week's draws &middot; auto-updating</small></span></button>
   <button class="drawer-item" data-goto="strat"><span class="ic">&#127919;</span><span>Strategies<small class="sub">Strong home · BTTS · 1st-half goals</small></span></button>
   <button class="drawer-item" data-goto="xg"><span class="ic">&#128202;</span><span>xG tables<small class="sub">Expected goals, every league</small></span></button>
@@ -784,8 +806,11 @@ window.japAutoRefreshStopped = true;   /* v19.25: background auto-refresh is off
     <div class="card"><h2>&#127974; Bankers &amp; precautions</h2><p class="muted small"><b>Every banker forecast with its explanation</b>, on one tab. The prediction comes first; the reason sits directly under it - the papers' own proofs and notes, the market's margin-removed draw %, price v fair, and the <b>FootyStats xG model</b> check (expert pick &#215; market &#215; price &#215; FootyStats xG). Precaution keys (backup numbers) below, then each paper's banker line. No prediction without an explanation.</p></div>
     <div id="poolBankBox"></div>
   </section>
-  <section id="panel-best20" class="panel">
-    <div class="card"><h2>&#128200; Best 20s</h2><p class="muted small">Four ranked lists of twenty, every day, on real data only: <b>best BTTS</b>, <b>best first-half under 1.5</b>, <b>best home wins</b> and <b>best away wins</b>. Ranked by the model probabilities (real shot-based xG when loaded, otherwise the market&#8217;s own lambdas run through the Poisson engine) and each row shows the price v fair value. Every pick is logged and <b>auto-settles</b> with the final scores. Tap a match for the full analysis.</p></div>
+  <section id="panel-must5" class="panel">
+    <div class="card"><h2>&#127942; Must 5s</h2><p class="muted small">Four <b>must-do lists of five</b> every day, only after a proper check: <b>home/away wins</b>, <b>BTTS</b>, <b>first-half under/over 1.5</b> and <b>full-time over 2.5</b>. A pick only enters a list when its <b>odds sit in the 1.36-1.64 window</b> and the model gives it a real edge - each row carries its <b>confidence level</b> and the analysis behind it. Win prices are the real book prices; the goals markets show the model&#8217;s assessed odds where the feeds don&#8217;t carry those lines. Every pick is logged and <b>auto-settles</b> with the final scores. Tap a match for the full analysis.</p></div>
+    <div id="must5Box"><div class="card"><p class="muted">Loading the Must 5 engine...</p></div></div>
+  </section>
+  <section id="panel-best20-hidden" class="panel" style="display:none">
     <div id="best20Box"></div>
   </section>
   <section id="panel-pattern" class="panel">
@@ -4093,7 +4118,7 @@ function perfGradedCounts() {
   return { w: w, l: l, p: p };
 }
 function perfSettle(auto) {
-  var keys = ['jap_aipickslog', 'jap_xglog', 'jap_ppglog', 'jap_scanlog', 'jap_tolog', 'jap_predlog', 'jap_bankerlog', 'jap_monlog', 'jap_fairlog', 'jap_poollog', 'jap_best20log', 'jap_patternpicks'];
+  var keys = ['jap_aipickslog', 'jap_xglog', 'jap_ppglog', 'jap_scanlog', 'jap_tolog', 'jap_predlog', 'jap_bankerlog', 'jap_monlog', 'jap_fairlog', 'jap_poollog', 'jap_best20log', 'jap_patternpicks', 'jap_must5log']; window.jap_autoGradeLists = keys;
   var groups = {}, pend = 0;
   function addEntry(e) {
     if (e.graded === 'W' || e.graded === 'L' || e.graded === 'X' || e.graded === true) return;
@@ -4219,7 +4244,7 @@ document.getElementById('perfBody').addEventListener('click', function (ev) {
 function perfAutoGrade() {
   var before = perfGradedCounts(), changed = false;
   ['jap_aipickslog', 'jap_xglog', 'jap_ppglog', 'jap_scanlog', 'jap_tolog', 'jap_predlog',
-   'jap_bankerlog', 'jap_monlog', 'jap_fairlog', 'jap_poollog', 'jap_best20log', 'jap_patternpicks'].forEach(function (k) { if (gradeLogOf(k)) changed = true; });
+   'jap_bankerlog', 'jap_monlog', 'jap_fairlog', 'jap_poollog', 'jap_best20log', 'jap_patternpicks', 'jap_must5log'].forEach(function (k) { if (gradeLogOf(k)) changed = true; });
   if (gradeCouncilLog()) changed = true;
   if (!changed) return;
   var after = perfGradedCounts();
@@ -4244,7 +4269,7 @@ function renderPerfTab() {
   xgPerfLogAll();
   ppgPickScan();
   ['jap_aipickslog', 'jap_xglog', 'jap_ppglog', 'jap_scanlog', 'jap_tolog', 'jap_predlog',
-   'jap_bankerlog', 'jap_monlog', 'jap_fairlog', 'jap_poollog', 'jap_best20log', 'jap_patternpicks'].forEach(function (k) { gradeLogOf(k); });
+   'jap_bankerlog', 'jap_monlog', 'jap_fairlog', 'jap_poollog', 'jap_best20log', 'jap_patternpicks', 'jap_must5log'].forEach(function (k) { gradeLogOf(k); });
   gradeCouncilLog();
   var clog = lsGet('jap_councillog', []).map(function (e) {
     return { fid: e.fid, home: e.home, away: e.away, market: 'council', at: e.at, res: e.res,
@@ -4267,7 +4292,7 @@ function renderPerfTab() {
 }
 function perfCalHtml(ds) {
   var logs = ['jap_aipickslog', 'jap_xglog', 'jap_ppglog', 'jap_scanlog', 'jap_tolog',
-    'jap_predlog', 'jap_bankerlog', 'jap_monlog', 'jap_fairlog', 'jap_poollog', 'jap_best20log', 'jap_patternpicks'];
+    'jap_predlog', 'jap_bankerlog', 'jap_monlog', 'jap_fairlog', 'jap_poollog', 'jap_best20log', 'jap_patternpicks', 'jap_must5log'];
   var days = {};
   function bump(ds2, graded) {
     if (!days[ds2]) days[ds2] = { w: 0, l: 0, n: 0 };
@@ -5725,7 +5750,7 @@ function attachVenuePpg() {
     else if (ap && ap.id === 'panel-pools') renderPoolsTab();
     else if (ap && ap.id === 'panel-papers') renderPapersTab();
     else if (ap && ap.id === 'panel-poolbank') renderPoolBankTab();
-    else if (ap && ap.id === 'panel-best20') renderBest20Tab();
+    else if (ap && ap.id === 'panel-must5') renderMust5Tab();
   });
 }
 /* ---------- v19.17: Fair prices, auto-graded on every fixture ----------
@@ -5956,7 +5981,7 @@ function japCouponStale(cpn) {
 function japCouponLoad(force) {
   var c = lsGet('jap_poolcoupon', null);
   if (!force && c && c._at && Date.now() - c._at < 10 * 60 * 1000 && !japCouponStale(c)) return Promise.resolve(c);
-  return fetch(JAP_POOL_COUPON_URL + '?t=' + Date.now()).then(function (r) { return r.json(); })
+  return japFetchJSON(JAP_POOL_COUPON_URL + '?t=' + Date.now())
     .then(function (d) {
       d._at = Date.now();
       if (japCouponStale(d)) {
@@ -6027,7 +6052,7 @@ function japPoolCalShow(n) {
       '<p class="tiny muted" style="margin-top:6px">Draw rows highlighted. Source: FortuneSoccer results + PoolsAgents.</p>';
   };
   if (cache[n] && Date.now() - (cache['_t' + n] || 0) < 6 * 3600 * 1000) { draw(cache[n]); return; }
-  fetch(japPoolCalWeekUrl(n) + '?t=' + Date.now()).then(function (r) { return r.json(); }).then(function (j) {
+  japFetchJSON(japPoolCalWeekUrl(n) + '?t=' + Date.now()).then(function (j) {
     cache[n] = j; cache['_t' + n] = Date.now();
     try { localStorage.setItem('jap_poolcal', JSON.stringify(cache)); } catch (e) {}
     draw(j);
@@ -6109,7 +6134,7 @@ function japPatternGrade() {
       if (nres >= 40) { settle(null, rm); used = true; }
     }
     if (used) return;
-    fetch(japPoolCalWeekUrl(wk) + '?t=' + Date.now()).then(function (r) { return r.json(); }).then(function (j) {
+    japFetchJSON(japPoolCalWeekUrl(wk) + '?t=' + Date.now()).then(function (j) {
       var dm = [], rm = {};
       ((j && j.matches) || []).forEach(function (m) {
         if (m.gh != null) rm[m.no] = m.gh + '-' + m.ga;
@@ -6137,6 +6162,17 @@ function japPatLog(key, rec) {
   a.push(rec);
   if (a.length > 400) a = a.slice(-400);
   try { localStorage.setItem(key, JSON.stringify(a)); } catch (e) {}
+}
+function japFetchJSON(url) {
+  /* v19.26: load pools data from the app's own origin first (the Pages site
+     publishes the pools/ folder with the app), then fall back to raw.githubusercontent.
+     Mobile networks block raw GH far more often than the site itself. */
+  var rel = 'pools/' + url.split('/pools/')[1];
+  return fetch(rel, { cache: 'no-store' }).then(function (r) {
+    if (!r.ok) throw 0; return r.json();
+  })['catch'](function () {
+    return fetch(url, { cache: 'no-store' }).then(function (r) { return r.json(); });
+  });
 }
 var PATTERNS_URL = 'https://raw.githubusercontent.com/Dejay-30/james-ai-predictor/main/pools/patterns.json';
 var FORECAST_URL = 'https://raw.githubusercontent.com/Dejay-30/james-ai-predictor/main/pools/forecast.json';
@@ -6222,8 +6258,8 @@ function japPatternData(cb) {
     if (gotPat || gotFc) { try { localStorage.setItem('jap_patternjson', JSON.stringify(o)); } catch (e) {} }
     cb(gotPat, gotFc);
   };
-  fetch(PATTERNS_URL).then(function (r) { return r.json(); }).then(function (j) { gotPat = j; fin(); }, fin);
-  fetch(FORECAST_URL).then(function (r) { return r.json(); }).then(function (j) { gotFc = j; fin(); }, fin);
+  japFetchJSON(PATTERNS_URL).then(function (j) { gotPat = j; fin(); }, fin);
+  japFetchJSON(FORECAST_URL).then(function (j) { gotFc = j; fin(); }, fin);
 }
 function japPatternRefresh(force) {
   var last = lsGet('jap_patternpoll', 0);
@@ -6586,7 +6622,7 @@ function japPapersLoad(force) {
     return null;
   })()).then(function (cached) {
     if (cached && !force) { state.papers = cached; return cached; }
-    return fetch(PAPERS_URL + '?_=' + Date.now()).then(function (r) { return r.ok ? r.json() : null; })
+    return japFetchJSON(PAPERS_URL + '?_=' + Date.now())
       .then(function (j) {
         if (j && j.papers) {
           state.papers = j;
@@ -6646,75 +6682,138 @@ function japScanOpen(pid) {
   draw();
   document.body.appendChild(ov);
 }
-function renderBest20Tab() {
-  var el = $('best20Box'); if (!el) return;
-  var defs = [
-    { k: 'btts_yes', market: 'btts_yes', title: '\ud83d\udd25 20 BEST BTTS', sub: 'both teams to score - ranked by model probability' },
-    { k: 'fh_under_15', market: 'fh_under_15', title: '\u23f1 20 BEST FIRST-HALF UNDER 1.5', sub: '0 or 1 goal by half-time - ranked by model probability' },
-    { k: 'home_win', market: 'home_win', title: '\ud83c\udfe0 20 BEST HOME WINS', sub: 'home wins - ranked by model probability' },
-    { k: 'away_win', market: 'away_win', title: '\ud83c\udfe1 20 BEST AWAY WINS', sub: 'away wins - ranked by model probability' }
-  ];
+function pO25(lam) {
+  /* P(full-time goals > 2.5) from independent Poissons */
+  var lh = lam.lh, la = lam.la, fact = [1, 1, 2, 6];
+  var p = function (k, l) { return Math.exp(-l) * Math.pow(l, k) / fact[k]; };
+  var under = 0;
+  for (var a = 0; a <= 3; a++) for (var b = 0; b <= 3; b++) if (a + b <= 2) under += p(a, lh) * p(b, la);
+  return 1 - under;
+}
+function renderMust5Tab() {
+  var el = $('must5Box'); if (!el) return;
+  var M = 0, L = 0, U = 1.64;
+  M = 1.36;
   var rows = [];
   allGames().forEach(function (g) {
     if (g.sport !== 'football' || g.isFin || g.isLive) return;
     var odds = state.odds[String(g.id)];
-    if (!odds || !odds.o1 || !odds.ox || !odds.o2) return;
-    var lam = (g._realXg && g._realXg.lh != null) ? { lh: g._realXg.lh, la: g._realXg.la } : lambdasFromOddsJ(odds);
+    var lam = (g._realXg && g._realXg.lh != null) ? { lh: g._realXg.lh, la: g._realXg.la } : (odds && odds.o1 ? lambdasFromOddsJ(odds) : null);
     if (!lam) return;
     var r = { lh: lam.lh, la: lam.la, n: 0, conf: 0.9, avg: lam.lh + lam.la, bttsRate: null, homeRate: lam.lh, awayRate: lam.la };
-    var prices = markets(r, g, SPORTS.football);
-    rows.push({ g: g, odds: odds, prices: prices,
-      fair: { home_win: prices.home_win ? 1 / prices.home_win : null, btts_yes: prices.btts_yes ? 1 / prices.btts_yes : null,
-              fh_under_15: prices.fh_under_15 ? 1 / prices.fh_under_15 : null, away_win: prices.away_win ? 1 / prices.away_win : null } });
+    var pr = markets(r, g, SPORTS.football) || {};
+    rows.push({ g: g, odds: odds || {}, lam: lam, pr: pr });
   });
   if (!rows.length) {
-    el.innerHTML = '<div class="empty">No priced matches yet \u2014 the lists build themselves as fixtures and odds load (Fixtures tab).</div>';
+    el.innerHTML = '<div class="empty">No priced matches yet \u2014 the Must 5 lists build themselves as fixtures and odds load (Fixtures tab).</div>';
     return;
   }
-  var priceOf = function (x, key) {
-    if (key === 'home_win') return x.odds.o1;
-    if (key === 'away_win') return x.odds.o2;
-    return null;
-  };
-  var log = lsGet('jap_best20log', []), now = Date.now(), changed = false;
-  function gradeWl(key) {
-    var w = 0, l = 0;
-    log.forEach(function (e) { if (e.market === key && e.graded === 'W') w++; else if (e.market === key && e.graded === 'L') l++; });
-    return w + 'W \u00b7 ' + l + 'L';
+  var log = lsGet('jap_must5log', []), now = Date.now();
+  function confOf(p) {
+    return p >= 0.72 ? 'HIGH' : (p >= 0.64 ? 'MEDIUM' : 'WATCH');
   }
-  var h = '<div class="cons-hd"><h2 style="margin:0">\ud83c\udfc6 DAILY BEST 20s</h2><span class="muted small">' +
-    rows.length + ' priced football matches scanned \u00b7 auto-settled</span></div>' +
-    '<p class="tiny muted" style="margin:4px 0 10px">Basis: ' +
-    (allGames().some(function (g) { return g._realXg && g._realXg.lh != null; }) ? 'FootyStats shot-based real xG where loaded' : 'market lambdas through the Poisson engine') +
-    '. Every row is logged and graded when the match finishes.</p>';
+  function analyse(row, call, p, price, fair) {
+    var bits = [];
+    bits.push('model ' + Math.round(p * 100) + '% on the Poisson engine (' +
+      (row.g._realXg && row.g._realXg.lh != null ? 'FootyStats shot-based real xG ' + row.g._realXg.lh.toFixed(2) + ' v ' + row.g._realXg.la.toFixed(2) : 'market lambdas ' + row.lam.lh.toFixed(2) + ' v ' + row.lam.la.toFixed(2)) + ')');
+    if (price != null && fair != null) bits.push('price ' + price.toFixed(2) + ' v fair ' + fair.toFixed(2) + ' (' + (price > fair ? '+' : '') + Math.round((price - fair) / fair * 100) + '% edge)');
+    bits.push(call);
+    return bits.join(' \u00b7 ');
+  }
+  var defs = [
+    { title: '\ud83c\udfe0 MUST 5 HOME/AWAY WINS', sub: 'the five strongest win calls (either side) that clear the odds window and the value check', kind: 'win' },
+    { title: '\u26a1 MUST 5 BTTS', sub: 'both teams to score \u2014 five strongest calls', kind: 'btts' },
+    { title: '\u23f1 MUST 5 FIRST-HALF UNDER/OVER 1.5', sub: 'the five strongest first-half goals calls (under or over)', kind: 'fh' },
+    { title: '\u26bd MUST 5 FULL-TIME OVER 2.5', sub: 'five strongest over-2.5 calls at full time', kind: 'o25' }
+  ];
+  var h = '<div class="cons-hd"><h2 style="margin:0">\ud83c\udfc6 DAILY MUST 5s</h2><span class="muted small">' +
+    rows.length + ' matches scanned \u00b7 odds window ' + M + '-' + U + ' \u00b7 auto-settled</span></div>' +
+    '<p class="tiny muted" style="margin:4px 0 10px">Only picks that pass BOTH checks enter: price inside <b>1.36-1.64</b> and a positive model edge. Confidence: HIGH \u226572% \u00b7 MEDIUM 64-71% \u00b7 WATCH below. If fewer than five clear the checks on a given day, the list honestly shows fewer.</p>';
   defs.forEach(function (d) {
-    var sorted = rows.slice().sort(function (a, b) { return (b.prices[d.k] || 0) - (a.prices[d.k] || 0); }).slice(0, 20);
-    h += '<div class="card"><h2 style="margin:0 0 2px;font-size:15px">' + d.title + '</h2>' +
-      '<p class="tiny muted" style="margin:0 0 8px">' + d.sub + ' \u00b7 record ' + gradeWl(d.market) + '</p>' +
-      '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>#</th><th class="lft">Match</th><th>Model</th><th>Price</th><th>Fair</th><th>Value</th></tr></thead><tbody>';
-    sorted.forEach(function (x, i) {
-      var pr = x.prices[d.k] || 0, price = priceOf(x, d.k), fair = x.fair[d.k];
-      var val = (price != null && fair != null) ? (price - fair) : null;
-      var seen = log.some(function (e) { return e.fid === String(x.g.id) && e.market === d.market && now - e.at < 1728e5; });
-      if (!seen) {
-        log.push({ id: 'b20-' + d.market + '-' + x.g.id, fid: String(x.g.id), home: x.g.home, away: x.g.away,
-          market: d.market, at: now, sport: 'football', src: 'Best 20s', graded: null, res: null });
-        changed = true;
+    var cands = [];
+    rows.forEach(function (row) {
+      var g = row.g, o = row.odds, pr = row.pr;
+      function push(call, market, p, price, real) {
+        if (p == null || !(p > 0)) return;
+        var fair = 1 / p;
+        if (price == null || !isFinite(price)) price = fair;          /* model odds fallback */
+        if (price < M - 0.001 || price > U + 0.001) return;           /* the user's odds window */
+        if (price > fair * 1.02) return;                              /* no negative-value picks */
+        cands.push({ g: g, call: call, market: market, p: p, price: price, fair: fair,
+          conf: confOf(p), real: real, note: analyse(row, call, p, price, fair) });
       }
-      h += '<tr data-xgid="' + esc(String(x.g.id)) + '" style="cursor:pointer">' +
-        '<td><b>' + (i + 1) + '</b></td>' +
-        '<td class="lft tiny">' + esc(x.g.home) + ' v ' + esc(x.g.away) + '</td>' +
-        '<td><b style="color:#4FC3F7">' + Math.round(pr * 100) + '%</b></td>' +
-        '<td>' + (price != null ? price.toFixed(2) : '-') + '</td>' +
-        '<td>' + (fair != null ? fair.toFixed(2) : '-') + '</td>' +
-        '<td>' + (val == null ? '-' : (val >= 0 ? '<b style="color:#4ade80">+' + val.toFixed(2) + '</b>' :
-          '<span style="color:#ff8866">' + val.toFixed(2) + '</span>')) + '</td></tr>';
+      if (d.kind === 'win') {
+        var hp = pr.home_win || 0, ap = pr.away_win || 0;
+        if (hp >= ap) push('home win', 'home_win', hp, o.o1, true);
+        else push('away win', 'away_win', ap, o.o2, true);
+      } else if (d.kind === 'btts') {
+        push('BTTS yes', 'btts_yes', pr.btts_yes, o.btts ? o.btts : null, !!o.btts);
+      } else if (d.kind === 'fh') {
+        var fu = pr.fh_under_15 || 0, fo = 1 - fu;
+        if (fu >= fo) push('1H under 1.5', 'fh_under_15', fu, o.fh_u15 ? o.fh_u15 : null, !!o.fh_u15);
+        else push('1H over 1.5', 'fh_over_15', fo, o.fh_o15 ? o.fh_o15 : null, !!o.fh_o15);
+      } else if (d.kind === 'o25') {
+        var po = pO25(row.lam);
+        push('FT over 2.5', 'ft_over_25', po, o.o25 ? o.o25 : null, !!o.o25);
+      }
     });
-    h += '</tbody></table></div></div>';
+    cands.sort(function (a, b) { return (b.p - b.fair) - (a.p - a.fair); });
+    var top = cands.slice(0, 5);
+    h += '<div class="card"><h2 style="margin:0 0 2px;font-size:15px">' + d.title + '</h2>' +
+      '<p class="tiny muted" style="margin:0 0 8px">' + d.sub + '</p>';
+    if (!top.length) {
+      h += '<p class="tiny" style="margin:0">\u2014 nothing cleared the odds window + value check right now. The list fills as prices load; it never pads with un-checked picks.</p></div>';
+      return;
+    }
+    top.forEach(function (c, i) {
+      var seen = log.some(function (e) { return e.fid === String(c.g.id) && e.market === c.market && now - e.at < 1728e5; });
+      if (!seen) {
+        log.push({ id: 'm5-' + c.market + '-' + c.g.id, fid: String(c.g.id), home: c.g.home, away: c.g.away,
+          market: c.market, at: now, sport: 'football', src: 'Must 5s', graded: null, res: null });
+      }
+      h += '<div class="m5row" data-price="' + c.price.toFixed(2) + '" data-xgid="' + c.g.id + '" style="cursor:pointer;border-top:1px solid #14294e;padding:8px 0">' +
+        '<div style="display:flex;justify-content:space-between;gap:8px"><b style="color:#4FC3F7">#' + (i + 1) + ' \u00b7 ' + esc(c.g.home) + ' v ' + esc(c.g.away) + '</b>' +
+        '<b style="color:#d4af37;white-space:nowrap">' + c.price.toFixed(2) + (c.real ? '' : ' model') + '</b></div>' +
+        '<p class="tiny" style="margin:4px 0 0"><b style="color:#4ade80">PREDICTION:</b> ' + esc(c.call) +
+        ' \u00b7 confidence <b style="color:' + (c.conf === 'HIGH' ? '#4ade80' : (c.conf === 'MEDIUM' ? '#d4af37' : '#888')) + '">' + c.conf + ' (' + Math.round(c.p * 100) + '%)</b></p>' +
+        '<p class="tiny muted" style="margin:3px 0 0"><b style="color:#ffcc00">ANALYSIS:</b> ' + esc(c.note) + '.</p></div>';
+    });
+    h += '</div>';
   });
-  if (changed) lsSet('jap_best20log', log);
+  try { localStorage.setItem('jap_must5log', JSON.stringify(log.slice(-400))); } catch (e) {}
+  var rec = { w: 0, l: 0, pend: 0 };
+  log.forEach(function (e) { if (e.graded === 'W') rec.w++; else if (e.graded === 'L') rec.l++; else if (e.graded == null) rec.pend++; });
+  h += '<div class="card"><p class="tiny muted" style="margin:0">Must 5 record: <b style="color:#4ade80">' + rec.w + ' W</b> \u00b7 <b style="color:#f66">' + rec.l + ' L</b> \u00b7 ' + rec.pend + ' pending \u2014 every row auto-grades with the final scores.</p></div>';
   el.innerHTML = h;
+  japMust5Grade();
 }
+function japMust5Grade() {
+  var log = lsGet('jap_must5log', []);
+  if (!log.length) return;
+  var changed = false;
+  log.forEach(function (e) {
+    if (e.graded != null) return;
+    if (Date.now() - e.at > 7 * 864e5) { e.graded = 'X'; changed = true; return; }
+    var g = null, pool = allGames(), i;
+    for (i = 0; i < pool.length; i++) if (String(pool[i].id) === String(e.fid)) { g = pool[i]; break; }
+    if (!g || !g.isFin || g.rawGh == null) return;
+    var gh = g.rawGh, ga = g.rawGa, hth = (g.htHome != null ? g.htHome : null), hta = (g.htAway != null ? g.htAway : null);
+    var ht = (hth != null && hta != null) ? hth + hta : (g.htGoals != null ? g.htGoals : null);
+    var win = null;
+    if (e.market === 'home_win') win = gh > ga;
+    else if (e.market === 'away_win') win = ga > gh;
+    else if (e.market === 'btts_yes') win = gh > 0 && ga > 0;
+    else if (e.market === 'ft_over_25') win = (gh + ga) > 2.5;
+    else if (e.market === 'fh_under_15') { if (ht == null) return; win = ht < 1.5; }
+    else if (e.market === 'fh_over_15') { if (ht == null) return; win = ht > 1.5; }
+    else return;
+    e.res = gh + '-' + ga;
+    e.graded = win ? 'W' : 'L';
+    changed = true;
+  });
+  if (changed) lsSet('jap_must5log', log);
+}
+
 function renderPapersTab() {
   /* v19.23: auto-scan - if the keys pack does not cover the current coupon
      week yet, probe the scan URLs and surface every page that exists */
@@ -6813,7 +6912,17 @@ function japPoolBankProvisional(el, uk, byNo) {
   var cached = lsGet('jap_patternjson', null);
   var mini = japPatternMini();
   var fc = (cached && cached.fc && cached.fc.picks && cached.fc.picks.length) ? cached.fc
-    : ((mini && mini.forecast) || {});
+    : ((state._fcst && state._fcst.picks && state._fcst.picks.length) ? state._fcst
+    : ((mini && mini.forecast) || {}));
+  if (!fc.picks || !fc.picks.length) {
+    /* pull the published engine forecast in and repaint when it lands */
+    japPatternData(function (pat, f2) {
+      if (f2 && f2.picks && f2.picks.length) {
+        state._fcst = f2;
+        if (document.querySelector('.panel.active') && document.querySelector('.panel.active').id === 'panel-poolbank') renderPoolBankTab();
+      }
+    });
+  }
   var h = '<div class="card"><h2>&#127942; Week ' + esc(String(uk.week || '')) + ' bankers &amp; precautions (provisional)</h2>' +
     '<p class="muted small">This week\u2019s paper scans are live on the Forecast papers tab and the key votes are being read from the new sheets. Until they land, this board is the <b>pattern-engine provisional board</b> - every banker carries its reason and <b>auto-grades</b> with the results.</p></div>';
   var picks = (fc.picks || []).slice(0, 5);
@@ -9889,7 +9998,7 @@ function switchTab(n, mode) {
   if (n === 'pools') renderPoolsTab();
   if (n === 'papers') renderPapersTab();
   if (n === 'poolbank') renderPoolBankTab();
-  if (n === 'best20') renderBest20Tab();
+  if (n === 'must5') renderMust5Tab();
   if (n === 'pattern') renderPatternTab();
   if (n === 'strat') renderStrategies();
   if (n === 'xg') renderXgTab();
