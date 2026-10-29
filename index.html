@@ -606,7 +606,7 @@ body{background:#0B0E13}
 <script>
 /* v19.8.1 self-heal: an open tab can never go stale again - if the deployed
    version changes, this tab reloads itself within 5 minutes */
-var JAP_BUILD = '19.28.1';
+var JAP_BUILD = '19.29.0';
 window.japAutoRefreshStopped = true;
 function japVerNewer(a, b) {
   var x = String(a).split('.'), y = String(b).split('.'), d;
@@ -713,7 +713,7 @@ setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: backgr
   <button class="drawer-item" id="menuAbout"><span class="ic">&#8505;</span><span>About &amp; how it works<small class="sub">What the numbers mean</small></span></button>
 
   <div class="drawer-foot">
-    James AI Predictor <span id="appVerFoot">v19.28.1</span> · 29 Oct 2026<br>
+    James AI Predictor <span id="appVerFoot">v19.29.0</span> · 29 Oct 2026<br>
     Model estimates only &mdash; not betting advice. 18+. Please gamble responsibly.
   </div>
 </nav>
@@ -813,7 +813,7 @@ setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: backgr
     <div id="poolBankBox"></div>
   </section>
   <section id="panel-must5" class="panel">
-    <div class="card"><h2>&#127942; Must 5s</h2><p class="muted small">Five <b>must-do lists of five</b> every day, only after a proper check: <b>home wins</b>, <b>away wins</b>, <b>BTTS</b>, <b>first-half under/over 1.5</b> and <b>full-time over 2.5</b>. A pick only enters a list when the model is <b>sure of it</b> - confidence at least 68% with its <b>odds in the 1.36-1.64 window</b> and a sound value check - each row carries its <b>confidence level</b> and the analysis behind it. Win prices are the real book prices; the goals markets show the model&#8217;s assessed odds where the feeds don&#8217;t carry those lines. Every pick is logged and <b>auto-settles</b> with the final scores. Tap a match for the full analysis.</p></div>
+    <div class="card"><h2>&#127942; Must 5s</h2><p class="muted small">Five <b>must-do lists of five</b> every day, only after a proper check: <b>home wins</b>, <b>away wins</b>, <b>BTTS</b>, <b>first-half under/over 1.5</b> and <b>full-time over 2.5</b>. The whole <b>1.36-1.64 odds window</b> is in play - a pick only enters when the model is <b>sure of it at its odds</b>, rating it at least as likely as its price implies - each row carries its <b>confidence level</b> and the analysis behind it. Win prices are the real book prices; the goals markets show the model&#8217;s assessed odds where the feeds don&#8217;t carry those lines. Every pick is logged and <b>auto-settles</b> with the final scores. Tap a match for the full analysis.</p></div>
     <div id="must5Box"><div class="card"><p class="muted">Loading the Must 5 engine...</p></div></div>
   </section>
   <section id="panel-best20-hidden" class="panel" style="display:none">
@@ -6719,13 +6719,13 @@ function renderMust5Tab() {
   }
   var log = lsGet('jap_must5log', []), now = Date.now();
   function confOf(p) {
-    return p >= 0.75 ? 'HIGH' : (p >= 0.68 ? 'MEDIUM' : 'WATCH');
+    return p >= 0.72 ? 'HIGH' : (p >= 0.65 ? 'MEDIUM' : 'FAIR');
   }
   function analyse(row, call, p, price, fair) {
     var bits = [];
     bits.push('model ' + Math.round(p * 100) + '% on the Poisson engine (' +
       (row.g._realXg && row.g._realXg.lh != null ? 'FootyStats shot-based real xG ' + row.g._realXg.lh.toFixed(2) + ' v ' + row.g._realXg.la.toFixed(2) : 'market lambdas ' + row.lam.lh.toFixed(2) + ' v ' + row.lam.la.toFixed(2)) + ')');
-    if (price != null && fair != null) bits.push('price ' + price.toFixed(2) + ' v fair ' + fair.toFixed(2) + ' (' + (price > fair ? '+' : '') + Math.round((price - fair) / fair * 100) + '% edge)');
+    if (price != null && fair != null) bits.push('price ' + price.toFixed(2) + ' implies ' + Math.round(1 / price * 100) + '% - the model rates it ' + Math.round(p * 100) + '% (fair ' + fair.toFixed(2) + ')');
     bits.push(call);
     return bits.join(' \u00b7 ');
   }
@@ -6738,19 +6738,18 @@ function renderMust5Tab() {
   ];
   var h = '<div class="cons-hd"><h2 style="margin:0">\ud83c\udfc6 DAILY MUST 5s</h2><span class="muted small">' +
     rows.length + ' matches scanned \u00b7 odds window ' + M + '-' + U + ' \u00b7 auto-settled</span></div>' +
-    '<p class="tiny muted" style="margin:4px 0 10px">A pick only enters a Must list when the model is <b>sure of it</b>: confidence <b>\u2265 68%</b>, price inside <b>1.36-1.64</b>, and no negative-value price. Most certain picks are listed first. Confidence: HIGH \u226575% \u00b7 MEDIUM 68-74%. <b>If the model is not sure of a pick, it never enters</b> \u2014 when fewer than five clear the bar, the list honestly shows fewer.</p>';
+    '<p class="tiny muted" style="margin:4px 0 10px">The whole odds window <b>1.36-1.64</b> is in play. A pick only enters when the model is <b>sure of it at its odds</b>: the model must rate it at least as likely as its price implies (small margin allowed). A 1.62 pick earns its place when the model backs it at that price \u2014 and a pick the model is not sure of <b>never enters</b>. Most certain first. Confidence: HIGH \u226572% \u00b7 MEDIUM 65-71% \u00b7 FAIR 61-64%.</p>';
   defs.forEach(function (d) {
     var cands = [];
     rows.forEach(function (row) {
       var g = row.g, o = row.odds, pr = row.pr;
       function push(call, market, p, price, real) {
         if (p == null || !(p > 0)) return;
-        if (p < 0.68) return;                                 /* THE SURE GATE - never add a pick the model is not sure of */
+        if (p < 0.61) return;                                 /* floor = the surest the user's own window demands */
         var fair = 1 / p;
         if (price == null || !isFinite(price)) { price = fair; real = false; }  /* model odds fallback */
         if (price < M - 0.001 || price > U + 0.001) return;           /* the user's odds window */
-        /* value is shown in the analysis; admission is the model's sureness + the odds window */
-        cands.push({ g: g, call: call, market: market, p: p, price: price, fair: fair,
+        if (p * price < 0.97) return;                          /* THE SURE GATE - sure AT ITS ODDS: the model must back the pick at least as strongly as the price implies (3% margin) */        cands.push({ g: g, call: call, market: market, p: p, price: price, fair: fair,
           conf: confOf(p), real: real, xgb: !!(g._realXg && g._realXg.lh != null),
           note: analyse(row, call, p, price, fair) });
       }
@@ -6774,7 +6773,7 @@ function renderMust5Tab() {
     h += '<div class="card"><h2 style="margin:0 0 2px;font-size:15px">' + d.title + '</h2>' +
       '<p class="tiny muted" style="margin:0 0 8px">' + d.sub + '</p>';
     if (!top.length) {
-      h += '<p class="tiny" style="margin:0">\u2014 nothing the model is sure of clears this list right now. A Must list never pads with shaky picks; it shows only what passes the sure-check.</p></div>';
+      h += '<p class="tiny" style="margin:0">\u2014 nothing in the 1.36-1.64 window is a pick the model is sure of right now. A Must list never pads with shaky picks.</p></div>';
       return;
     }
     top.forEach(function (c, i) {
