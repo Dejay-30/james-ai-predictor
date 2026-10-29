@@ -606,7 +606,7 @@ body{background:#0B0E13}
 <script>
 /* v19.8.1 self-heal: an open tab can never go stale again - if the deployed
    version changes, this tab reloads itself within 5 minutes */
-var JAP_BUILD = '19.27.3';
+var JAP_BUILD = '19.28.0';
 window.japAutoRefreshStopped = true;
 function japVerNewer(a, b) {
   var x = String(a).split('.'), y = String(b).split('.'), d;
@@ -713,7 +713,7 @@ setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: backgr
   <button class="drawer-item" id="menuAbout"><span class="ic">&#8505;</span><span>About &amp; how it works<small class="sub">What the numbers mean</small></span></button>
 
   <div class="drawer-foot">
-    James AI Predictor <span id="appVerFoot">v19.27.3</span> · 29 Oct 2026<br>
+    James AI Predictor <span id="appVerFoot">v19.28.0</span> · 29 Oct 2026<br>
     Model estimates only &mdash; not betting advice. 18+. Please gamble responsibly.
   </div>
 </nav>
@@ -813,7 +813,7 @@ setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: backgr
     <div id="poolBankBox"></div>
   </section>
   <section id="panel-must5" class="panel">
-    <div class="card"><h2>&#127942; Must 5s</h2><p class="muted small">Four <b>must-do lists of five</b> every day, only after a proper check: <b>home/away wins</b>, <b>BTTS</b>, <b>first-half under/over 1.5</b> and <b>full-time over 2.5</b>. A pick only enters a list when its <b>odds sit in the 1.36-1.64 window</b> and the model gives it a real edge - each row carries its <b>confidence level</b> and the analysis behind it. Win prices are the real book prices; the goals markets show the model&#8217;s assessed odds where the feeds don&#8217;t carry those lines. Every pick is logged and <b>auto-settles</b> with the final scores. Tap a match for the full analysis.</p></div>
+    <div class="card"><h2>&#127942; Must 5s</h2><p class="muted small">Five <b>must-do lists of five</b> every day, only after a proper check: <b>home wins</b>, <b>away wins</b>, <b>BTTS</b>, <b>first-half under/over 1.5</b> and <b>full-time over 2.5</b>. A pick only enters a list when the model is <b>sure of it</b> - confidence at least 68% with its <b>odds in the 1.36-1.64 window</b> and a sound value check - each row carries its <b>confidence level</b> and the analysis behind it. Win prices are the real book prices; the goals markets show the model&#8217;s assessed odds where the feeds don&#8217;t carry those lines. Every pick is logged and <b>auto-settles</b> with the final scores. Tap a match for the full analysis.</p></div>
     <div id="must5Box"><div class="card"><p class="muted">Loading the Must 5 engine...</p></div></div>
   </section>
   <section id="panel-best20-hidden" class="panel" style="display:none">
@@ -6719,7 +6719,7 @@ function renderMust5Tab() {
   }
   var log = lsGet('jap_must5log', []), now = Date.now();
   function confOf(p) {
-    return p >= 0.72 ? 'HIGH' : (p >= 0.64 ? 'MEDIUM' : 'WATCH');
+    return p >= 0.75 ? 'HIGH' : (p >= 0.68 ? 'MEDIUM' : 'WATCH');
   }
   function analyse(row, call, p, price, fair) {
     var bits = [];
@@ -6730,31 +6730,34 @@ function renderMust5Tab() {
     return bits.join(' \u00b7 ');
   }
   var defs = [
-    { title: '\ud83c\udfe0 MUST 5 HOME/AWAY WINS', sub: 'the five strongest win calls (either side) that clear the odds window and the value check', kind: 'win' },
+    { title: '\ud83c\udfe0 MUST 5 HOME WINS', sub: 'the five home wins the model is sure of (odds 1.36-1.64)', kind: 'home' },
+    { title: '\u2708\ufe0f MUST 5 AWAY WINS', sub: 'the five away wins the model is sure of (odds 1.36-1.64)', kind: 'away' },
     { title: '\u26a1 MUST 5 BTTS', sub: 'both teams to score \u2014 five strongest calls', kind: 'btts' },
     { title: '\u23f1 MUST 5 FIRST-HALF UNDER/OVER 1.5', sub: 'the five strongest first-half goals calls (under or over)', kind: 'fh' },
     { title: '\u26bd MUST 5 FULL-TIME OVER 2.5', sub: 'five strongest over-2.5 calls at full time', kind: 'o25' }
   ];
   var h = '<div class="cons-hd"><h2 style="margin:0">\ud83c\udfc6 DAILY MUST 5s</h2><span class="muted small">' +
     rows.length + ' matches scanned \u00b7 odds window ' + M + '-' + U + ' \u00b7 auto-settled</span></div>' +
-    '<p class="tiny muted" style="margin:4px 0 10px">Only picks that pass BOTH checks enter: price inside <b>1.36-1.64</b> and a positive model edge. Confidence: HIGH \u226572% \u00b7 MEDIUM 64-71% \u00b7 WATCH below. If fewer than five clear the checks on a given day, the list honestly shows fewer.</p>';
+    '<p class="tiny muted" style="margin:4px 0 10px">A pick only enters a Must list when the model is <b>sure of it</b>: confidence <b>\u2265 68%</b>, price inside <b>1.36-1.64</b>, and no negative-value price. Most certain picks are listed first. Confidence: HIGH \u226575% \u00b7 MEDIUM 68-74%. <b>If the model is not sure of a pick, it never enters</b> \u2014 when fewer than five clear the bar, the list honestly shows fewer.</p>';
   defs.forEach(function (d) {
     var cands = [];
     rows.forEach(function (row) {
       var g = row.g, o = row.odds, pr = row.pr;
       function push(call, market, p, price, real) {
         if (p == null || !(p > 0)) return;
+        if (p < 0.68) return;                                 /* THE SURE GATE - never add a pick the model is not sure of */
         var fair = 1 / p;
         if (price == null || !isFinite(price)) price = fair;          /* model odds fallback */
         if (price < M - 0.001 || price > U + 0.001) return;           /* the user's odds window */
-        if (price > fair * 1.02) return;                              /* no negative-value picks */
+        if (price > fair * 1.03) return;                              /* no negative-value picks */
         cands.push({ g: g, call: call, market: market, p: p, price: price, fair: fair,
-          conf: confOf(p), real: real, note: analyse(row, call, p, price, fair) });
+          conf: confOf(p), real: real, xgb: !!(g._realXg && g._realXg.lh != null),
+          note: analyse(row, call, p, price, fair) });
       }
-      if (d.kind === 'win') {
-        var hp = pr.home_win || 0, ap = pr.away_win || 0;
-        if (hp >= ap) push('home win', 'home_win', hp, o.o1, true);
-        else push('away win', 'away_win', ap, o.o2, true);
+      if (d.kind === 'home') {
+        push('home win', 'home_win', pr.home_win, o.o1, true);
+      } else if (d.kind === 'away') {
+        push('away win', 'away_win', pr.away_win, o.o2, true);
       } else if (d.kind === 'btts') {
         push('BTTS yes', 'btts_yes', pr.btts_yes, o.btts ? o.btts : null, !!o.btts);
       } else if (d.kind === 'fh') {
@@ -6766,12 +6769,12 @@ function renderMust5Tab() {
         push('FT over 2.5', 'ft_over_25', po, o.o25 ? o.o25 : null, !!o.o25);
       }
     });
-    cands.sort(function (a, b) { return (b.p - b.fair) - (a.p - a.fair); });
+    cands.sort(function (a, b) { return (b.p - a.p) || ((b.xgb ? 1 : 0) - (a.xgb ? 1 : 0)); });
     var top = cands.slice(0, 5);
     h += '<div class="card"><h2 style="margin:0 0 2px;font-size:15px">' + d.title + '</h2>' +
       '<p class="tiny muted" style="margin:0 0 8px">' + d.sub + '</p>';
     if (!top.length) {
-      h += '<p class="tiny" style="margin:0">\u2014 nothing cleared the odds window + value check right now. The list fills as prices load; it never pads with un-checked picks.</p></div>';
+      h += '<p class="tiny" style="margin:0">\u2014 nothing the model is sure of clears this list right now. A Must list never pads with shaky picks; it shows only what passes the sure-check.</p></div>';
       return;
     }
     top.forEach(function (c, i) {
@@ -6780,7 +6783,7 @@ function renderMust5Tab() {
         log.push({ id: 'm5-' + c.market + '-' + c.g.id, fid: String(c.g.id), home: c.g.home, away: c.g.away,
           market: c.market, at: now, sport: 'football', src: 'Must 5s', graded: null, res: null });
       }
-      h += '<div class="m5row" data-price="' + c.price.toFixed(2) + '" data-xgid="' + c.g.id + '" style="cursor:pointer;border-top:1px solid #14294e;padding:8px 0">' +
+      h += '<div class="m5row" data-price="' + c.price.toFixed(2) + '" data-conf="' + c.p.toFixed(2) + '" data-market="' + c.market + '" data-xgid="' + c.g.id + '" style="cursor:pointer;border-top:1px solid #14294e;padding:8px 0">' +
         '<div style="display:flex;justify-content:space-between;gap:8px"><b style="color:#4FC3F7">#' + (i + 1) + ' \u00b7 ' + esc(c.g.home) + ' v ' + esc(c.g.away) + '</b>' +
         '<b style="color:#d4af37;white-space:nowrap">' + c.price.toFixed(2) + (c.real ? '' : ' model') + '</b></div>' +
         '<p class="tiny" style="margin:4px 0 0"><b style="color:#4ade80">PREDICTION:</b> ' + esc(c.call) +
