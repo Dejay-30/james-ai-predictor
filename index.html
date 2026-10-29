@@ -606,7 +606,7 @@ body{background:#0B0E13}
 <script>
 /* v19.8.1 self-heal: an open tab can never go stale again - if the deployed
    version changes, this tab reloads itself within 5 minutes */
-var JAP_BUILD = '19.27.1';
+var JAP_BUILD = '19.27.2';
 window.japAutoRefreshStopped = true;
 function japVerNewer(a, b) {
   var x = String(a).split('.'), y = String(b).split('.'), d;
@@ -617,6 +617,8 @@ function japVerNewer(a, b) {
   return false;
 }
 function japAutoUpdate() {
+  var jpf = document.getElementById('appVerFoot');
+  if (jpf) jpf.textContent = 'v' + JAP_BUILD;
   /* v19.27: updates are AUTOMATIC. One quiet version check each time the
      app opens; if the live site is newer the app swaps to it by itself -
      no banner, no button, nothing to tap. Nothing runs while the app is
@@ -630,8 +632,6 @@ function japAutoUpdate() {
     })['catch'](function () {});
   } catch (e) {}
 }
-var jpf = document.getElementById('appVerFoot');
-if (jpf) jpf.textContent = 'v' + JAP_BUILD;
 setTimeout(japAutoUpdate, 2500);
 setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: background auto-refresh is off by the user's request */
 /* v19.25: self-heal reload REMOVED - the user asked to stop the app refreshing itself. Updates apply when the user reloads. */
