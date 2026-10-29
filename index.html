@@ -606,29 +606,33 @@ body{background:#0B0E13}
 <script>
 /* v19.8.1 self-heal: an open tab can never go stale again - if the deployed
    version changes, this tab reloads itself within 5 minutes */
-var JAP_BUILD = '19.26.1';
+var JAP_BUILD = '19.27.0';
 window.japAutoRefreshStopped = true;
-function japVersionBanner() {
-  /* one check per app open - never periodic. If the deployed app is newer,
-     offer a tap-to-update instead of reloading behind the user's back. */
+function japVerNewer(a, b) {
+  var x = String(a).split('.'), y = String(b).split('.'), d;
+  for (var i = 0; i < 3; i++) {
+    d = (parseInt(x[i], 10) || 0) - (parseInt(y[i], 10) || 0);
+    if (d) return d > 0;
+  }
+  return false;
+}
+function japAutoUpdate() {
+  /* v19.27: updates are AUTOMATIC. One quiet version check each time the
+     app opens; if the live site is newer the app swaps to it by itself -
+     no banner, no button, nothing to tap. Nothing runs while the app is
+     being used (no periodic refresh of any kind). */
   try {
     fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.text(); }).then(function (t) {
-      var m = t.match(/James AI Predictor v(\d+\.\d+(?:\.\d+)?)/);
-      if (!m || m[1] === JAP_BUILD) return;
-      var b = document.createElement('div');
-      b.style.cssText = 'position:fixed;left:10px;right:10px;bottom:12px;z-index:9999;background:#123;border:2px solid #4FC3F7;border-radius:12px;padding:12px 14px';
-      b.innerHTML = '<b style="color:#4FC3F7">Update available (v' + m[1] + ')</b>' +
-        '<div class="tiny muted" style="margin:4px 0 8px">You are on v' + JAP_BUILD + '. Tap to update to the latest fixes.</div>';
-      var btn = document.createElement('button');
-      btn.className = 'btn';
-      btn.textContent = 'Update now';
-      btn.onclick = function () { location.reload(); };
-      b.appendChild(btn);
-      document.body.appendChild(b);
+      var m = t.match(/JAP_BUILD = '(\d+\.\d+(?:\.\d+)?)'/);
+      if (!m || !japVerNewer(m[1], JAP_BUILD)) return;
+      try { if (sessionStorage.getItem('jap_autod')) return; sessionStorage.setItem('jap_autod', '1'); } catch (e) {}
+      location.replace(location.pathname + '?u=' + Date.now());
     })['catch'](function () {});
   } catch (e) {}
 }
-setTimeout(japVersionBanner, 4000);
+var jpf = $('appVerFoot');
+if (jpf) jpf.textContent = 'v' + JAP_BUILD;
+setTimeout(japAutoUpdate, 2500);
 setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: background auto-refresh is off by the user's request */
 /* v19.25: self-heal reload REMOVED - the user asked to stop the app refreshing itself. Updates apply when the user reloads. */
 </script>
@@ -707,7 +711,7 @@ setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: backgr
   <button class="drawer-item" id="menuAbout"><span class="ic">&#8505;</span><span>About &amp; how it works<small class="sub">What the numbers mean</small></span></button>
 
   <div class="drawer-foot">
-    James AI Predictor v19.22.0 · 21 Oct 2026<br>
+    James AI Predictor <span id="appVerFoot">v19.27.0</span> · 29 Oct 2026<br>
     Model estimates only &mdash; not betting advice. 18+. Please gamble responsibly.
   </div>
 </nav>
