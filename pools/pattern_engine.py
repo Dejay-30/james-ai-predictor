@@ -239,6 +239,39 @@ def analyse(keys):
                 team_draws[m["away"].lower()] += 1
         week_draw_sets[wn] = s
 
+    # ---- home/away win stats (the 1X2 side of the pattern universe)
+    home_win = defaultdict(list)       # slot -> [weeks] ending home win
+    away_win = defaultdict(list)
+    team_hw = defaultdict(int)         # team -> home wins counted
+    team_aw = defaultdict(int)
+    week_home_sets, week_away_sets = {}, {}
+    for w in played:
+        wn = w["week"]
+        hs, aset = set(), set()
+        for m in w["matches"]:
+            if m.get("gh") is None or m.get("ga") is None:
+                continue
+            if m["gh"] > m["ga"]:
+                home_win[m["no"]].append(wn); hs.add(m["no"]); team_hw[m["home"].lower()] += 1
+            elif m["gh"] < m["ga"]:
+                away_win[m["no"]].append(wn); aset.add(m["no"]); team_aw[m["away"].lower()] += 1
+        week_home_sets[wn] = hs
+        week_away_sets[wn] = aset
+
+    def side_repeats(week_sets, min_times=2):
+        pr = defaultdict(list)
+        for wn, ss in week_sets.items():
+            ss = sorted(ss)
+            for i in range(len(ss)):
+                for j in range(i + 1, len(ss)):
+                    pr[(ss[i], ss[j])].append(wn)
+        out = [{"pair": list(k), "weeks": v} for k, v in pr.items() if len(v) >= min_times]
+        out.sort(key=lambda x: (-len(x["weeks"]), x["pair"]))
+        return out
+
+    home_pairs = side_repeats(week_home_sets)
+    away_pairs = side_repeats(week_away_sets)
+
     # ---- repeats
     consec_repeats = []                # same number drew in consecutive weeks
     for n, ws in num_draws.items():
@@ -306,6 +339,26 @@ def analyse(keys):
         formulas.append({"name": "sequence run %s" % "-".join(str(x) for x in r["seq"]), "kind": "sequence",
                          "set": r["seq"], "weeks": r["weeks"], "times": 1,
                          "hit_note": "full consecutive run landed in week %d" % r["weeks"][0]})
+    for hp in home_pairs[:3]:
+        formulas.append({"name": "home-win pair %d-%d" % tuple(hp["pair"]), "kind": "home-pair",
+                         "set": hp["pair"], "weeks": hp["weeks"], "times": len(hp["weeks"]),
+                         "hit_note": "both slots landed home wins together in weeks %s" % ",".join(str(x) for x in hp["weeks"])})
+    for ap in away_pairs[:3]:
+        formulas.append({"name": "away-win pair %d-%d" % tuple(ap["pair"]), "kind": "away-pair",
+                         "set": ap["pair"], "weeks": ap["weeks"], "times": len(ap["weeks"]),
+                         "hit_note": "both slots landed away wins together in weeks %s" % ",".join(str(x) for x in ap["weeks"])})
+    hhot = sorted(home_win.keys(), key=lambda n: -len(home_win[n]))[:3]
+    if hhot:
+        formulas.append({"name": "home-win key line", "kind": "home-trio", "set": sorted(hhot),
+                         "weeks": sorted(set(sum((home_win[n] for n in hhot), []))),
+                         "times": sum(len(home_win[n]) for n in hhot),
+                         "hit_note": "the three most frequent home-win slots of the season"})
+    ahot = sorted(away_win.keys(), key=lambda n: -len(away_win[n]))[:3]
+    if ahot:
+        formulas.append({"name": "away-win key line", "kind": "away-trio", "set": sorted(ahot),
+                         "weeks": sorted(set(sum((away_win[n] for n in ahot), []))),
+                         "times": sum(len(away_win[n]) for n in ahot),
+                         "hit_note": "the three most frequent away-win slots of the season"})
 
     # ---- regimes
     def regime(d):
@@ -359,12 +412,50 @@ def analyse(keys):
             recs.append({"no": n, "home": m.get("home"), "away": m.get("away"), "score": score,
                          "nfreq": nfreq, "reasons": reasons})
         recs.sort(key=lambda r: -r["score"])
+
+        def side_picks(side):
+            pool = home_win if side == "home" else away_win
+            pairs = home_pairs if side == "home" else away_pairs
+            tpool = team_hw if side == "home" else team_aw
+            out = []
+            for m in nxt["matches"]:
+                n = m["no"]
+                nfreq = len(pool.get(n, []))
+                tn = (m.get("home" if side == "home" else "away") or "").lower()
+                tform = tpool.get(tn, 0)
+                for t, c in tpool.items():
+                    if tn and tn != t and (tn in t or t in tn) and c > tform:
+                        tform = c
+                myP = [p for p in pairs if n in p["pair"]][:2]
+                score = nfreq * 3 + tform * 2 + len(myP) * 6
+                reasons = []
+                if nfreq:
+                    reasons.append("slot %d produced %d %s win%s already this season (weeks %s)" %
+                                   (n, nfreq, side, "s" if nfreq != 1 else "", ",".join(str(x) for x in pool[n])))
+                if tform:
+                    reasons.append("%s %s have %d win%s as the %s side this season" %
+                                   (m.get("home" if side == "home" else "away"), "home" if side == "home" else "away",
+                                    tform, "s" if tform != 1 else "", side))
+                if myP:
+                    reasons.append("member of repeating %s-win pair(s) %s - landed together in weeks %s" % (
+                        side, ", ".join("%d-%d" % tuple(p["pair"]) for p in myP),
+                        "; ".join(",".join(str(x) for x in p["weeks"]) for p in myP)))
+                if score > 0:
+                    out.append({"no": n, "home": m.get("home"), "away": m.get("away"),
+                                "score": score, "nfreq": nfreq, "reasons": reasons})
+            out.sort(key=lambda r: -r["score"])
+            return out[:12]
+
+        home_picks = side_picks("home")
+        away_picks = side_picks("away")
         forecast = {
             "week": wn, "date": nxt.get("date"),
             "expected_draws": exp, "group": grp,
             "group_note": "weeks 1-%d average %s draws; the last five weeks averaged %s - week %d sits in the %s-draw group" %
                           (played[-1]["week"] if played else 0, avg_draws, exp, wn, grp),
             "picks": [r for r in recs if r["score"] > 0][:15],
+            "home_picks": home_picks,
+            "away_picks": away_picks,
             "all": recs,
         }
 
@@ -383,6 +474,18 @@ def analyse(keys):
         "formulas": formulas,
         "teams_most_draws": sorted(({"team": t, "draws": c} for t, c in team_draws.items() if c >= 3),
                                    key=lambda x: -x["draws"])[:12],
+        "home_win_slots": {str(n): ws for n, ws in sorted(home_win.items())},
+        "away_win_slots": {str(n): ws for n, ws in sorted(away_win.items())},
+        "top_home_slots": [{"no": n, "times": len(home_win[n]), "weeks": home_win[n]}
+                           for n in sorted(home_win, key=lambda x: -len(home_win[x]))[:10]],
+        "top_away_slots": [{"no": n, "times": len(away_win[n]), "weeks": away_win[n]}
+                           for n in sorted(away_win, key=lambda x: -len(away_win[x]))[:10]],
+        "home_win_pairs": home_pairs[:8],
+        "away_win_pairs": away_pairs[:8],
+        "teams_most_home_wins": sorted(({"team": t, "wins": c} for t, c in team_hw.items() if c >= 3),
+                                       key=lambda x: -x["wins"])[:10],
+        "teams_most_away_wins": sorted(({"team": t, "wins": c} for t, c in team_aw.items() if c >= 3),
+                                       key=lambda x: -x["wins"])[:10],
     }
     return patterns, forecast, played, upcoming
 

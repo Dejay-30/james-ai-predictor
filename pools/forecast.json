@@ -193,6 +193,295 @@
    ]
   }
  ],
+ "home_picks": [
+  {
+   "no": 14,
+   "home": "West Ham",
+   "away": "West Brom",
+   "score": 49,
+   "nfreq": 11,
+   "reasons": [
+    "slot 14 produced 11 home wins already this season (weeks 1,4,5,6,7,9,10,12,14,15,16)",
+    "West Ham home have 2 wins as the home side this season",
+    "member of repeating home-win pair(s) 14-27, 14-35 - landed together in weeks 4,6,7,9,10,12,14,15,16; 4,5,6,9,10,12,14,15"
+   ]
+  },
+  {
+   "no": 38,
+   "home": "Partick",
+   "away": "G. Morton",
+   "score": 48,
+   "nfreq": 10,
+   "reasons": [
+    "slot 38 produced 10 home wins already this season (weeks 1,2,4,5,6,7,11,12,14,16)",
+    "Partick home have 3 wins as the home side this season",
+    "member of repeating home-win pair(s) 8-38, 14-38 - landed together in weeks 1,2,4,6,7,11,12,14; 1,4,5,6,7,12,14,16"
+   ]
+  },
+  {
+   "no": 8,
+   "home": "Bolton",
+   "away": "Bristol C.",
+   "score": 47,
+   "nfreq": 11,
+   "reasons": [
+    "slot 8 produced 11 home wins already this season (weeks 1,2,4,6,7,8,10,11,12,14,17)",
+    "Bolton home have 1 win as the home side this season",
+    "member of repeating home-win pair(s) 8-38, 2-8 - landed together in weeks 1,2,4,6,7,11,12,14; 1,2,6,7,8,12,14"
+   ]
+  },
+  {
+   "no": 27,
+   "home": "Fleetwood",
+   "away": "Bristol R.",
+   "score": 47,
+   "nfreq": 11,
+   "reasons": [
+    "slot 27 produced 11 home wins already this season (weeks 2,3,4,6,7,9,10,12,14,15,16)",
+    "Fleetwood home have 1 win as the home side this season",
+    "member of repeating home-win pair(s) 14-27, 27-35 - landed together in weeks 4,6,7,9,10,12,14,15,16; 3,4,6,9,10,12,14,15"
+   ]
+  },
+  {
+   "no": 41,
+   "home": "E. Kilbride",
+   "away": "Ross County",
+   "score": 46,
+   "nfreq": 10,
+   "reasons": [
+    "slot 41 produced 10 home wins already this season (weeks 1,2,3,4,5,7,10,13,15,17)",
+    "E. Kilbride home have 2 wins as the home side this season",
+    "member of repeating home-win pair(s) 33-41, 35-41 - landed together in weeks 2,4,5,10,13,15,17; 3,4,5,10,13,15,17"
+   ]
+  },
+  {
+   "no": 35,
+   "home": "Arbroath",
+   "away": "Raith",
+   "score": 45,
+   "nfreq": 11,
+   "reasons": [
+    "slot 35 produced 11 home wins already this season (weeks 3,4,5,6,9,10,12,13,14,15,17)",
+    "member of repeating home-win pair(s) 14-35, 27-35 - landed together in weeks 4,5,6,9,10,12,14,15; 3,4,6,9,10,12,14,15"
+   ]
+  },
+  {
+   "no": 21,
+   "home": "Stockport",
+   "away": "A. Wimbledon",
+   "score": 44,
+   "nfreq": 8,
+   "reasons": [
+    "slot 21 produced 8 home wins already this season (weeks 2,3,4,5,9,14,15,16)",
+    "Stockport home have 4 wins as the home side this season",
+    "member of repeating home-win pair(s) 21-27, 14-21 - landed together in weeks 2,3,4,9,14,15,16; 4,5,9,14,15,16"
+   ]
+  },
+  {
+   "no": 33,
+   "home": "Kilmarnock",
+   "away": "St. J&#8217;Stone",
+   "score": 44,
+   "nfreq": 10,
+   "reasons": [
+    "slot 33 produced 10 home wins already this season (weeks 2,4,5,8,9,10,11,13,15,17)",
+    "Kilmarnock home have 1 win as the home side this season",
+    "member of repeating home-win pair(s) 33-35, 33-36 - landed together in weeks 4,5,9,10,13,15,17; 2,9,10,11,13,15,17"
+   ]
+  },
+  {
+   "no": 49,
+   "home": "B. Munich",
+   "away": "B. Dortmund",
+   "score": 44,
+   "nfreq": 10,
+   "reasons": [
+    "slot 49 produced 10 home wins already this season (weeks 4,6,7,9,11,13,14,15,16,17)",
+    "B. Munich home have 1 win as the home side this season",
+    "member of repeating home-win pair(s) 14-49, 15-49 - landed together in weeks 4,6,7,9,14,15,16; 6,7,11,14,15,16,17"
+   ]
+  },
+  {
+   "no": 15,
+   "home": "Wolves",
+   "away": "Cardiff",
+   "score": 43,
+   "nfreq": 9,
+   "reasons": [
+    "slot 15 produced 9 home wins already this season (weeks 2,6,7,10,11,14,15,16,17)",
+    "Wolves home have 2 wins as the home side this season",
+    "member of repeating home-win pair(s) 8-15, 15-27 - landed together in weeks 2,6,7,10,11,14,17; 2,6,7,10,14,15,16"
+   ]
+  },
+  {
+   "no": 39,
+   "home": "Airdrie",
+   "away": "C. Rangers",
+   "score": 43,
+   "nfreq": 9,
+   "reasons": [
+    "slot 39 produced 9 home wins already this season (weeks 1,4,8,9,10,13,14,15,16)",
+    "Airdrie home have 2 wins as the home side this season",
+    "member of repeating home-win pair(s) 14-39, 28-39 - landed together in weeks 1,4,9,10,14,15,16; 1,8,9,10,13,15,16"
+   ]
+  },
+  {
+   "no": 2,
+   "home": "Brentford",
+   "away": "Nottingham",
+   "score": 41,
+   "nfreq": 9,
+   "reasons": [
+    "slot 2 produced 9 home wins already this season (weeks 1,2,6,7,8,12,14,15,16)",
+    "Brentford home have 1 win as the home side this season",
+    "member of repeating home-win pair(s) 2-3, 2-8 - landed together in weeks 1,2,7,8,12,15,16; 1,2,6,7,8,12,14"
+   ]
+  }
+ ],
+ "away_picks": [
+  {
+   "no": 40,
+   "home": "East Fife",
+   "away": "Queen O&#8217;Sth",
+   "score": 40,
+   "nfreq": 8,
+   "reasons": [
+    "slot 40 produced 8 away wins already this season (weeks 3,4,8,9,10,13,14,15)",
+    "Queen O&#8217;Sth away have 2 wins as the away side this season",
+    "member of repeating away-win pair(s) 3-40, 7-40 - landed together in weeks 3,4,9,10,14; 3,4,8,13,15"
+   ]
+  },
+  {
+   "no": 18,
+   "home": "Mansfield",
+   "away": "Notts Co.",
+   "score": 39,
+   "nfreq": 9,
+   "reasons": [
+    "slot 18 produced 9 away wins already this season (weeks 1,3,5,7,9,10,11,13,14)",
+    "member of repeating away-win pair(s) 9-18, 16-18 - landed together in weeks 3,9,10,11,13; 1,3,7,13,14"
+   ]
+  },
+  {
+   "no": 25,
+   "home": "Colchester",
+   "away": "Walsall",
+   "score": 39,
+   "nfreq": 9,
+   "reasons": [
+    "slot 25 produced 9 away wins already this season (weeks 1,2,4,5,7,8,12,14,16)",
+    "member of repeating away-win pair(s) 11-25, 25-31 - landed together in weeks 1,2,5,8,12; 2,4,5,7,16"
+   ]
+  },
+  {
+   "no": 17,
+   "home": "Leicester",
+   "away": "Stevenage",
+   "score": 38,
+   "nfreq": 8,
+   "reasons": [
+    "slot 17 produced 8 away wins already this season (weeks 4,6,11,12,13,14,15,16)",
+    "Stevenage away have 1 win as the away side this season",
+    "member of repeating away-win pair(s) 7-17, 17-25 - landed together in weeks 4,11,13,15,16; 4,12,14,16"
+   ]
+  },
+  {
+   "no": 16,
+   "home": "Barnsley",
+   "away": "Oxford Utd.",
+   "score": 37,
+   "nfreq": 7,
+   "reasons": [
+    "slot 16 produced 7 away wins already this season (weeks 1,3,4,7,13,14,17)",
+    "Oxford Utd. away have 2 wins as the away side this season",
+    "member of repeating away-win pair(s) 16-18, 16-37 - landed together in weeks 1,3,7,13,14; 1,7,13,14,17"
+   ]
+  },
+  {
+   "no": 37,
+   "home": "Dunfermline",
+   "away": "Inverness",
+   "score": 37,
+   "nfreq": 7,
+   "reasons": [
+    "slot 37 produced 7 away wins already this season (weeks 1,5,7,13,14,15,17)",
+    "Inverness away have 2 wins as the away side this season",
+    "member of repeating away-win pair(s) 16-37, 18-37 - landed together in weeks 1,7,13,14,17; 1,5,7,13,14"
+   ]
+  },
+  {
+   "no": 4,
+   "home": "Hull City",
+   "away": "Ipswich",
+   "score": 35,
+   "nfreq": 7,
+   "reasons": [
+    "slot 4 produced 7 away wins already this season (weeks 5,7,8,9,11,15,16)",
+    "Ipswich away have 1 win as the away side this season",
+    "member of repeating away-win pair(s) 4-7, 4-18 - landed together in weeks 8,11,15,16; 5,7,9,11"
+   ]
+  },
+  {
+   "no": 7,
+   "home": "Aston Villa",
+   "away": "Fulham",
+   "score": 35,
+   "nfreq": 7,
+   "reasons": [
+    "slot 7 produced 7 away wins already this season (weeks 3,4,8,11,13,15,16)",
+    "Fulham away have 1 win as the away side this season",
+    "member of repeating away-win pair(s) 7-17, 7-40 - landed together in weeks 4,11,13,15,16; 3,4,8,13,15"
+   ]
+  },
+  {
+   "no": 13,
+   "home": "Swansea",
+   "away": "Blackburn",
+   "score": 35,
+   "nfreq": 7,
+   "reasons": [
+    "slot 13 produced 7 away wins already this season (weeks 1,4,5,6,10,16,17)",
+    "Blackburn away have 1 win as the away side this season",
+    "member of repeating away-win pair(s) 13-21, 13-25 - landed together in weeks 1,6,10,17; 1,4,5,16"
+   ]
+  },
+  {
+   "no": 29,
+   "home": "Salford C.",
+   "away": "Exeter",
+   "score": 35,
+   "nfreq": 7,
+   "reasons": [
+    "slot 29 produced 7 away wins already this season (weeks 1,6,8,9,11,14,15)",
+    "Exeter away have 1 win as the away side this season",
+    "member of repeating away-win pair(s) 4-29, 17-29 - landed together in weeks 8,9,11,15; 6,11,14,15"
+   ]
+  },
+  {
+   "no": 31,
+   "home": "Swindon",
+   "away": "Rotherham",
+   "score": 35,
+   "nfreq": 7,
+   "reasons": [
+    "slot 31 produced 7 away wins already this season (weeks 2,3,4,5,6,7,16)",
+    "Rotherham away have 1 win as the away side this season",
+    "member of repeating away-win pair(s) 6-31, 25-31 - landed together in weeks 2,3,6,7,16; 2,4,5,7,16"
+   ]
+  },
+  {
+   "no": 9,
+   "home": "Burnley",
+   "away": "Portsmouth",
+   "score": 34,
+   "nfreq": 6,
+   "reasons": [
+    "slot 9 produced 6 away wins already this season (weeks 3,4,9,10,11,13)",
+    "Portsmouth away have 2 wins as the away side this season",
+    "member of repeating away-win pair(s) 9-18, 9-40 - landed together in weeks 3,9,10,11,13; 3,4,9,10,13"
+   ]
+  }
+ ],
  "all": [
   {
    "no": 32,

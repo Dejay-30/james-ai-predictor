@@ -183,8 +183,37 @@ def probe(url):
         return False
 
 
+def harvest_fs_scans(week):
+    """Find the week's scans from the FortuneSoccer posts that embed them
+    (rsk / late-news / pool-paper / weekly-papers). Embedded images are
+    thumbnails (-WxH suffix) - strip the suffix for the full-size sheet."""
+    found = {}
+    for post in ("https://www.fortunesoccer.com/rsk/week-%d-rsk-papers-2026/" % week,
+                 "https://www.fortunesoccer.com/late-news/week-%d-pool-paper/" % week,
+                 "https://www.fortunesoccer.com/pool-paper/this-week-%d/" % week,
+                 "https://www.fortunesoccer.com/weekly-papers/week-%d-pools-papers/" % week):
+        h = fetch(post)
+        if not h:
+            continue
+        for u in re.findall(r'https://www\.fortunesoccer\.com/wp-content/uploads/[^"\']+?\.jpg', h):
+            full = re.sub(r"-\d+x\d+\.jpg$", ".jpg", u)
+            m = re.search(r"week-" + str(week) + r"-(.+?)-2026-(?:page-(\d+)|(front-page|back-page))\.jpg$", full)
+            if not m:
+                continue
+            slug, pg, special = m.group(1), m.group(2), m.group(3)
+            key = slug
+            found.setdefault(key, [])
+            if full not in found[key]:
+                found[key].append(full)
+    for k in found:
+        found[k].sort()
+    return found
+
+
 def refresh_papers(week, coupon_date):
-    """Roll papers.json to the current coupon week: re-probe scan URLs, drop stale keys."""
+    """Roll papers.json to the current coupon week. Pages are only replaced
+    when scans for the NEW week are actually found - old-week sheets can
+    never masquerade as the new week."""
     if not PAPERS.exists():
         return
     try:
@@ -192,37 +221,68 @@ def refresh_papers(week, coupon_date):
     except Exception:
         return
     if pj.get("week") == week and pj.get("date") == coupon_date:
-        print("papers: already on week %d - keys untouched" % week)
-        return
-    y = coupon_date[:4]
+        stale = any(p.get("pages") and ("week-%d" % week) not in " ".join(p["pages"])
+                    for p in pj.get("papers", []))
+        if not stale:
+            print("papers: already on week %d - keys untouched" % week)
+            return
+        print("papers: week %d label held stale page URLs - re-harvesting" % week)
+    harvest = harvest_fs_scans(week)
+    months = []
+    cm = int(coupon_date[5:7]) if len(coupon_date) >= 7 else 10
+    for dm in (0, 1, -1, 2):
+        mm = cm + dm
+        if 1 <= mm <= 12 and mm not in months:
+            months.append(mm)
     n_changed = 0
+    seen = set()
     for p in pj.get("papers", []):
-        if p["id"] == "right-on-fixtures":
-            pages = [UF_SPECIAL.format(y=y, w=week, which=w) for w in ("front-page", "back-page")]
-            pages = [u for u in pages if probe(u)]
-        else:
-            tpl = UF_PG if any("ukfootballpools.com" in u for u in p.get("pages", [])) else FS_PG
-            slug = p["id"]
-            pages = []
-            for n in range(1, 25):
-                u = tpl.format(y=y, w=week, slug=slug, n=n)
-                if not probe(u):
+        seen.add(p["id"])
+        pages = harvest.get(p["id"], [])
+        if not pages and p["id"] == "right-on-fixtures":
+            for y in months:
+                pages = [u for u in (UF_SPECIAL.format(y=y, w=week, which=w)
+                                     for w in ("front-page", "back-page")) if probe(u)]
+                if pages:
                     break
-                pages.append(u)
+        elif not pages:
+            tpl = UF_PG if any("ukfootballpools.com" in u for u in p.get("pages", [])) else FS_PG
+            for y in months:
+                pages = []
+                for n in range(1, 25):
+                    u = tpl.format(y=y, w=week, slug=p["id"], n=n)
+                    if not probe(u):
+                        break
+                    pages.append(u)
+                if pages:
+                    break
         if pages:
             p["pages"] = pages
             n_changed += 1
-        # keys were read from the OLD week's scans - they no longer apply
-        p["keys"] = {}
+        else:
+            p["pages"] = []          # never keep the old week's sheets
+        p["keys"] = {}               # keys were read from the OLD week's scans
         p["note"] = ("Week %d scans are up - open them on the Forecast papers tab. Keys not yet "
-                     "re-read from the new sheets; ask 'refresh the papers' to have them extracted." % week)
+                     "re-read from the new sheets; ask 'refresh the papers' to have them extracted."
+                     % week) if pages else ("Week %d scans not found yet for this paper - the tab "
+                                           "auto-scans and will surface them when they publish." % week)
+    # titles discovered on the new week's posts but missing from the pack
+    for slug, pages in sorted(harvest.items()):
+        if slug in seen or not pages:
+            continue
+        name = " ".join(w.capitalize() for w in slug.split("-"))
+        pj["papers"].append({"id": slug, "name": name, "family": "Weekly papers",
+                             "npages": len(pages), "pages": pages, "keys": {},
+                             "note": "Week %d scans are up - open them on the Forecast papers tab." % week})
+        n_changed += 1
     pj["week"] = week
     pj["date"] = coupon_date
     pj["updatedAt"] = datetime.now().astimezone().isoformat(timespec="seconds")
     tmp = PAPERS.with_suffix(".tmp")
     tmp.write_text(json.dumps(pj, ensure_ascii=False, indent=1), encoding="utf-8")
     tmp.replace(PAPERS)
-    print("papers: rolled to week %d (%d papers re-probed)" % (week, n_changed))
+    print("papers: rolled to week %d (%d papers with fresh scans, %d discovered on the week's posts)" %
+          (week, n_changed, len(harvest)))
 
 
 def main():

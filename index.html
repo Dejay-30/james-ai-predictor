@@ -606,15 +606,9 @@ body{background:#0B0E13}
 <script>
 /* v19.8.1 self-heal: an open tab can never go stale again - if the deployed
    version changes, this tab reloads itself within 5 minutes */
-var JAP_BUILD = '19.24.0';
-setInterval(function () {
-  try {
-    fetch(location.href, { cache: 'no-store' }).then(function (r) { return r.text(); }).then(function (t) {
-      var m = t.match(/James AI Predictor v(\d+\.\d+(?:\.\d+)?)/);
-      if (m && m[1] !== JAP_BUILD) location.reload();
-    })['catch'](function () {});
-  } catch (e) {}
-}, 300000);
+var JAP_BUILD = '19.25.0';
+window.japAutoRefreshStopped = true;   /* v19.25: background auto-refresh is off by the user's request */
+/* v19.25: self-heal reload REMOVED - the user asked to stop the app refreshing itself. Updates apply when the user reloads. */
 </script>
 
 <div id="rs18banner" style="background:linear-gradient(90deg,#0B1A12,#131B26);border-bottom:2px solid #00E676;padding:10px 14px;font-size:13px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
@@ -6054,16 +6048,18 @@ function japPoolsCalBind(cpn) {
   if (cpn && cpn.uk && cpn.uk.week) japPoolCalShow(cpn.uk.week);
 }
 function japPatternLogPicks(fc) {
-  /* every Pattern Lab prediction is logged so its performance can be
-     monitored - it auto-grades like the other tabs */
-  if (!fc || !fc.picks || !fc.picks.length) return;
+  /* every Pattern Lab prediction (draw / home win / away win) is logged so its
+     performance can be monitored - it auto-grades like the other tabs */
+  if (!fc) return;
   var log = lsGet('jap_patternpicks', []), wk = fc.week, i;
-  fc.picks.forEach(function (p) {
-    var found = false;
-    for (i = 0; i < log.length; i++) if (log[i].wk === wk && log[i].no === p.no) { found = true; break; }
-    if (found) return;
-    log.push({ fid: null, wk: wk, week: wk, no: p.no, home: p.home, away: p.away,
-      market: 'draw', sport: 'football', at: Date.now(), src: 'Pattern Lab', graded: null, res: null });
+  [[fc.picks, 'draw'], [fc.home_picks, 'home'], [fc.away_picks, 'away']].forEach(function (g) {
+    (g[0] || []).forEach(function (p) {
+      var found = false;
+      for (i = 0; i < log.length; i++) if (log[i].wk === wk && log[i].no === p.no && log[i].market === g[1]) { found = true; break; }
+      if (found) return;
+      log.push({ fid: null, wk: wk, week: wk, no: p.no, home: p.home, away: p.away,
+        market: g[1], sport: 'football', at: Date.now(), src: 'Pattern Lab', graded: null, res: null });
+    });
   });
   if (log.length > 300) log = log.slice(-300);
   try { localStorage.setItem('jap_patternpicks', JSON.stringify(log)); } catch (e) {}
@@ -6086,9 +6082,13 @@ function japPatternGrade() {
         if (resMap && resMap[e.no] != null) {
           e.res = resMap[e.no];
           var a = String(resMap[e.no]).split('-');
-          e.graded = (a.length === 2 && parseInt(a[0], 10) === parseInt(a[1], 10)) ? 'W' : 'L';
+          var gh = parseInt(a[0], 10), ga = parseInt(a[1], 10);
+          if (isNaN(gh) || isNaN(ga)) return;
+          if (e.market === 'home') e.graded = (gh > ga) ? 'W' : 'L';
+          else if (e.market === 'away') e.graded = (ga > gh) ? 'W' : 'L';
+          else e.graded = (gh === ga) ? 'W' : 'L';
           hit = true;
-        } else if (drawNos && drawNos.indexOf(e.no) >= 0) {
+        } else if (drawNos && e.market !== 'home' && e.market !== 'away' && drawNos.indexOf(e.no) >= 0) {
           e.graded = 'W'; e.res = 'draw'; hit = true;
         }
       });
@@ -6264,6 +6264,27 @@ function renderPatternTab() {
         '<p class="tiny muted" style="margin:3px 0 0"><b style="color:#ffcc00">REASON:</b> ' + esc((p.reasons || []).join('; ') || 'carried by the season pattern model') + '.</p></div>';
     });
     h += '</div>';
+    /* v19.25: the 1X2 side of the pattern universe - home & away win formulas */
+    [{ key: 'home_picks', icon: '\ud83c\udfe0', title: 'Home-win formula keys', side: 'home' },
+     { key: 'away_picks', icon: '\u2708\ufe0f', title: 'Away-win formula keys', side: 'away' }].forEach(function (sd) {
+      var picks = useFc[sd.key] || [];
+      if (!picks.length) return;
+      h += '<div class="card"><h3 style="margin:0 0 6px">' + sd.icon + ' ' + sd.title + '</h3>' +
+        '<p class="tiny muted" style="margin:0 0 8px">The same formula machinery on the 1X2 side: slots whose ' + sd.side +
+        ' wins repeat, ' + sd.side + '-win pairs that land together, and the season\u2019s key slots - ranked for this week\u2019s coupon.</p>';
+      picks.slice(0, 6).forEach(function (p, i) {
+        var g = null, li;
+        for (li = 0; li < _pl.length; li++) if (_pl[li].wk === useFc.week && _pl[li].no === p.no && _pl[li].market === sd.side) { g = _pl[li]; break; }
+        var gh2 = g ? (g.graded === 'W' ? ' \u00b7 <b style="color:#4ade80">GRADED W (' + esc(String(g.res)) + ')</b>'
+          : (g.graded === 'L' ? ' \u00b7 <b style="color:#f66">GRADED L (' + esc(String(g.res)) + ')</b>'
+          : ' \u00b7 logged \u00b7 auto-grades when the week\u2019s results land')) : '';
+        h += '<div style="border-top:1px solid #14294e;padding:8px 0">' +
+          '<b style="color:#4FC3F7">#' + (i + 1) + ' \u00b7 No.' + p.no + ' \u00b7 ' + esc(p.home || '?') + ' v ' + esc(p.away || '?') + '</b>' +
+          '<p class="tiny" style="margin:4px 0 0"><b style="color:#4ade80">PREDICTION:</b> ' + sd.side + ' win' + gh2 + '</p>' +
+          '<p class="tiny muted" style="margin:3px 0 0"><b style="color:#ffcc00">REASON:</b> ' + esc((p.reasons || []).join('; ') || 'carried by the season pattern model') + '.</p></div>';
+      });
+      h += '</div>';
+    });
     var _pr = japPatternRec();
     h += '<div class="card"><h3 style="margin:0 0 6px">\ud83c\udfc6 Pattern Lab performance (auto-graded)</h3>' +
       '<p class="tiny" style="margin:0">Record: <b style="color:#4ade80">' + _pr.w + ' W</b> \u00b7 <b style="color:#f66">' + _pr.l + ' L</b> \u00b7 ' + _pr.pend + ' pending</p>' +
@@ -6290,6 +6311,22 @@ function renderPatternTab() {
     if (usePat.consecutive_week_repeats) {
       h += '<p class="tiny" style="margin:4px 0"><b>Same number drew in consecutive weeks:</b> ' + usePat.consecutive_week_repeats.length + ' times so far.</p>';
     }
+    if (usePat.top_home_slots && usePat.top_home_slots.length) {
+      h += '<p class="tiny" style="margin:4px 0"><b>Home-win key slots:</b> ' +
+        esc(usePat.top_home_slots.slice(0, 8).map(function (t) { return t.no + ' (' + t.times + 'x)'; }).join(', ')) + '</p>';
+    }
+    if (usePat.top_away_slots && usePat.top_away_slots.length) {
+      h += '<p class="tiny" style="margin:4px 0"><b>Away-win key slots:</b> ' +
+        esc(usePat.top_away_slots.slice(0, 8).map(function (t) { return t.no + ' (' + t.times + 'x)'; }).join(', ')) + '</p>';
+    }
+    if (usePat.home_win_pairs && usePat.home_win_pairs.length) {
+      h += '<p class="tiny" style="margin:4px 0"><b>Repeating home-win pairs:</b> ' +
+        esc(usePat.home_win_pairs.slice(0, 6).map(function (p) { return p.pair[0] + '-' + p.pair[1] + ' (' + p.weeks.length + 'x)'; }).join(', ')) + '</p>';
+    }
+    if (usePat.away_win_pairs && usePat.away_win_pairs.length) {
+      h += '<p class="tiny" style="margin:4px 0"><b>Repeating away-win pairs:</b> ' +
+        esc(usePat.away_win_pairs.slice(0, 6).map(function (p) { return p.pair[0] + '-' + p.pair[1] + ' (' + p.weeks.length + 'x)'; }).join(', ')) + '</p>';
+    }
     if (usePat.formulas && usePat.formulas.length) {
       h += '<div style="border-top:1px solid #14294e;margin-top:8px;padding-top:8px"><b class="tiny">Formula groups and their proofs</b>';
       usePat.formulas.slice(0, 8).forEach(function (f) {
@@ -6314,15 +6351,15 @@ function japPapersAutoScan(week, cb) {
      onload - no CORS problem. Results cached per week. */
   var cache = lsGet('jap_scanprobe', null);
   if (cache && cache.week === week && cache.found && Date.now() - cache.t < 24 * 3600 * 1000) { cb(cache.found); return; }
-  var slugs = ['fortune-soccer', 'happy-joe', 'unity-direct', 'weekly-telegraph', 'soccer-6', 'temple-of-draws',
-    'great-soccer', 'soccer-x', 'winstar', 'soccer-advance', 'the-new-dream', 'rangers-36', 'sporting-telegraph',
-    'weekly-fixtures', 'power-of-soccer', 'super-soccer', 'grand-national', 'lucky-strike', 'willy-tips', 'pools-telegraph'];
-  var months = [10, 11, 9, 8, 7];
+  var pack = ((lsGet('jap_papers', null) || {}).d) || state.papers || {};
+  var slugs = [];
+  (pack.papers || []).forEach(function (p) { if (p.id) slugs.push(p.id); });
+  if (!slugs.length) slugs = ['bob-morton', 'capital-international', 'soccer-x-research', 'bigwin-soccer',
+    'pools-telegraph', 'happy-joe', 'temple-of-draws', 'winstar', 'the-new-dream', 'special-advance-fixtures'];
+  var months = [10, 11];
   var found = [], queue = [];
   slugs.forEach(function (sl) {
-    months.forEach(function (mo) {
-      for (var pg = 1; pg <= 2; pg++) queue.push({ slug: sl, month: mo, page: pg, host: 'fortunesoccer' });
-    });
+    months.forEach(function (mo) { queue.push({ slug: sl, month: mo, page: 1, host: 'fortunesoccer' }); });
   });
   var qi = 0, inflight = 0, MAX = 6;
   var step = function () {
@@ -6413,8 +6450,20 @@ function japCouponXgKick(cpn) {
         if (!g && evs && evs.length) {
           for (var i = 0; i < evs.length; i++) {
             var e = evs[i];
-            if (normNm((e.homeTeam || {}).name) === normNm(m.home) && normNm((e.awayTeam || {}).name) === normNm(m.away)) {
-              g = pseudoFromSofa(e); ensureGame(g); break;
+            if (japNameMatch((e.homeTeam || {}).name, m.home) && japNameMatch((e.awayTeam || {}).name, m.away)) {
+              g = pseudoFromSofa(e); ensureGame(g);
+              /* v19.25: the 49 fixtures also carry their odds - margin-removed
+                 draw % from the wire's own prices when the coupon has none yet */
+              if (m.drawPct == null) {
+                var od = e.odds || {};
+                var dh = parseFloat(od.home || e.homeWinOdds || 0), dd = parseFloat(od.draw || e.drawOdds || 0), da = parseFloat(od.away || e.awayWinOdds || 0);
+                if (dd > 0 && dh > 0 && da > 0) {
+                  var ov = 1 / dh + 1 / dd + 1 / da;
+                  m.drawPct = Math.round(1000 / dd / ov) / 10;
+                  m.drawPrice = dd;
+                }
+              }
+              break;
             }
           }
         }
@@ -6443,6 +6492,12 @@ function japCouponXgKick(cpn) {
     };
     if (pend.length) Promise.all(pend).then(done, done); else done();
   }, function () { state.poolXgBusy = false; });
+}
+function japNameMatch(a, b) {
+  /* prefix-tolerant name match: "Nottingham" finds "Nottingham Forest" */
+  var x = normNm(a), y = normNm(b);
+  if (!x || !y) return false;
+  return x === y || x.indexOf(y) === 0 || y.indexOf(x) === 0;
 }
 function japCouponXgCell(m) {
   var x = state.poolXg && state.poolXg[m.no];
@@ -6666,8 +6721,12 @@ function renderPapersTab() {
   try {
     var pj = lsGet('jap_papers', null);
     var cpn = lsGet('jap_poolcoupon', null);
-    var dw = cpn && cpn.d && cpn.d.week;
-    if (dw && (!pj || !pj.d || pj.d.week !== dw)) {
+    var dw = (cpn && cpn.uk && cpn.uk.week) || 0;
+    var pack = (pj && pj.d) || pj || {};
+    var good = false;
+    (pack.papers || []).forEach(function (x) { if ((x.pages || []).length) good = true; });
+    if (pack.week === dw && good) good = true; else good = false;
+    if (dw && !good) {
       japPapersAutoScan(dw, function (found) {
         var ap = document.querySelector('.panel.active');
         if (ap && ap.id === 'panel-papers' && found.length) {
@@ -6747,6 +6806,44 @@ function renderPapersTab() {
     japCouponXgKick(pj && pj.week && cpn ? cpn : (state._lastCpn || null));
   });
 }
+function japPoolBankProvisional(el, uk, byNo) {
+  /* v19.25: the scans are live but the key votes are not read yet - the
+     bankers board still works: pattern-engine bankers with reasons, the
+     market's strongest numbers, and honest precautions */
+  var cached = lsGet('jap_patternjson', null);
+  var mini = japPatternMini();
+  var fc = (cached && cached.fc && cached.fc.picks && cached.fc.picks.length) ? cached.fc
+    : ((mini && mini.forecast) || {});
+  var h = '<div class="card"><h2>&#127942; Week ' + esc(String(uk.week || '')) + ' bankers &amp; precautions (provisional)</h2>' +
+    '<p class="muted small">This week\u2019s paper scans are live on the Forecast papers tab and the key votes are being read from the new sheets. Until they land, this board is the <b>pattern-engine provisional board</b> - every banker carries its reason and <b>auto-grades</b> with the results.</p></div>';
+  var picks = (fc.picks || []).slice(0, 5);
+  h += '<div class="card"><h2 style="font-size:13px">&#127919; Provisional consensus bankers</h2>';
+  if (!picks.length) h += '<p class="muted small">Waiting for the week\u2019s data to classify.</p>';
+  picks.forEach(function (p, i) {
+    h += '<div style="border-top:1px solid #14294e;padding:8px 0">' +
+      '<b style="color:#4FC3F7">#' + (i + 1) + ' \u00b7 No.' + p.no + ' \u00b7 ' + esc(p.home || '?') + ' v ' + esc(p.away || '?') + '</b>' +
+      '<p class="tiny" style="margin:4px 0 0"><b style="color:#4ade80">PREDICTION:</b> draw key \u00b7 the pattern engine ranks it top for a draw this week.</p>' +
+      '<p class="tiny muted" style="margin:3px 0 0"><b style="color:#ffcc00">REASON:</b> ' + esc((p.reasons || []).join('; ') || 'carried by the season pattern model') + '.</p></div>';
+  });
+  h += '</div>';
+  if (uk.strongest && uk.strongest.length) {
+    h += '<div class="card"><h2 style="font-size:13px">\ud83d\udccc The market\u2019s strongest draw numbers</h2>' +
+      '<p class="tiny muted">Where the bookmakers see a draw likeliest (margin removed' + (uk.expectedDraws ? (', ' + uk.expectedDraws + ' draws expected on the coupon') : '') + ').</p>';
+    uk.strongest.forEach(function (no) {
+      var m = byNo[no]; if (!m) return;
+      h += '<div data-poolno="' + m.no + '" style="cursor:pointer;margin-top:6px;display:flex;justify-content:space-between;border:1px solid #222;border-radius:8px;padding:8px">' +
+        '<span>No. ' + m.no + ' \u00b7 <b>' + esc(m.home) + ' v ' + esc(m.away) + '</b></span>' +
+        '<b style="color:#d4af37">' + (m.drawPct != null ? m.drawPct + '%' : '\u2014') + (m.drawPrice ? ' @ ' + m.drawPrice : '') + '</b></div>';
+    });
+    h += '</div>';
+  }
+  h += '<div class="card"><h2 style="font-size:13px">\u26a0\ufe0f Precautions</h2>' +
+    '<p class="tiny muted" style="margin:0">' + esc((fc.group_note ? fc.group_note + '. ' : '') +
+      'Keep lines small while the key votes are pending, lean on the priced market numbers, and let the auto-grading show the engine\u2019s true form before scaling stakes.') + '</p></div>';
+  el.innerHTML = h;
+  japCouponXgKick(state._lastCpn);
+  japPatternData(function () {});
+}
 function renderPoolBankTab() {
   var el = $('poolBankBox'); if (!el) return;
   el.innerHTML = '<div class="empty">Building the banker board with explanations\u2026</div>';
@@ -6760,6 +6857,12 @@ function renderPoolBankTab() {
     japCouponXgKick(cpn);
     var uk = cpn.uk, byNo = {};
     uk.matches.forEach(function (m) { byNo[m.no] = m; });
+    var hasKeys = false;
+    pj.papers.forEach(function (p) {
+      var k = p.keys || {};
+      if ((k.banker || []).length || (k.nap || []).length || (k.choice || []).length || (k.draw || []).length) hasKeys = true;
+    });
+    if (!hasKeys) { japPoolBankProvisional(el, uk, byNo); return; }
     /* consensus: how many papers bank each number (banker/nap/choice fields) */
     var votes = {}, notes = {};
     pj.papers.forEach(function (p) {
@@ -9945,7 +10048,7 @@ function setWatch(on) {
   if (st) st.textContent = on ? 'On - checking every 2 minutes while the app is open' : 'Off';
   if (state.watchTimer) { clearInterval(state.watchTimer); state.watchTimer = null; }
   if (on) {
-    state.watchTimer = setInterval(function () { checkScores(false); }, 120000);
+    state.watchTimer = null;   /* v19.25: no background refreshing */
     checkScores(false);
     toast('Watching your slip');
   }
@@ -10478,7 +10581,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   if (state.key) loadGames();          /* fixtures load themselves on open */
   setTimeout(function () { perfSettle(true); }, 9000);   /* auto-settle: grade yesterday's calls on open, no taps */
-  setInterval(function () { if (!document.hidden) perfSettle(true); }, 10 * 60 * 1000);   /* v19.9: keep grading as results land */
+  setInterval(function () { if (!document.hidden) { perfSettle(true); japPatternGrade(); } }, 60 * 60 * 1000);   /* v19.25: silent hourly settle only - no per-minute refreshing */   /* v19.9: keep grading as results land */
   /* v19.17.3: the Monitor tab keeps itself current - balance games, fair calls
      and pattern cards re-render on a timer while the tab is open, so matches
      move under the Balance header on their own as odds and xG land. No taps,
@@ -10489,20 +10592,16 @@ document.addEventListener('DOMContentLoaded', function () {
     if (ap && ap.id === 'panel-monitor') renderMonitorTab();
     if (ap && ap.id === 'panel-pools') japCouponLoad(true).then(function () { renderPoolsTab(); }, function () { renderPoolsTab(); });
   };
-  window.japMonTimer = setInterval(function () { if (!document.hidden) window.japMonitorTick(); }, 120 * 1000);
+  window.japMonTimer = null;   /* v19.25: no background refreshing */
   setInterval(function () {
     if (document.hidden || !state.games.length) return;
-    if (state.sport === 'football') { oddsRefresh(); japKickRealXg(); }   /* v19.20: xG self-updates with the prices (10-min per-match guard inside) */
-    else if (ESPN_SPORT_SLUGS[state.sport]) espnSportOddsAttach(state.sport);
-    perfAutoGrade();                     /* auto-grade + badges as results land */
-    japPatternRefresh(false);            /* v19.23: the pattern engine re-runs weekly by itself */
-    japPatternGrade();                   /* v19.24: auto-grade pattern picks as results land */
-    var _ap2 = document.querySelector('.panel.active');
-    if (_ap2 && _ap2.id === 'panel-pattern') renderPatternTab();
-    var ap = document.querySelector('.panel.active');
-    if (ap && ap.id === 'panel-live') renderLive();
-    if (ap && ap.id === 'panel-results') renderResults();
-  }, ODDS_POLL_MS);
+    /* v19.25: the user asked to stop the app refreshing itself - no odds
+       pulls, no panel repaints, no background network. Silent local grading
+       only; everything refreshes when the user opens or taps. */
+    perfAutoGrade();
+    japPatternRefresh(false);
+    japPatternGrade();
+  }, 10 * 60 * 1000);
 
   var ts = document.querySelectorAll('.tab');
   for (var i = 0; i < ts.length; i++) (function (t) {
