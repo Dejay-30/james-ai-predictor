@@ -606,7 +606,7 @@ body{background:#0B0E13}
 <script>
 /* v19.8.1 self-heal: an open tab can never go stale again - if the deployed
    version changes, this tab reloads itself within 5 minutes */
-var JAP_BUILD = '19.28.0';
+var JAP_BUILD = '19.28.1';
 window.japAutoRefreshStopped = true;
 function japVerNewer(a, b) {
   var x = String(a).split('.'), y = String(b).split('.'), d;
@@ -713,7 +713,7 @@ setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: backgr
   <button class="drawer-item" id="menuAbout"><span class="ic">&#8505;</span><span>About &amp; how it works<small class="sub">What the numbers mean</small></span></button>
 
   <div class="drawer-foot">
-    James AI Predictor <span id="appVerFoot">v19.28.0</span> · 29 Oct 2026<br>
+    James AI Predictor <span id="appVerFoot">v19.28.1</span> · 29 Oct 2026<br>
     Model estimates only &mdash; not betting advice. 18+. Please gamble responsibly.
   </div>
 </nav>
@@ -6747,9 +6747,9 @@ function renderMust5Tab() {
         if (p == null || !(p > 0)) return;
         if (p < 0.68) return;                                 /* THE SURE GATE - never add a pick the model is not sure of */
         var fair = 1 / p;
-        if (price == null || !isFinite(price)) price = fair;          /* model odds fallback */
+        if (price == null || !isFinite(price)) { price = fair; real = false; }  /* model odds fallback */
         if (price < M - 0.001 || price > U + 0.001) return;           /* the user's odds window */
-        if (price > fair * 1.03) return;                              /* no negative-value picks */
+        /* value is shown in the analysis; admission is the model's sureness + the odds window */
         cands.push({ g: g, call: call, market: market, p: p, price: price, fair: fair,
           conf: confOf(p), real: real, xgb: !!(g._realXg && g._realXg.lh != null),
           note: analyse(row, call, p, price, fair) });
