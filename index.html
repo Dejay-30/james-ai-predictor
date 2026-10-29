@@ -606,7 +606,7 @@ body{background:#0B0E13}
 <script>
 /* v19.8.1 self-heal: an open tab can never go stale again - if the deployed
    version changes, this tab reloads itself within 5 minutes */
-var JAP_BUILD = '19.27.2';
+var JAP_BUILD = '19.27.3';
 window.japAutoRefreshStopped = true;
 function japVerNewer(a, b) {
   var x = String(a).split('.'), y = String(b).split('.'), d;
@@ -616,9 +616,11 @@ function japVerNewer(a, b) {
   }
   return false;
 }
+document.addEventListener('DOMContentLoaded', function () {
+  var f = document.getElementById('appVerFoot');
+  if (f) f.textContent = 'v' + JAP_BUILD;
+});
 function japAutoUpdate() {
-  var jpf = document.getElementById('appVerFoot');
-  if (jpf) jpf.textContent = 'v' + JAP_BUILD;
   /* v19.27: updates are AUTOMATIC. One quiet version check each time the
      app opens; if the live site is newer the app swaps to it by itself -
      no banner, no button, nothing to tap. Nothing runs while the app is
@@ -711,7 +713,7 @@ setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: backgr
   <button class="drawer-item" id="menuAbout"><span class="ic">&#8505;</span><span>About &amp; how it works<small class="sub">What the numbers mean</small></span></button>
 
   <div class="drawer-foot">
-    James AI Predictor <span id="appVerFoot">v19.27.0</span> · 29 Oct 2026<br>
+    James AI Predictor <span id="appVerFoot">v19.27.3</span> · 29 Oct 2026<br>
     Model estimates only &mdash; not betting advice. 18+. Please gamble responsibly.
   </div>
 </nav>
