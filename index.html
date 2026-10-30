@@ -606,7 +606,7 @@ body{background:#0B0E13}
 <script>
 /* v19.8.1 self-heal: an open tab can never go stale again - if the deployed
    version changes, this tab reloads itself within 5 minutes */
-var JAP_BUILD = '19.29.0';
+var JAP_BUILD = '19.30.0';
 window.japAutoRefreshStopped = true;
 function japVerNewer(a, b) {
   var x = String(a).split('.'), y = String(b).split('.'), d;
@@ -678,7 +678,6 @@ setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: backgr
   <button class="drawer-item" data-goto="poolbank"><span class="ic">&#127974;</span><span>Bankers &amp; precautions<small class="sub">Best 5 consensus + every banker explained</small></span></button>
   <button class="drawer-item" data-goto="must5"><span class="ic">&#127942;</span><span>Must 5s<small class="sub">home/away &middot; BTTS &middot; 1H U/O 1.5 &middot; FT over 2.5 &middot; odds 1.36-1.64</small></span></button>
   <button class="drawer-item" data-goto="pattern"><span class="ic">&#128200;</span><span>Pattern Lab<small class="sub">weeks 1-17 formulas &middot; this week's draws &middot; auto-updating</small></span></button>
-  <button class="drawer-item" data-goto="strat"><span class="ic">&#127919;</span><span>Strategies<small class="sub">Strong home · BTTS · 1st-half goals</small></span></button>
   <button class="drawer-item" data-goto="xg"><span class="ic">&#128202;</span><span>xG tables<small class="sub">Expected goals, every league</small></span></button>
   <button class="drawer-item" data-goto="live"><span class="ic">&#128308;</span><span>Live now<small class="sub">Matches in play</small></span></button>
   <button class="drawer-item" data-goto="results"><span class="ic">&#9989;</span><span>Results<small class="sub">Final scores by date</small></span></button>
@@ -713,7 +712,7 @@ setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: backgr
   <button class="drawer-item" id="menuAbout"><span class="ic">&#8505;</span><span>About &amp; how it works<small class="sub">What the numbers mean</small></span></button>
 
   <div class="drawer-foot">
-    James AI Predictor <span id="appVerFoot">v19.29.0</span> · 29 Oct 2026<br>
+    James AI Predictor <span id="appVerFoot">v19.30.0</span> · 29 Oct 2026<br>
     Model estimates only &mdash; not betting advice. 18+. Please gamble responsibly.
   </div>
 </nav>
@@ -823,15 +822,7 @@ setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: backgr
     <div class="card"><h2>&#128200; Pool Pattern Lab</h2><p class="muted small">The <b>UK/Aussie pool pattern engine</b>: every week of the season is harvested (fixtures, scores, draw results, paper keys), the <b>keys, formulas, sequences and fixture patterns that repeat</b> are counted, and the current coupon is classified into its group to give <b>this week's formula draws</b> - each with its reason. The engine <b>auto-updates every week to the end of the season and rolls itself into next season</b>. Sources: FortuneSoccer results &amp; fixtures posts, PoolsAgents prices/tips, paper scans. No random numbers.</p></div>
     <div id="patternBox"><div class="card"><p class="muted">Loading pattern engine...</p></div></div>
   </section>
-  <section id="panel-strat" class="panel">
-    <div class="card"><h2>&#127919; Strategies</h2><p class="muted small">Three exact filters, checked against each team&rsquo;s last 12 matches. One tap adds the pick to your slip. Uses your API key for team form (cached 6 hours).</p></div>
-    <div class="card"><h2>&#127942; Strong home teams</h2><p class="muted small">Fixtures where the home team has won at least <b>70% of games</b>, where the away side has lost <b>60% or more of the away games</b>, whilst conceding at least <b>1.80 goals per game</b> when they play away from home.</p></div>
-    <div id="stratHome" class="list"></div>
-    <div class="card"><h2>&#9917; BTTS</h2><p class="muted small">Fixtures where the away team has conceded in <b>80% or more of games</b>, but has scored in <b>100% of games played on the road</b>, and where the home side has seen BTTS in <b>75% or more of their home games</b>.</p></div>
-    <div id="stratBtts" class="list"></div>
-    <div class="card"><h2>&#9201; First-half goals</h2><p class="muted small">Fixtures where both teams have seen first-half goals in <b>60% or more of their games, both home and away</b>, where the away side has conceded <b>1.80 goals per game or more</b>, with the home side scoring <b>0.80 or more goals</b> across the first 45 minutes on average.</p></div>
-    <div id="stratFh" class="list"></div>
-  </section>
+  
   <section id="panel-xg" class="panel">
     <div class="card"><h2>&#128202; Expected goals</h2><p class="muted small">Every team&rsquo;s expected goals per game &mdash; scored and conceded &mdash; from the real season table, for any of the 52 leagues. Upcoming matches carry their xG, with the results underneath so you can watch how the numbers perform.</p>
       <select id="xgLeague" aria-label="League"></select></div>
@@ -1305,6 +1296,34 @@ var SPORTS = {
     }
   },
 
+  tabletennis: {
+    key: 'tabletennis', label: 'Table Tennis', icon: '\ud83c\udfd3',
+    host: 'https://v1.volleyball.api-sports.io',   /* unused: loaded from SofaScore */
+    listPath: '/games', listParam: 'date',
+    onePath: '/games', oneParam: 'id',
+    h2hPath: null, teamHistory: true,
+    hasInjuries: false,
+    standings: null, seasonFmt: 'year', stdRows: 'nested',
+    priorHome: 2.85, priorAway: 2.15,
+    bands: { high: 3.1, low: 2.0 },
+    blowout: 2.5,   // margin a fan would call decisive
+    lines: [2.5, 3.5],
+    unit: 'sets',
+    parse: function (g) {
+      var st = (g.status && g.status.short) || 'NS';
+      var NOT = ['NS', 'POST', 'CANC', 'ABD'], FIN = ['FT'];
+      var isFin = FIN.indexOf(st) >= 0, isLive = NOT.indexOf(st) < 0 && !isFin;
+      var sh = numScore(g.scores && g.scores.home), sa = numScore(g.scores && g.scores.away);
+      return {
+        id: g.id, dateISO: g.date, statusShort: st, isLive: isLive, isFin: isFin,
+        league: (g.league && g.league.name) || 'Table Tennis',
+        home: (g.teams && g.teams.home && g.teams.home.name) || g.home,
+        away: (g.teams && g.teams.away && g.teams.away.name) || g.away,
+        gh: sh || 0, ga: sa || 0,
+        rawGh: isFin ? sh : null, rawGa: isFin ? sa : null, htGoals: null
+      };
+    }
+  },
   volleyball: {
     key: 'volleyball', label: 'Volleyball', icon: '\ud83c\udfd0',
     host: 'https://v1.volleyball.api-sports.io',
@@ -1464,7 +1483,7 @@ var SPORTS = {
   }
 };
 
-var SPORT_ORDER = ['football', 'basketball', 'hockey', 'handball', 'volleyball', 'rugby', 'baseball', 'nfl'];
+var SPORT_ORDER = ['football', 'basketball', 'hockey', 'handball', 'volleyball', 'rugby', 'baseball', 'nfl', 'tabletennis'];
 
 
 /* Snapshot the page exactly as it was parsed, BEFORE any rendering runs.
@@ -3140,15 +3159,47 @@ function renderResults() {
   var el = $('resultsList'); if (!el) return;
   monitorSweep();   /* every finished match on screen teaches the engine */
   gradePreds();     /* and settle every engine call that now has a result */
+  japSettleBacklog();
   var date = $('dateInput').value || new Date().toLocaleDateString('en-CA');
   var fin = allGames().filter(function (g) { return g.isFin; });
   fin.sort(function (a, b) { return String(a.league).localeCompare(String(b.league)) || new Date(a.dateISO) - new Date(b.dateISO); });
-  el.innerHTML = fin.length ? fin.map(function (g) {
+  var nav = '<div style="display:flex;gap:6px;align-items:center;margin:0 0 8px;flex-wrap:wrap">' +
+    '<button class="btnm" id="rsPrev">\u2039 prev day</button>' +
+    '<input type="date" id="rsDate" value="' + esc(date) + '" style="background:#0d2240;color:#fff;border:1px solid #1c3a68;border-radius:8px;padding:5px 8px;font-size:12px">' +
+    '<button class="btnm" id="rsNext">next day \u203a</button>' +
+    '<button class="btnm" id="rsLoad">Load day</button></div>';
+  if (!fin.length && !window._rsTried && date === new Date().toLocaleDateString('en-CA')) {
+    window._rsTried = true;
+    var y = new Date(Date.now() - 864e5).toLocaleDateString('en-CA');
+    $('dateInput').value = y;
+    el.innerHTML = nav + '<div class="empty">Loading the latest finished day (' + esc(y) + ')\u2026</div>';
+    bindRsNav();
+    loadGames().then(function () { renderResults(); });
+    return;
+  }
+  el.innerHTML = nav + (fin.length ? fin.map(function (g) {
     return '<button class="fixture" data-id="' + esc(String(g.id)) + '"><span class="plus">+</span><span class="fx-body">' +
       '<div class="fx-teams">' + esc(g.home) + ' <span class="muted">' + (g.rawGh == null ? 'v' : g.gh + '-' + g.ga) + '</span> ' + esc(g.away) + '</div>' +
       '<div class="muted" style="font-size:11px">' + esc((SPORTS[g.sport] || SP()).icon + ' ' + (g.league || '') + ' \u00b7 FT \u00b7 ' + ko(g.dateISO)) + '</div>' +
       '</span><span class="fx-right">' + rowScoreHTML(g) + '</span></button>';
-  }).join('') : '<div class="empty">No finished matches for ' + esc(date) + ' yet. Pick any past date on the Fixtures tab, tap Load, and every final score for that day lands here.</div>';
+  }).join('') : '<div class="empty">No finished matches for ' + esc(date) + ' yet. Use the day buttons above to load any past day.</div>');
+  bindRsNav();
+}
+function bindRsNav() {
+  function shift(n) {
+    var d = new Date(($('rsDate') && $('rsDate').value) || Date.now());
+    d.setDate(d.getDate() + n);
+    var iso = d.toLocaleDateString('en-CA');
+    $('dateInput').value = iso;
+    if ($('rsDate')) $('rsDate').value = iso;
+    $('resultsList').innerHTML = '<div class="spinner"></div>';
+    loadGames().then(function () { renderResults(); });
+  }
+  var a = $('rsPrev'), b = $('rsNext'), c = $('rsLoad'), r = $('rsDate');
+  if (a) a.onclick = function () { shift(-1); };
+  if (b) b.onclick = function () { shift(1); };
+  if (c) c.onclick = function () { $('resultsList').innerHTML = '<div class="spinner"></div>'; loadGames().then(function () { renderResults(); }); };
+  if (r) r.onchange = function () { $('dateInput').value = r.value; $('resultsList').innerHTML = '<div class="spinner"></div>'; loadGames().then(function () { renderResults(); }); };
 }
 function renderMonitorTab() {
   var el = $('monitorList'); if (!el) return;
@@ -3256,51 +3307,7 @@ function stratEval(g) {
     btOk: bt.every(function (c) { return c.ok; }),
     fhOk: fh ? fh.every(function (c) { return c.ok; }) : false };
 }
-function renderStrategies() {
-  var eh = $('stratHome'), eb = $('stratBtts'), ef = $('stratFh'); if (!eh || !eb || !ef) return;
-  var busy = '<div class="empty">Checking team form \u2014 last 12 matches per team\u2026</div>';
-  eh.innerHTML = busy; eb.innerHTML = busy; ef.innerHTML = busy;
-  var base = [], noForm = 0;
-  allGames().forEach(function (g) {
-    if (g.sport !== 'football' || g.isFin || g.isLive) return;
-    var odds = state.odds[String(g.id)];
-    if (!odds || !odds.o1 || !odds.ox || !odds.o2) return;
-    if (!g.homeId || !g.awayId) { noForm++; return; }
-    var lam = lambdasFromOddsJ(odds); if (!lam) return;
-    var ip = impliedProbsO(odds);
-    var r = { lh: lam.lh, la: lam.la, n: 0, conf: 0.9, avg: lam.lh + lam.la, bttsRate: null, homeRate: lam.lh, awayRate: lam.la };
-    var prices = markets(r, g, SPORTS.football);
-    base.push({ g: g, ip: ip.h, btts: prices.btts_yes || 0, fh: prices.fh_over_05 || 0 });
-  });
-  if (!base.length) {
-    var none = '<div class="empty">No priced matches yet \u2014 fixtures and odds load on the Fixtures tab.</div>';
-    eh.innerHTML = none; eb.innerHTML = none; ef.innerHTML = none; return;
-  }
-  var homes = base.slice().sort(function (a, b) { return b.ip - a.ip; }).slice(0, 12);
-  var bts = base.slice().sort(function (a, b) { return b.btts - a.btts; }).slice(0, 12);
-  var fhs = base.slice().sort(function (a, b) { return b.fh - a.fh; }).slice(0, 12);
-  var tids = {};
-  [homes, bts, fhs].forEach(function (L) { L.forEach(function (x) { tids[x.g.homeId] = 1; tids[x.g.awayId] = 1; }); });
-  var seq = Promise.resolve();
-  Object.keys(tids).forEach(function (id) { seq = seq.then(function () { return fetchTeamForm(id); }); });
-  seq.then(function () {
-    function fill(el, list, key, mkt, pill, tag) {
-      var rows = [];
-      list.forEach(function (x) {
-        var ev = stratEval(x.g);
-        if (ev && ev[key]) rows.push(stratRow(x.g, ev[key === 'shOk' ? 'sh' : (key === 'btOk' ? 'bt' : 'fh')], mkt, pill, tag));
-      });
-      el.innerHTML = rows.length ? rows.join('') :
-        '<div class="empty">None of the ' + list.length + ' checked fixtures meet every condition today.</div>' +
-        (noForm ? '<p class="tiny muted" style="margin-top:6px">' + noForm + ' keyless fixture(s) skipped \u2014 no team ids for form.</p>' : '');
-    }
-    fill(eh, homes, 'shOk', 'home_win', '\ud83c\udfe6 HOME WIN', 'HOME');
-    fill(eb, bts, 'btOk', 'btts_yes', '\u26fd BTTS', 'BTTS');
-    fill(ef, fhs, 'fhOk', 'fh_over_05', '\u23f1 1H O0.5', '1H');
-  });
-}
 
-/* ---------- XG TABLES ---------- */
 function xgFromTable(rows, homeName, awayName) {
   var rh = standSide(rows, homeName), ra = standSide(rows, awayName);
   if (!rh || !ra || !rh.gp || !ra.gp) return null;
@@ -3732,10 +3739,10 @@ function gradeCouncilLog(pool) {
   if (!pool) pool = allGames();
   log.forEach(function (e) {
     if (e.graded) return;
-    if (Date.now() - e.at > 7 * 864e5) { e.graded = 'X'; changed = true; return; }   /* v19.9: expired, never fake-graded */
+    if (Date.now() - e.at > 14 * 864e5) { e.graded = 'X'; changed = true; return; }   /* v19.9: expired, never fake-graded */
     var g = null, i;
     for (i = 0; i < pool.length; i++) if (String(pool[i].id) === String(e.fid)) { g = pool[i]; break; }
-    if (!g) for (i = 0; i < pool.length; i++) if (pool[i].home === e.home && pool[i].away === e.away) { g = pool[i]; break; }
+    if (!g) for (i = 0; i < pool.length; i++) if (japNameLoose(pool[i].home, e.home) && japNameLoose(pool[i].away, e.away)) { g = pool[i]; break; }
     if (!g || !g.isFin || g.rawGh == null) return;
     var actual = g.rawGh > g.rawGa ? 'h' : (g.rawGh === g.rawGa ? 'd' : 'a');
     e.seatsW = (e.seats || []).map(function (st) { return st.pick === actual; });
@@ -4221,7 +4228,7 @@ document.getElementById('best20Box').addEventListener('click', function (e) {
   document.getElementById(bid).addEventListener('click', function (e) {
     var t = e.target;
     var sc = t && t.closest ? t.closest('[data-scan]') : null;
-    if (sc) { japScanOpen(sc.getAttribute('data-scan')); return; }
+    if (sc) { japScanOpen(sc.getAttribute('data-scan'), parseInt(sc.getAttribute('data-scanpage'), 10) || 0); return; }
     var pr = t && t.closest ? t.closest('[data-poolno]') : null;
     if (pr) japCouponAnalyse(pr.getAttribute('data-poolno'));
   });
@@ -4924,7 +4931,7 @@ function gradePreds() {
   var pool = allGames();
   log.forEach(function (pr) {
     if (pr.graded) return;
-    if (Date.now() - pr.at > 7 * 864e5) { pr.graded = 'X'; changed = true; return; }
+    if (Date.now() - pr.at > 14 * 864e5) { pr.graded = 'X'; changed = true; return; }
     var g = null, i;
     for (i = 0; i < pool.length; i++) if (String(pool[i].id) === String(pr.fid)) { g = pool[i]; break; }
     if (!g) for (i = 0; i < pool.length; i++) if (pool[i].home === pr.home && pool[i].away === pr.away) { g = pool[i]; break; }
@@ -4967,15 +4974,61 @@ function monitorRecord(g, out) {
   if (log.length > 300) log = log.slice(-300);
   lsSet('jap_monlog', log);
 }
+function japNameLoose(a, b) {
+  var na = normNm(a || ''), nb = normNm(b || '');
+  return !!na && !!nb && (na === nb || na.indexOf(nb) === 0 || nb.indexOf(na) === 0);
+}
+function japSettleBacklog() {
+  /* v19.30: settle every engine's pending picks even when their games left
+     memory - the pools week archives carry the final scores (incl. HT). */
+  var keys = (window.jap_autoGradeLists || []).slice();
+  if (keys.indexOf('jap_must5log') < 0) keys.push('jap_must5log');
+  var need = false;
+  keys.forEach(function (k) {
+    (lsGet(k, [])).forEach(function (e) { if (e.graded == null && e.home && e.away) need = true; });
+  });
+  if (!need) return;
+  var lastAt = parseInt(lsGet('jap_settle_at', '0'), 10) || 0;
+  if (Date.now() - lastAt < 10 * 60 * 1000) return;
+  lsSet('jap_settle_at', String(Date.now()));
+  var pool = allGames().slice();
+  var cur = (state._lastCpn && state._lastCpn.week) || 18;
+  var seq = Promise.resolve(), w;
+  for (w = Math.max(1, cur - 8); w <= cur; w++) {
+    (function (wk) {
+      seq = seq.then(function () {
+        return japFetchJSON(japPoolCalWeekUrl(wk)).then(function (j) {
+          ((j && j.matches) || []).forEach(function (m) {
+            if (m.gh == null || m.ga == null) return;
+            var ht = String(m.ht || '').split('-:-');
+            var hh = (ht.length === 2 && ht[0] !== '') ? parseInt(ht[0], 10) : null;
+            var ha = (ht.length === 2 && ht[1] !== '') ? parseInt(ht[1], 10) : null;
+            pool.push({ id: 'poolwk' + wk + '-' + m.no, home: m.home, away: m.away,
+              isFin: true, isLive: false, rawGh: m.gh, rawGa: m.ga, gh: m.gh, ga: m.ga,
+              htGoals: (hh != null && ha != null) ? hh + ha : null, htHome: hh, htAway: ha,
+              sport: 'football' });
+          });
+        }, function () {});
+      });
+    })(w);
+  }
+  seq.then(function () {
+    keys.forEach(function (k) { gradeLogOf(k, pool); });
+    japMust5Grade(pool);
+    var ap = document.querySelector('.panel.active');
+    if (ap && ap.id === 'panel-results') renderResults();
+    if (ap && ap.id === 'panel-must5') renderMust5Tab();
+  })['catch'](function () {});
+}
 function gradeLogOf(key, pool) {
   var log = lsGet(key, []), changed = false;
   if (!pool) pool = allGames();
   log.forEach(function (e) {
     if (e.graded != null) return;
-    if (Date.now() - e.at > 7 * 864e5) { e.graded = 'X'; changed = true; return; }
+    if (Date.now() - e.at > 14 * 864e5) { e.graded = 'X'; changed = true; return; }
     var g = null, i;
     for (i = 0; i < pool.length; i++) if (String(pool[i].id) === String(e.fid)) { g = pool[i]; break; }
-    if (!g) for (i = 0; i < pool.length; i++) if (pool[i].home === e.home && pool[i].away === e.away) { g = pool[i]; break; }
+    if (!g) for (i = 0; i < pool.length; i++) if (japNameLoose(pool[i].home, e.home) && japNameLoose(pool[i].away, e.away)) { g = pool[i]; break; }
     if (!g || !g.isFin || g.rawGh == null) return;
     var out = marketOutcome(e.market, g.rawGh, g.rawGa, g.htGoals, SPORTS[e.sport || 'football'], g.htHome, g.htAway);
     if (out === null || out === undefined) return;
@@ -6667,7 +6720,7 @@ function japPaperKeysByNo(papers) {
   });
   return byNo;
 }
-function japScanOpen(pid) {
+function japScanOpen(pid, idx) {
   var pj = state.papers, paper = null;
   ((pj && pj.papers) || []).forEach(function (p) { if (p.id === pid) paper = p; });
   if (!paper || !paper.pages || !paper.pages.length) { toast('scans not available right now'); return; }
@@ -6676,7 +6729,7 @@ function japScanOpen(pid) {
   ov = document.createElement('div');
   ov.id = 'japScanOv';
   ov.style.cssText = 'position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(4,10,24,.96);z-index:2000;overflow:auto;padding:10px;text-align:center';
-  var idx = 0;
+  if (idx == null || isNaN(idx) || idx < 0 || idx >= paper.pages.length) idx = 0;
   function draw() {
     ov.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;position:sticky;top:0;background:#071228;padding:8px;border-radius:10px">' +
       '<b style="color:#4FC3F7">' + esc(paper.name) + '</b>' +
@@ -6798,15 +6851,17 @@ function renderMust5Tab() {
   el.innerHTML = h;
   japMust5Grade();
 }
-function japMust5Grade() {
+function japMust5Grade(pool) {
   var log = lsGet('jap_must5log', []);
   if (!log.length) return;
+  if (!pool) pool = allGames();
   var changed = false;
   log.forEach(function (e) {
     if (e.graded != null) return;
-    if (Date.now() - e.at > 7 * 864e5) { e.graded = 'X'; changed = true; return; }
-    var g = null, pool = allGames(), i;
+    if (Date.now() - e.at > 14 * 864e5) { e.graded = 'X'; changed = true; return; }
+    var g = null, i;
     for (i = 0; i < pool.length; i++) if (String(pool[i].id) === String(e.fid)) { g = pool[i]; break; }
+    if (!g) for (i = 0; i < pool.length; i++) if (japNameLoose(pool[i].home, e.home) && japNameLoose(pool[i].away, e.away)) { g = pool[i]; break; }
     if (!g || !g.isFin || g.rawGh == null) return;
     var gh = g.rawGh, ga = g.rawGa, hth = (g.htHome != null ? g.htHome : null), hta = (g.htAway != null ? g.htAway : null);
     var ht = (hth != null && hta != null) ? hth + hta : (g.htGoals != null ? g.htGoals : null);
@@ -6845,7 +6900,11 @@ function renderPapersTab() {
             var div = document.createElement('div');
             div.className = 'card';
             div.innerHTML = '<h3>\U0001f4c2 Auto-scanned papers for week ' + dw + '</h3><p class="tiny muted">' + found.length + ' scan pages found automatically - keys are extracted as the engine runs. Tap to open.</p>' +
-              found.slice(0, 24).map(function (f) { return '<p class="tiny" style="margin:3px 0"><a href="' + f.url + '" target="_blank" rel="noopener">' + esc(f.paper) + ' p' + f.page + '</a></p>'; }).join('');
+              found.slice(0, 24).map(function (f) {
+            var pid2 = '';
+            ((state.papers && state.papers.papers) || window.japAllPapers || []).forEach(function (pp) { if (pp.name === f.paper) pid2 = pp.id; });
+            return '<p class="tiny" style="margin:3px 0"><a href="#" data-scan="' + esc(pid2) + '" data-scanpage="' + (f.page - 1) + '">' + esc(f.paper) + ' p' + f.page + ' \u00b7 open in app</a></p>';
+          }).join('').join('');
             box.insertBefore(div, box.firstChild);
           }
         }
@@ -7089,7 +7148,8 @@ function renderPoolBankTab() {
 function renderPoolsTab() {
   var el = $('poolsBox'); if (!el) return;
   var rec = japPoolRecHtml();
-  el.innerHTML = '<div class="empty">Loading the real pools coupon\u2026</div>';
+  function paint(h) { el.innerHTML = h; window._poolsHtml = h; }
+  paint(window._poolsHtml || '<div class="empty">Loading the real pools coupon\u2026</div>');
   japCouponLoad().then(function (cpn) {
     state._lastCpn = cpn;
     if (!cpn || !cpn.uk || !cpn.uk.matches) {
@@ -7097,7 +7157,7 @@ function renderPoolsTab() {
         if (auto && auto.uk && auto.uk.matches && auto.uk.matches.length) {
           state._autoCpn = auto;
           var hb = '<div class="card"><h2>\u26a1 Auto-generated UK/Aussie coupon</h2><p class="muted small">The published coupon is not out yet - this provisional weekly coupon is <b>auto-generated from the football wire</b> (UK + Aussie pools leagues, numbered as they land). It refreshes itself and swaps to the published coupon when PoolsUpdate releases it.</p></div>';
-          el.innerHTML = hb + '<div class="card">' + (rec ? japPoolModelHtml(rec) : '') + '</div>';
+          paint( hb + '<div class="card">' + (rec ? japPoolModelHtml(rec) : '') + '</div>');
           var rowsHtml = '';
           auto.uk.matches.forEach(function (m) {
             rowsHtml += '<div class="tiny" style="padding:3px 0;border-top:1px solid #14294e"><b>' + m.no + '.</b> ' + esc(m.home) + ' v ' + esc(m.away) + ' \u00b7 ' + esc(m.league || '') + '</div>';
@@ -7105,7 +7165,7 @@ function renderPoolsTab() {
           el.innerHTML += '<div class="card"><h3>\u26a1 Provisional fixtures</h3>' + rowsHtml + '</div>';
           return;
         }
-        el.innerHTML = '<div class="card"><h2>This coupon</h2><p class="muted small">The weekly coupon could not be reached right now - the JAP model keys below still work off the loaded fixtures.</p>' + japPoolModelHtml(rec) + '</div>';
+        paint( '<div class="card"><h2>This coupon</h2><p class="muted small">The weekly coupon could not be reached right now - the JAP model keys below still work off the loaded fixtures.</p>' + japPoolModelHtml(rec) + '</div>');
       });
       return;
     }
@@ -7195,7 +7255,7 @@ function renderPoolsTab() {
     }
     h += '</div>';
     h += japPoolModelHtml(rec);
-    el.innerHTML = h + japPoolsCalHtml(cpn);
+    paint( h + japPoolsCalHtml(cpn));
     japPoolsCalBind(cpn);
     if (cpn && cpn._auto) {
       var _b = document.createElement('div');
@@ -10005,6 +10065,7 @@ function switchTab(n, mode) {
   if (n === 'trending') maybeTrending();
   if (n === 'live') renderLive();
   if (n === 'results') renderResults();
+  if (n === 'result') { if (!state.legs.length || !state.analyzed) renderAnalysisStandalone(); }
   if (n === 'banker') renderDailyBankers();
   if (n === 'monitor') renderMonitorTab();
   if (n === 'pools') renderPoolsTab();
@@ -10012,7 +10073,6 @@ function switchTab(n, mode) {
   if (n === 'poolbank') renderPoolBankTab();
   if (n === 'must5') renderMust5Tab();
   if (n === 'pattern') renderPatternTab();
-  if (n === 'strat') renderStrategies();
   if (n === 'xg') renderXgTab();
   if (n === 'council') renderCouncilTab();
   if (n === 'perf') renderPerfTab();
@@ -10176,13 +10236,45 @@ function setWatch(on) {
 }
 
 /* ---------- games list ---------- */
+function sofaTTFixtures(date) {
+  /* Table Tennis loads from SofaScore's schedule (browser-side, like football odds) */
+  var b2 = $('loadBtn'); if (b2) { b2.disabled = true; b2.textContent = '...'; }
+  $('fixtureMeta').textContent = 'Loading Table Tennis...';
+  return fetch('https://api.sofascore.com/api/v1/sport/table-tennis/scheduled-events/' + date)
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      state.games = ((d && d.events) || []).map(function (ev) {
+        var hs = (ev.homeScore || {}).current || 0, as = (ev.awayScore || {}).current || 0;
+        var type = (ev.status || {}).type || 'notstarted';
+        var isFin = type === 'finished' || type === 'ended';
+        var isLive = type === 'inprogress';
+        return { id: 'sofa' + ev.id, sport: 'tabletennis',
+          home: ((ev.homeTeam || {}).name || ''), away: ((ev.awayTeam || {}).name || ''),
+          league: ((ev.tournament || {}).name || 'Table Tennis'),
+          dateISO: new Date((ev.startTimestamp || 0) * 1000).toISOString(),
+          isFin: isFin, isLive: isLive, gh: hs, ga: as,
+          rawGh: isFin ? hs : null, rawGa: isFin ? as : null, htGoals: null };
+      }).filter(function (g) { return g.id && g.home && g.away; });
+      $('fixtureMeta').textContent = state.games.length + ' table tennis matches on ' + date;
+      renderGames(); renderLeaguePicker(); oddsStatus();
+    })['catch'](function (e) {
+      $('fixtureList').innerHTML = '<div class="empty">Table tennis list unavailable right now (' + esc((e && e.message) || 'network') + '). It loads from SofaScore when your network allows it.</div>';
+      $('fixtureMeta').textContent = 'Could not load.';
+    }).then(function () { if (b2) { b2.disabled = false; b2.textContent = 'Load'; } });
+}
 function loadGames() {
-  var b = $('loadBtn'); b.disabled = true; b.textContent = '...';
+  var b = $('loadBtn'); if (b) { b.disabled = true; b.textContent = '...'; }
   $('fixtureList').innerHTML = '<div class="spinner"></div>';
   var date = $('dateInput').value || new Date().toLocaleDateString('en-CA');
   var sp = SP(), sk = state.sport;
+  if (sk === 'tabletennis') { return sofaTTFixtures(date); }
+  if (!state.key) {
+    /* keyless: go straight to the free wires - no wasted api-sports call */
+    if (sk === 'football') return Promise.resolve().then(function () { sofaFixturesFallback(date); });
+    if (ESPN_SPORT_SLUGS[sk]) return Promise.resolve().then(function () { espnSportFixtures(sk, date); });
+  }
   var pr = {}; pr[sp.listParam] = date;
-  apiGet(sk, sp.listPath, pr, 10 * 60 * 1000).then(function (d) {
+  return apiGet(sk, sp.listPath, pr, 10 * 60 * 1000).then(function (d) {
     state.games = d.response.map(function (raw) {
       var g = sp.parse(raw); g.sport = sk; return g;
     }).filter(function (g) { return g.id && g.home && g.away; });
@@ -10206,7 +10298,7 @@ function loadGames() {
     toast(e.message, true);
     if (sk === 'football') sofaFixturesFallback(date);   /* quota-proof: SofaScore carries the list */
     else if (ESPN_SPORT_SLUGS[sk]) espnSportFixtures(sk, date);
-  }).then(function () { b.disabled = false; b.textContent = 'Load'; });
+  }).then(function () { if (b) { b.disabled = false; b.textContent = 'Load'; } });
 }
 function ko(iso) { try { return new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } }
 /* Cheap in-list mismatch flag. For games already under way we can read the
@@ -10345,6 +10437,43 @@ function toggleGame(rawId) {
   lsSet('acca_slip', state.legs);
   renderGames(); renderLegs();
 }
+function renderAnalysisStandalone() {
+  /* v19.30: the Analysis works on its own - every match gets its model verdict
+     without adding anything to the bet slip. Tap a match for the full view. */
+  var el = $('resultBox'); if (!el) return;
+  var gs = allGames().filter(function (g) { return g.sport === 'football' && !g.isFin && !g.isLive; });
+  if (!gs.length) {
+    el.innerHTML = '<div class="card"><h2>&#128202; Model analysis</h2><div class="empty">No fixtures loaded yet. Open the Fixtures tab and tap Load (or Results to load a past day) - the analysis builds itself here.</div></div>';
+    return;
+  }
+  gs = gs.slice(0, 16);
+  var h = '<div class="card"><h2>&#128202; Model analysis</h2><p class="muted small">Every match analysed on its own - no bet slip needed. Tap any match for the full breakdown (form, xG, head-to-head, venue splits).</p></div>';
+  gs.forEach(function (g) {
+    var odds = state.odds[String(g.id)] || null;
+    var lam = (g._realXg && g._realXg.lh != null) ? { lh: g._realXg.lh, la: g._realXg.la } : (odds && odds.o1 ? lambdasFromOddsJ(odds) : null);
+    var title = '<b style="color:#4FC3F7">' + esc(g.home) + ' v ' + esc(g.away) + '</b>' +
+      '<div class="tiny muted">' + esc(g.league || '') + (g.dateISO ? ' \u00b7 ' + ko(g.dateISO) : '') + '</div>';
+    if (!lam) {
+      h += '<div class="card" data-xgid="' + g.id + '" style="cursor:pointer">' + title +
+        '<p class="tiny muted" style="margin:5px 0 0">Odds still loading - tap for the form view, the verdict appears when prices land.</p></div>';
+      return;
+    }
+    var r = { lh: lam.lh, la: lam.la, n: 0, conf: 0.9, avg: lam.lh + lam.la, bttsRate: null, homeRate: lam.lh, awayRate: lam.la };
+    var pr = markets(r, g, SPORTS.football) || {};
+    var hp = pr.home_win || 0, dp = pr.draw || 0, ap = pr.away_win || 0;
+    var verdict = (hp >= ap && hp >= dp) ? 'HOME WIN' : ((ap >= dp) ? 'AWAY WIN' : 'DRAW');
+    var conf = Math.round(Math.max(hp, ap, dp) * 100);
+    var why = [];
+    why.push('model ' + (g._realXg && g._realXg.lh != null ? 'real shot-based xG ' : 'market lambdas ') + lam.lh.toFixed(2) + ' v ' + lam.la.toFixed(2));
+    why.push('win probs ' + Math.round(hp * 100) + '-' + Math.round(dp * 100) + '-' + Math.round(ap * 100));
+    if (odds && odds.o1) why.push('market ' + odds.o1 + ' / ' + odds.ox + ' / ' + odds.o2);
+    h += '<div class="card" data-xgid="' + g.id + '" style="cursor:pointer">' + title +
+      '<p class="tiny" style="margin:5px 0 0"><b style="color:#4ade80">VERDICT:</b> ' + esc(verdict) +
+      ' \u00b7 confidence <b style="color:' + (conf >= 70 ? '#4ade80' : (conf >= 60 ? '#d4af37' : '#aaa')) + '">' + conf + '%</b></p>' +
+      '<p class="tiny muted" style="margin:3px 0 0"><b style="color:#ffcc00">WHY:</b> ' + esc(why.join(' \u00b7 ')) + '.</p></div>';
+  });
+  el.innerHTML = h;
+}
 function renderLegs() {
   $('slipCount').textContent = state.legs.length;
   var scb = $('slipCodeBox');
@@ -10369,6 +10498,7 @@ function renderLegs() {
 
 /* ---------- analyse ---------- */
 function analyze() {
+  state.analyzed = true;
   var b = $('analyzeBtn'); b.disabled = true; b.textContent = 'Analysing...';
   switchTab('result');
   state.matchView = null;
@@ -10700,7 +10830,7 @@ document.addEventListener('DOMContentLoaded', function () {
     state.consAutoKey = ''; state.sofaMap = null; state.sofaAt = 0; state.trendAt = 0;
     loadGames();
   });
-  if (state.key) loadGames();          /* fixtures load themselves on open */
+  loadGames();          /* v19.30: fixtures always load themselves on open (keyless goes straight to the free wires) */
   setTimeout(function () { perfSettle(true); }, 9000);   /* auto-settle: grade yesterday's calls on open, no taps */
   setInterval(function () { if (!document.hidden) { perfSettle(true); japPatternGrade(); } }, 60 * 60 * 1000);   /* v19.25: silent hourly settle only - no per-minute refreshing */   /* v19.9: keep grading as results land */
   /* v19.17.3: the Monitor tab keeps itself current - balance games, fair calls
@@ -11020,7 +11150,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.target.closest('.plus')) { toggleGame(el.getAttribute('data-id')); return; }
     analyseFixture(el.getAttribute('data-id'));
   });
-  ['liveList', 'resultsList', 'bankerList', 'monitorList', 'stratHome', 'stratBtts', 'stratFh'].forEach(function (id) { var le = $(id); if (le) le.addEventListener('click', listRowClick); });
+  ['liveList', 'resultsList', 'bankerList', 'monitorList'].forEach(function (id) { var le = $(id); if (le) le.addEventListener('click', listRowClick); });
   $('trendOut').addEventListener('click', function (e) {
     if (e.target.closest('a')) return;
     var add = e.target.closest ? e.target.closest('[data-trendadd]') : null;

@@ -1,8 +1,8 @@
-name: Refresh pools coupon
+name: Weekly pools update
 
 on:
   schedule:
-    - cron: "30 5 * * *"   # daily 05:30 UTC (06:30 WAT) - fresh coupon before match day, grading after
+    - cron: "30 5 * * *"   # daily 05:30 UTC - the pipeline is idempotent, so daily is safe
   workflow_dispatch: {}
 
 permissions:
@@ -16,16 +16,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Refresh coupon.json from the real sources
-        run: python pools/refresh_coupon.py
+      - name: Install OCR (for the papers keys)
+        run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
+      - name: Run the weekly pools pipeline
+        run: python pools/weekly_update.py
       - name: Commit if changed
         run: |
-          git config user.name "jap-coupon-bot"
+          git config user.name "jap-pools-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add pools/coupon.json
+          git add pools/
           if git diff --cached --quiet; then
-            echo "coupon unchanged"
+            echo "pools unchanged"
           else
-            git commit -m "coupon: auto refresh $(date -u +%F)"
+            git commit -m "pools: weekly auto-update $(date -u +%F)"
             git push
           fi
