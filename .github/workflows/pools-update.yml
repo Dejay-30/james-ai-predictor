@@ -1,0 +1,33 @@
+name: Weekly pools update
+
+on:
+  schedule:
+    - cron: "30 5 * * *"   # daily 05:30 UTC - the pipeline is idempotent, so daily is safe
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install OCR (for the papers keys)
+        run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
+      - name: Run the weekly pools pipeline
+        run: python pools/weekly_update.py
+      - name: Commit if changed
+        run: |
+          git config user.name "jap-pools-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add pools/
+          if git diff --cached --quiet; then
+            echo "pools unchanged"
+          else
+            git commit -m "pools: weekly auto-update $(date -u +%F)"
+            git push
+          fi
