@@ -12,7 +12,7 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 20,
    "tip": "home"
   },
   {
@@ -24,7 +24,7 @@
    "ga": 1,
    "draw": false,
    "status": "Away",
-   "drawpct": null,
+   "drawpct": 27,
    "tip": "away"
   },
   {
@@ -36,7 +36,7 @@
    "ga": 2,
    "draw": false,
    "status": "Away",
-   "drawpct": null,
+   "drawpct": 25,
    "tip": "away"
   },
   {
@@ -48,7 +48,7 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 29,
    "tip": "home"
   },
   {
@@ -60,7 +60,7 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 26,
    "tip": "home"
   },
   {
@@ -72,7 +72,7 @@
    "ga": 1,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 28,
    "tip": "home"
   },
   {
@@ -84,7 +84,7 @@
    "ga": 1,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": null,
+   "drawpct": 26,
    "tip": "score draw"
   },
   {
@@ -96,7 +96,7 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 28,
    "tip": "home"
   },
   {
@@ -108,7 +108,7 @@
    "ga": 0,
    "draw": true,
    "status": "noScoreDraw",
-   "drawpct": null,
+   "drawpct": 29,
    "tip": "no score draw"
   },
   {
@@ -120,7 +120,7 @@
    "ga": 3,
    "draw": false,
    "status": "Away",
-   "drawpct": null,
+   "drawpct": 23,
    "tip": "away"
   },
   {
@@ -132,7 +132,7 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 20,
    "tip": "home"
   },
   {
@@ -144,7 +144,7 @@
    "ga": 1,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": null,
+   "drawpct": 25,
    "tip": "score draw"
   },
   {
@@ -156,7 +156,7 @@
    "ga": 4,
    "draw": false,
    "status": "Away",
-   "drawpct": null,
+   "drawpct": 27,
    "tip": "away"
   },
   {
@@ -168,7 +168,7 @@
    "ga": 1,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": null,
+   "drawpct": 24,
    "tip": "score draw"
   },
   {
@@ -180,7 +180,7 @@
    "ga": 1,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 28,
    "tip": "home"
   },
   {
@@ -192,7 +192,7 @@
    "ga": 3,
    "draw": false,
    "status": "Away",
-   "drawpct": null,
+   "drawpct": 26,
    "tip": "away"
   },
   {
@@ -204,7 +204,7 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 26,
    "tip": "home"
   },
   {
@@ -216,7 +216,7 @@
    "ga": 1,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": null,
+   "drawpct": 25,
    "tip": "score draw"
   },
   {
@@ -228,7 +228,7 @@
    "ga": 0,
    "draw": true,
    "status": "noScoreDraw",
-   "drawpct": null,
+   "drawpct": 28,
    "tip": "no score draw"
   },
   {
@@ -240,7 +240,7 @@
    "ga": 1,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 21,
    "tip": "home"
   },
   {
@@ -252,7 +252,7 @@
    "ga": 1,
    "draw": false,
    "status": "Away",
-   "drawpct": null,
+   "drawpct": 28,
    "tip": "away"
   },
   {
@@ -264,7 +264,7 @@
    "ga": 1,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": null,
+   "drawpct": 24,
    "tip": "score draw"
   },
   {
@@ -276,7 +276,7 @@
    "ga": 1,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 25,
    "tip": "home"
   },
   {
@@ -288,7 +288,7 @@
    "ga": 1,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": null,
+   "drawpct": 27,
    "tip": "score draw"
   },
   {
@@ -300,7 +300,7 @@
    "ga": 1,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 30,
    "tip": "home"
   },
   {
@@ -312,7 +312,7 @@
    "ga": 4,
    "draw": false,
    "status": "Away",
-   "drawpct": null,
+   "drawpct": 28,
    "tip": "away"
   },
   {
@@ -324,7 +324,7 @@
    "ga": 5,
    "draw": false,
    "status": "Away",
-   "drawpct": null,
+   "drawpct": 28,
    "tip": "away"
   },
   {
@@ -336,7 +336,7 @@
    "ga": 3,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": null,
+   "drawpct": 29,
    "tip": "score draw"
   },
   {
@@ -348,7 +348,7 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 27,
    "tip": "home"
   },
   {
@@ -360,7 +360,7 @@
    "ga": 2,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 26,
    "tip": "home"
   },
   {
@@ -372,7 +372,7 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 24,
    "tip": "home"
   },
   {
@@ -384,7 +384,7 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 14,
    "tip": "home"
   },
   {
@@ -396,20 +396,20 @@
    "ga": 1,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 26,
    "tip": "home"
   },
   {
    "no": 34,
-   "home": "G. Morton",
-   "away": "Ayr United",
-   "ht": "Void",
-   "gh": null,
-   "ga": null,
-   "draw": false,
-   "status": "Panel",
-   "drawpct": null,
-   "tip": "28% draw"
+   "home": "Toulouse",
+   "away": "Troyes",
+   "ht": "0-:-0",
+   "gh": 0,
+   "ga": 0,
+   "draw": true,
+   "status": "noScoreDraw",
+   "drawpct": 28,
+   "tip": "no score draw (panel)"
   },
   {
    "no": 35,
@@ -420,7 +420,7 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 19,
    "tip": "home"
   },
   {
@@ -432,7 +432,7 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 23,
    "tip": "home"
   },
   {
@@ -444,7 +444,7 @@
    "ga": 1,
    "draw": false,
    "status": "Away",
-   "drawpct": null,
+   "drawpct": 23,
    "tip": "away"
   },
   {
@@ -456,7 +456,7 @@
    "ga": 2,
    "draw": false,
    "status": "Away",
-   "drawpct": null,
+   "drawpct": 29,
    "tip": "away"
   },
   {
@@ -468,7 +468,7 @@
    "ga": 1,
    "draw": false,
    "status": "Away",
-   "drawpct": null,
+   "drawpct": 24,
    "tip": "away"
   },
   {
@@ -480,8 +480,8 @@
    "ga": null,
    "draw": false,
    "status": "Away",
-   "drawpct": null,
-   "tip": "void"
+   "drawpct": 25,
+   "tip": "away (panel)"
   },
   {
    "no": 41,
@@ -492,7 +492,7 @@
    "ga": 1,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 20,
    "tip": "home"
   },
   {
@@ -504,7 +504,7 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 26,
    "tip": "home"
   },
   {
@@ -516,7 +516,7 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 16,
    "tip": "home"
   },
   {
@@ -528,7 +528,7 @@
    "ga": 1,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 26,
    "tip": "home"
   },
   {
@@ -540,7 +540,7 @@
    "ga": 2,
    "draw": false,
    "status": "Away",
-   "drawpct": null,
+   "drawpct": 27,
    "tip": "away"
   },
   {
@@ -552,7 +552,7 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 16,
    "tip": "home"
   },
   {
@@ -564,7 +564,7 @@
    "ga": 3,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": null,
+   "drawpct": 29,
    "tip": "score draw"
   },
   {
@@ -576,7 +576,7 @@
    "ga": 1,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 21,
    "tip": "home"
   },
   {
@@ -588,7 +588,7 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": null,
+   "drawpct": 19,
    "tip": "home"
   }
  ],

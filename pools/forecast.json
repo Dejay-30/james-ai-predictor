@@ -1,9 +1,9 @@
 {
  "week": 18,
  "date": "2026-10-31",
- "expected_draws": 10.6,
+ "expected_draws": 10.8,
  "group": "low",
- "group_note": "weeks 1-17 average 12.8 draws; the last five weeks averaged 10.6 - week 18 sits in the low-draw group",
+ "group_note": "weeks 1-17 average 12.8 draws; the last five weeks averaged 10.8 - week 18 sits in the low-draw group",
  "picks": [
   {
    "no": 32,
@@ -885,6 +885,17 @@
    ]
   },
   {
+   "no": 34,
+   "home": "Motherwell",
+   "away": "St. Mirren",
+   "score": 19,
+   "nfreq": 5,
+   "reasons": [
+    "slot 34 drew 5 times already this season (weeks 1,7,8,11,17)",
+    "the teams involved have 2 draws between them this season"
+   ]
+  },
+  {
    "no": 8,
    "home": "Bolton",
    "away": "Bristol C.",
@@ -951,17 +962,6 @@
    "reasons": [
     "slot 48 drew 3 times already this season (weeks 4,6,9)",
     "the teams involved have 4 draws between them this season"
-   ]
-  },
-  {
-   "no": 34,
-   "home": "Motherwell",
-   "away": "St. Mirren",
-   "score": 16,
-   "nfreq": 4,
-   "reasons": [
-    "slot 34 drew 4 times already this season (weeks 1,7,8,11)",
-    "the teams involved have 2 draws between them this season"
    ]
   },
   {
