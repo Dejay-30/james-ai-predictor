@@ -12,8 +12,8 @@
    "ga": 1,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": 25,
-   "tip": "score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 2,
@@ -24,8 +24,8 @@
    "ga": 1,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": 27,
-   "tip": "score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 3,
@@ -36,8 +36,8 @@
    "ga": 3,
    "draw": false,
    "status": "Away",
-   "drawpct": 28,
-   "tip": "away"
+   "drawpct": null,
+   "tip": "2"
   },
   {
    "no": 4,
@@ -48,8 +48,8 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": 12,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 5,
@@ -60,8 +60,8 @@
    "ga": 0,
    "draw": true,
    "status": "noScoreDraw",
-   "drawpct": 28,
-   "tip": "no score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 6,
@@ -72,8 +72,8 @@
    "ga": 0,
    "draw": true,
    "status": "noScoreDraw",
-   "drawpct": 26,
-   "tip": "no score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 7,
@@ -84,8 +84,8 @@
    "ga": 2,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": 26,
-   "tip": "score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 8,
@@ -96,8 +96,8 @@
    "ga": 1,
    "draw": false,
    "status": "Home",
-   "drawpct": 25,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 9,
@@ -108,8 +108,8 @@
    "ga": 2,
    "draw": false,
    "status": "Away",
-   "drawpct": 26,
-   "tip": "away"
+   "drawpct": null,
+   "tip": "2"
   },
   {
    "no": 10,
@@ -120,8 +120,8 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": 28,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 11,
@@ -132,8 +132,8 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": 27,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 12,
@@ -144,8 +144,8 @@
    "ga": 1,
    "draw": false,
    "status": "Away",
-   "drawpct": 27,
-   "tip": "away"
+   "drawpct": null,
+   "tip": "2"
   },
   {
    "no": 13,
@@ -156,8 +156,8 @@
    "ga": 3,
    "draw": false,
    "status": "Away",
-   "drawpct": 28,
-   "tip": "away"
+   "drawpct": null,
+   "tip": "2"
   },
   {
    "no": 14,
@@ -168,8 +168,8 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": 26,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 15,
@@ -180,8 +180,8 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": 19,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 16,
@@ -192,8 +192,8 @@
    "ga": 0,
    "draw": true,
    "status": "noScoreDraw",
-   "drawpct": 28,
-   "tip": "no score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 17,
@@ -204,8 +204,8 @@
    "ga": 2,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": 28,
-   "tip": "score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 18,
@@ -216,8 +216,8 @@
    "ga": 5,
    "draw": false,
    "status": "Away",
-   "drawpct": 28,
-   "tip": "away"
+   "drawpct": null,
+   "tip": "2"
   },
   {
    "no": 19,
@@ -228,8 +228,8 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": 26,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 20,
@@ -240,8 +240,8 @@
    "ga": 2,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": 29,
-   "tip": "score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 21,
@@ -252,8 +252,8 @@
    "ga": 3,
    "draw": false,
    "status": "Away",
-   "drawpct": 27,
-   "tip": "away"
+   "drawpct": null,
+   "tip": "2"
   },
   {
    "no": 22,
@@ -264,8 +264,8 @@
    "ga": 1,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": 25,
-   "tip": "score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 23,
@@ -276,8 +276,8 @@
    "ga": 4,
    "draw": false,
    "status": "Away",
-   "drawpct": 23,
-   "tip": "away"
+   "drawpct": null,
+   "tip": "2"
   },
   {
    "no": 24,
@@ -288,8 +288,8 @@
    "ga": 1,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": 23,
-   "tip": "score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 25,
@@ -300,8 +300,8 @@
    "ga": 1,
    "draw": false,
    "status": "Home",
-   "drawpct": 25,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 26,
@@ -312,8 +312,8 @@
    "ga": 3,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": 26,
-   "tip": "score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 27,
@@ -324,8 +324,8 @@
    "ga": 2,
    "draw": false,
    "status": "Home",
-   "drawpct": 27,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 28,
@@ -336,8 +336,8 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": 24,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 29,
@@ -348,8 +348,8 @@
    "ga": 2,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": 27,
-   "tip": "score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 30,
@@ -361,7 +361,7 @@
    "draw": true,
    "status": "ScoreDraw",
    "drawpct": null,
-   "tip": "score draw"
+   "tip": "X"
   },
   {
    "no": 31,
@@ -372,8 +372,8 @@
    "ga": 1,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": 28,
-   "tip": "score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 32,
@@ -384,8 +384,8 @@
    "ga": 0,
    "draw": true,
    "status": "noScoreDraw",
-   "drawpct": 28,
-   "tip": "no score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 33,
@@ -397,7 +397,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "home"
+   "tip": "1"
   },
   {
    "no": 34,
@@ -408,8 +408,8 @@
    "ga": 4,
    "draw": false,
    "status": "Away",
-   "drawpct": 28,
-   "tip": "away"
+   "drawpct": null,
+   "tip": "2"
   },
   {
    "no": 35,
@@ -420,8 +420,8 @@
    "ga": 1,
    "draw": false,
    "status": "Home",
-   "drawpct": 28,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 36,
@@ -432,8 +432,8 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": 29,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 37,
@@ -444,8 +444,8 @@
    "ga": 0,
    "draw": true,
    "status": "noScoreDraw",
-   "drawpct": 25,
-   "tip": "no score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 38,
@@ -456,8 +456,8 @@
    "ga": 1,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": 26,
-   "tip": "score draw"
+   "drawpct": null,
+   "tip": "X"
   },
   {
    "no": 39,
@@ -468,8 +468,8 @@
    "ga": 0,
    "draw": false,
    "status": "Home",
-   "drawpct": 21,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 40,
@@ -480,8 +480,8 @@
    "ga": 2,
    "draw": false,
    "status": "Away",
-   "drawpct": 20,
-   "tip": "away"
+   "drawpct": null,
+   "tip": "2"
   },
   {
    "no": 41,
@@ -492,8 +492,8 @@
    "ga": 1,
    "draw": false,
    "status": "Home",
-   "drawpct": 22,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 42,
@@ -504,8 +504,8 @@
    "ga": 1,
    "draw": false,
    "status": "Home",
-   "drawpct": 29,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 43,
@@ -517,7 +517,7 @@
    "draw": true,
    "status": "ScoreDraw",
    "drawpct": null,
-   "tip": "score draw"
+   "tip": "X"
   },
   {
    "no": 44,
@@ -529,7 +529,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "away"
+   "tip": "2"
   },
   {
    "no": 45,
@@ -541,7 +541,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "home"
+   "tip": "1"
   },
   {
    "no": 46,
@@ -553,7 +553,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "home"
+   "tip": "1"
   },
   {
    "no": 47,
@@ -564,8 +564,8 @@
    "ga": 2,
    "draw": false,
    "status": "Home",
-   "drawpct": 25,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 48,
@@ -576,8 +576,8 @@
    "ga": 1,
    "draw": false,
    "status": "Home",
-   "drawpct": 25,
-   "tip": "home"
+   "drawpct": null,
+   "tip": "1"
   },
   {
    "no": 49,
@@ -588,8 +588,8 @@
    "ga": 1,
    "draw": true,
    "status": "ScoreDraw",
-   "drawpct": 29,
-   "tip": "score draw"
+   "drawpct": null,
+   "tip": "X"
   }
  ],
  "source": "fortunesoccer-results"
