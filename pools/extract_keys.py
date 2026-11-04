@@ -29,11 +29,24 @@ def get(url):
 
 
 def ocr(img, psm=6):
-    with tempfile.NamedTemporaryFile(suffix='.img', delete=False) as f:
+    # shrink + greyscale first: multi-MB scan JPEGs make tesseract crawl or
+    # time out on small CI runners (v19.31)
+    try:
+        from PIL import Image
+        import io as _io
+        im = Image.open(_io.BytesIO(img))
+        if im.width > 1800:
+            im = im.resize((1800, max(1, int(im.height * 1800 / im.width))), Image.LANCZOS)
+        buf = _io.BytesIO()
+        im.convert('L').save(buf, format='PNG')
+        img = buf.getvalue()
+    except Exception:
+        pass
+    with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as f:
         f.write(img); tmp = f.name
     try:
-        return subprocess.run(['tesseract', tmp, 'stdout', '--psm', str(psm)],
-                              capture_output=True, timeout=180).stdout.decode('utf-8', 'replace')
+        return subprocess.run(['tesseract', tmp, 'stdout', '-l', 'eng', '--psm', str(psm)],
+                              capture_output=True, timeout=240).stdout.decode('utf-8', 'replace')
     finally:
         os.unlink(tmp)
 
@@ -125,11 +138,15 @@ def main():
             print('%-24s no scans' % p['id']); continue
         if p.get('keysWeek') == pj.get('week') and '--force' not in sys.argv:
             print('%-24s already read for week %s' % (p['id'], pj.get('week'))); continue
+        ocr_ok = [False]
         def one(u):
             try:
-                return ocr(get(re.sub(r'-\d+x\d+(\.\w+)$', r'\1', u)))
+                t = ocr(get(re.sub(r'-\d+x\d+(\.\w+)$', r'\1', u)))
+                if t.strip():
+                    ocr_ok[0] = True
+                return t
             except Exception as e:
-                print('%-24s fetch/ocr fail %s' % (p['id'], str(e)[:60]))
+                print('%-24s fetch/ocr fail %s' % (p['id'], str(e)[:160]))
                 return ''
         text = '\n'.join(list(POOL_EXEC.map(one, pages[:3])))
         k = parse(text, fx)
@@ -144,7 +161,8 @@ def main():
             p['keys'] = {}
             p['note'] = 'Scans are up for week %s - the key votes are not readable on these sheets yet.' % pj.get('week')
             print('%-24s no keys recognised on the sheets' % p['id'])
-        p['keysWeek'] = pj.get('week')
+        if ocr_ok[0]:
+            p['keysWeek'] = pj.get('week')   # only stamp when OCR ran - failed papers retry
     if not only:
         json.dump(pj, open(PAPERS_JSON, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
         print('papers.json updated: %d papers with keys / %d' % (changed, len(pj.get('papers', []))))
