@@ -2,7 +2,7 @@
  "week": 19,
  "date": "2026-11-07",
  "season": "2026/2027",
- "updatedAt": "2026-11-04T18:28:28+00:00",
+ "updatedAt": "2026-11-04T19:23:47+00:00",
  "credit": "Paper scans published by FortuneSoccer.com and UKFootballPools.com - view the originals at their sites. Keys are read from each week's published sheets (OCR pass over the scans). JAP adds the combined verdict and the FootyStats xG model check on top.",
  "papers": [
   {
@@ -16,8 +16,60 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-19-bob-morton-2026-page-3.jpg",
     "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-19-bob-morton-2026-page-4.jpg"
    ],
-   "keys": {},
-   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet.",
+   "keys": {
+    "banker": [
+     "14",
+     "24",
+     "28",
+     "1",
+     "41",
+     "15",
+     "37",
+     "45"
+    ],
+    "nap": [
+     "40",
+     "25",
+     "44",
+     "4",
+     "37"
+    ],
+    "draw": [
+     "38",
+     "37"
+    ],
+    "tips": [
+     "47",
+     "41"
+    ],
+    "pairs": [
+     [
+      26,
+      11
+     ],
+     [
+      26,
+      10
+     ],
+     [
+      2,
+      23
+     ],
+     [
+      11,
+      24
+     ],
+     [
+      25,
+      10
+     ],
+     [
+      30,
+      10
+     ]
+    ]
+   },
+   "note": "Keys read from the week 19 scans.",
    "keysWeek": 19
   },
   {
@@ -32,8 +84,7 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-19-capital-international-2026-page-4.jpg"
    ],
    "keys": {},
-   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet.",
-   "keysWeek": 19
+   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet."
   },
   {
    "id": "soccer-x-research",
@@ -47,8 +98,7 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-19-soccer-x-research-2026-page-4.jpg"
    ],
    "keys": {},
-   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet.",
-   "keysWeek": 19
+   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet."
   },
   {
    "id": "premier-soccer",
@@ -71,8 +121,7 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-19-new-soccer-2026-page-4.jpg"
    ],
    "keys": {},
-   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet.",
-   "keysWeek": 19
+   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet."
   },
   {
    "id": "london-weekend",
@@ -104,8 +153,7 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-19-happy-joe-2026-page-4.jpg"
    ],
    "keys": {},
-   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet.",
-   "keysWeek": 19
+   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet."
   },
   {
    "id": "right-on-fixtures",
@@ -117,9 +165,37 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-19-right-on-fixtures-2026-front-page.jpg"
    ],
    "keys": {
+    "draw": [
+     "8"
+    ],
     "tips": [
-     "15",
      "16"
+    ],
+    "pairs": [
+     [
+      4,
+      5
+     ],
+     [
+      31,
+      6
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      2,
+      9
+     ],
+     [
+      2,
+      21
+     ],
+     [
+      7,
+      23
+     ]
     ]
    },
    "note": "Keys read from the week 19 scans.",
@@ -146,8 +222,7 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-19-winstar-2026-page-4.jpg"
    ],
    "keys": {},
-   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet.",
-   "keysWeek": 19
+   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet."
   },
   {
    "id": "great-soccer",
@@ -205,8 +280,46 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-19-bigwin-soccer-2026-page-3.jpg",
     "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-19-bigwin-soccer-2026-page-4.jpg"
    ],
-   "keys": {},
-   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet.",
+   "keys": {
+    "banker": [
+     "37",
+     "30",
+     "5"
+    ],
+    "nap": [
+     "5",
+     "9",
+     "47",
+     "2",
+     "30"
+    ],
+    "tips": [
+     "40"
+    ],
+    "pairs": [
+     [
+      11,
+      37
+     ],
+     [
+      30,
+      31
+     ],
+     [
+      7,
+      2
+     ],
+     [
+      2,
+      5
+     ],
+     [
+      2,
+      7
+     ]
+    ]
+   },
+   "note": "Keys read from the week 19 scans.",
    "keysWeek": 19
   },
   {
@@ -233,8 +346,7 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-19-pools-telegraph-2026-page-9.jpg"
    ],
    "keys": {},
-   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet.",
-   "keysWeek": 19
+   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet."
   },
   {
    "id": "final-results",
@@ -248,8 +360,7 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-19-final-results-2026-page-4.jpg"
    ],
    "keys": {},
-   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet.",
-   "keysWeek": 19
+   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet."
   },
   {
    "id": "the-new-dream",
@@ -267,8 +378,7 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-19-the-new-dream-2026-page-8.jpg"
    ],
    "keys": {},
-   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet.",
-   "keysWeek": 19
+   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet."
   },
   {
    "id": "weekly-telegraph",
@@ -302,8 +412,7 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-19-weekly-telegraph-2026-page-9.jpg"
    ],
    "keys": {},
-   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet.",
-   "keysWeek": 19
+   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet."
   },
   {
    "id": "mirror-punters-guide",
@@ -325,8 +434,12 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-19-sport-x-officer-2026-page-3.jpg",
     "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-19-sport-x-officer-2026-page-4.jpg"
    ],
-   "keys": {},
-   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet.",
+   "keys": {
+    "nap": [
+     "23"
+    ]
+   },
+   "note": "Keys read from the week 19 scans.",
    "keysWeek": 19
   },
   {
@@ -354,8 +467,7 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-19-sporting-telegraph-2026-page-8.jpg"
    ],
    "keys": {},
-   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet.",
-   "keysWeek": 19
+   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet."
   },
   {
    "id": "zetters-pools-guide",
@@ -369,8 +481,7 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/10/week-19-zetters-pools-guide-2026-page-4.jpg"
    ],
    "keys": {},
-   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet.",
-   "keysWeek": 19
+   "note": "Scans are up for week 19 - the key votes are not readable on these sheets yet."
   },
   {
    "id": "willy-tips",
