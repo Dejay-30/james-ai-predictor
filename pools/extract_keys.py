@@ -123,6 +123,8 @@ def main():
         pages = p.get('pages') or []
         if not pages:
             print('%-24s no scans' % p['id']); continue
+        if p.get('keysWeek') == pj.get('week') and '--force' not in sys.argv:
+            print('%-24s already read for week %s' % (p['id'], pj.get('week'))); continue
         def one(u):
             try:
                 return ocr(get(re.sub(r'-\d+x\d+(\.\w+)$', r'\1', u)))
@@ -139,7 +141,10 @@ def main():
             changed += 1
             print('%-24s %s' % (p['id'], json.dumps(k)[:150]))
         else:
+            p['keys'] = {}
+            p['note'] = 'Scans are up for week %s - the key votes are not readable on these sheets yet.' % pj.get('week')
             print('%-24s no keys recognised on the sheets' % p['id'])
+        p['keysWeek'] = pj.get('week')
     if not only:
         json.dump(pj, open(PAPERS_JSON, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
         print('papers.json updated: %d papers with keys / %d' % (changed, len(pj.get('papers', []))))

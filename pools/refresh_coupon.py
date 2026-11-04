@@ -270,6 +270,7 @@ def refresh_papers(week, coupon_date):
         else:
             p["pages"] = []          # never keep the old week's sheets
         p["keys"] = {}               # keys were read from the OLD week's scans
+        p.pop("keysWeek", None)
         p["note"] = ("Week %d scans are up - open them on the Forecast papers tab. Keys not yet "
                      "re-read from the new sheets; ask 'refresh the papers' to have them extracted."
                      % week) if pages else ("Week %d scans not found yet for this paper - the tab "
