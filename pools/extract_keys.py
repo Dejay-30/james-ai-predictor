@@ -35,8 +35,8 @@ def ocr(img, psm=6):
         from PIL import Image
         import io as _io
         im = Image.open(_io.BytesIO(img))
-        if im.width > 1800:
-            im = im.resize((1800, max(1, int(im.height * 1800 / im.width))), Image.LANCZOS)
+        if im.width > 1500:
+            im = im.resize((1500, max(1, int(im.height * 1500 / im.width))), Image.LANCZOS)
         buf = _io.BytesIO()
         im.convert('L').save(buf, format='PNG')
         img = buf.getvalue()
@@ -44,9 +44,11 @@ def ocr(img, psm=6):
         pass
     with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as f:
         f.write(img); tmp = f.name
+    env = dict(os.environ)
+    env['OMP_THREAD_LIMIT'] = '1'   # tesseract OpenMP oversubscription hangs small CI runners
     try:
         return subprocess.run(['tesseract', tmp, 'stdout', '-l', 'eng', '--psm', str(psm)],
-                              capture_output=True, timeout=240).stdout.decode('utf-8', 'replace')
+                              capture_output=True, timeout=120, env=env).stdout.decode('utf-8', 'replace')
     finally:
         os.unlink(tmp)
 
