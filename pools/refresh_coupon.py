@@ -180,6 +180,14 @@ def probe(url):
         with urllib.request.urlopen(req, timeout=12) as r:
             return r.status == 200
     except Exception:
+        pass
+    try:
+        req = urllib.request.Request(url, headers=UA)
+        with urllib.request.urlopen(req, timeout=25) as r:
+            ok = r.status == 200
+            r.read(64)
+            return ok
+    except Exception:
         return False
 
 
@@ -221,7 +229,7 @@ def refresh_papers(week, coupon_date):
     except Exception:
         return
     if pj.get("week") == week and pj.get("date") == coupon_date:
-        stale = any(p.get("pages") and ("week-%d" % week) not in " ".join(p["pages"])
+        stale = any((not p.get("pages")) or ("week-%d" % week) not in " ".join(p.get("pages") or [])
                     for p in pj.get("papers", []))
         if not stale:
             print("papers: already on week %d - keys untouched" % week)

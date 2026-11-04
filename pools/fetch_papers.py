@@ -65,26 +65,42 @@ def main():
         if pages and ('week-%d-' % week) in pages[0] and not force:
             print('%-24s already week %d' % (p['id'], week))
             continue
-        if not pages:
-            print('%-24s no template (never had scans)' % p['id'])
-            continue
-        tmpl = re.sub(r'week-\d+-', 'week-%d-' % week, pages[0])
-        tmpl = re.sub(r'/uploads/\d{4}/\d{2}/', '/uploads/{Y}/{M:02d}/', tmpl)
-        tmpl = re.sub(r'page-\d+(\.\w+)$', r'page-{n}\1', tmpl)
-        if '{n}' not in tmpl:
-            print('%-24s odd template %s' % (p['id'], tmpl))
-            continue
         found = []
-        for (yy, mm) in months_around(today.year, today.month):
-            base = tmpl.replace('{Y}', str(yy)).replace('{M:02d}', '%02d' % mm)
-            for n, u in page_variants(base):
-                if head_ok(u):
-                    if u not in found:
-                        found.append(u)
-                elif n > 1 and found:
+        if pages:
+            tmpl = re.sub(r'week-\d+-', 'week-%d-' % week, pages[0])
+            tmpl = re.sub(r'/uploads/\d{4}/\d{2}/', '/uploads/{Y}/{M:02d}/', tmpl)
+            tmpl = re.sub(r'page-\d+(\.\w+)$', r'page-{n}\1', tmpl)
+            if '{n}' not in tmpl:
+                print('%-24s odd template %s' % (p['id'], tmpl))
+                tmpl = None
+            if tmpl:
+                for (yy, mm) in months_around(today.year, today.month):
+                    base = tmpl.replace('{Y}', str(yy)).replace('{M:02d}', '%02d' % mm)
+                    for n, u in page_variants(base):
+                        if head_ok(u):
+                            if u not in found:
+                                found.append(u)
+                        elif n > 1 and found:
+                            break
+                    if found:
+                        break
+        if not found:
+            # catalog probe: the known week-N scan pattern on both hosts - this
+            # is what keeps papers.json alive even when the pack has no template
+            for host in ('fortunesoccer', 'ukfootballpools'):
+                for (yy, mm) in months_around(today.year, today.month):
+                    base = ('https://www.%s.com/wp-content/uploads/%d/%02d/week-%d-%s-2026-page-{n}.jpg'
+                            % (host, yy, mm, week, p['id']))
+                    for n, u in page_variants(base):
+                        if head_ok(u):
+                            if u not in found:
+                                found.append(u)
+                        elif n > 1 and found:
+                            break
+                    if found:
+                        break
+                if found:
                     break
-            if found:
-                break
         if found:
             p['pages'] = found
             p['npages'] = len(found)

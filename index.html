@@ -606,7 +606,7 @@ body{background:#0B0E13}
 <script>
 /* v19.8.1 self-heal: an open tab can never go stale again - if the deployed
    version changes, this tab reloads itself within 5 minutes */
-var JAP_BUILD = '19.30.0';
+var JAP_BUILD = '19.31.0';
 window.japAutoRefreshStopped = true;
 function japVerNewer(a, b) {
   var x = String(a).split('.'), y = String(b).split('.'), d;
@@ -712,7 +712,7 @@ setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: backgr
   <button class="drawer-item" id="menuAbout"><span class="ic">&#8505;</span><span>About &amp; how it works<small class="sub">What the numbers mean</small></span></button>
 
   <div class="drawer-foot">
-    James AI Predictor <span id="appVerFoot">v19.30.0</span> · 29 Oct 2026<br>
+    James AI Predictor <span id="appVerFoot">v19.31.0</span> · 29 Oct 2026<br>
     Model estimates only &mdash; not betting advice. 18+. Please gamble responsibly.
   </div>
 </nav>
@@ -3159,7 +3159,7 @@ function renderResults() {
   var el = $('resultsList'); if (!el) return;
   monitorSweep();   /* every finished match on screen teaches the engine */
   gradePreds();     /* and settle every engine call that now has a result */
-  japSettleBacklog();
+  japSettleBacklog(true);   /* v19.31: every roll call settles the pending picks */
   var date = $('dateInput').value || new Date().toLocaleDateString('en-CA');
   var fin = allGames().filter(function (g) { return g.isFin; });
   fin.sort(function (a, b) { return String(a.league).localeCompare(String(b.league)) || new Date(a.dateISO) - new Date(b.dateISO); });
@@ -4924,6 +4924,9 @@ function marketOutcome(mid, gh, ga, htG, sp, hth, hta) {
   if (mid === 'fh_over_05') return htG == null ? null : htG > 0;
   if (mid === 'fh_under_15') return htG == null ? null : htG < 2;
   if (mid === 'fh_draw') return (hth == null || hta == null) ? null : hth === hta;
+  if (mid === 'ft_over_25') return gh + ga > 2.5;
+  if (mid === 'ft_under_25') return gh + ga < 2.5;
+  if (mid === 'fh_over_15') return htG == null ? null : htG > 1.5;
   return null;
 }
 function gradePreds() {
@@ -4978,9 +4981,10 @@ function japNameLoose(a, b) {
   var na = normNm(a || ''), nb = normNm(b || '');
   return !!na && !!nb && (na === nb || na.indexOf(nb) === 0 || nb.indexOf(na) === 0);
 }
-function japSettleBacklog() {
-  /* v19.30: settle every engine's pending picks even when their games left
-     memory - the pools week archives carry the final scores (incl. HT). */
+function japSettleBacklog(force) {
+  /* v19.31: settle every engine's pending picks on each roll call (whenever
+     results land) - the pools week archives carry the final scores (incl. HT).
+     force=true bypasses the 10-minute spacing (score syncs, tab opens). */
   var keys = (window.jap_autoGradeLists || []).slice();
   if (keys.indexOf('jap_must5log') < 0) keys.push('jap_must5log');
   var need = false;
@@ -4989,12 +4993,16 @@ function japSettleBacklog() {
   });
   if (!need) return;
   var lastAt = parseInt(lsGet('jap_settle_at', '0'), 10) || 0;
-  if (Date.now() - lastAt < 10 * 60 * 1000) return;
-  lsSet('jap_settle_at', String(Date.now()));
+  if (!force && Date.now() - lastAt < 10 * 60 * 1000) return;
+  if (state._settleBusy) return;
+  state._settleBusy = true;
+  var cpn = state._lastCpn || lsGet('jap_poolcoupon', null);
+  var fcw = (lsGet('jap_patternjson', null) || {}).fc;
+  var cur = (cpn && cpn.uk && cpn.uk.week) || (fcw && fcw.week) || 0;
+  if (!cur) { var nx = new Date(); nx.setDate(nx.getDate() + ((6 - nx.getDay()) % 7 || 7)); cur = 18 + (nx.getMonth() >= 9 ? 1 : 0); }
   var pool = allGames().slice();
-  var cur = (state._lastCpn && state._lastCpn.week) || 18;
   var seq = Promise.resolve(), w;
-  for (w = Math.max(1, cur - 8); w <= cur; w++) {
+  for (w = Math.max(1, cur - 8); w <= cur + 1; w++) {
     (function (wk) {
       seq = seq.then(function () {
         return japFetchJSON(japPoolCalWeekUrl(wk)).then(function (j) {
@@ -5013,12 +5021,13 @@ function japSettleBacklog() {
     })(w);
   }
   seq.then(function () {
+    lsSet('jap_settle_at', String(Date.now()));
     keys.forEach(function (k) { gradeLogOf(k, pool); });
     japMust5Grade(pool);
     var ap = document.querySelector('.panel.active');
     if (ap && ap.id === 'panel-results') renderResults();
     if (ap && ap.id === 'panel-must5') renderMust5Tab();
-  })['catch'](function () {});
+  })['catch'](function () {})['then'](function () { state._settleBusy = false; }, function () { state._settleBusy = false; });
 }
 function gradeLogOf(key, pool) {
   var log = lsGet(key, []), changed = false;
@@ -5283,6 +5292,7 @@ function sofaFixturesFallback(date) {
     renderGames(); renderLeaguePicker();
     toast('API fixtures unavailable - today\'s list comes from SofaScore. Odds, analysis and predictions all still work.');
     oddsRefresh();
+    japSettleBacklog(true);   /* v19.31: roll call - these results settle pending picks */
   });
 }
 
@@ -6308,7 +6318,11 @@ function japPatternData(cb) {
   /* the published engine snapshot (pools/patterns.json + forecast.json from the
      repo) refreshes twice a day; the in-app engine is the always-on fallback */
   var c = lsGet('jap_patternjson', null);
-  if (c && c.t && (Date.now() - c.t) < 12 * 3600 * 1000 && (c.pat || c.fc)) { cb(c.pat, c.fc); return; }
+  if (c && c.t && (Date.now() - c.t) < 12 * 3600 * 1000 && (c.pat || c.fc)) {
+    var cpnW = lsGet('jap_poolcoupon', null), ukW = cpnW && cpnW.uk ? cpnW.uk.week : 0;
+    var fcW = c.fc && c.fc.week;
+    if (!ukW || !fcW || fcW >= ukW) { cb(c.pat, c.fc); return; }   /* v19.31: never serve last week's forecast */
+  }
   var gotPat = null, gotFc = null, left = 2;
   var fin = function () {
     left -= 1;
@@ -6443,18 +6457,22 @@ function japScanUrl(week, slug, page, month, host) {
 function japPapersAutoScan(week, cb) {
   /* auto-scan: probe this week's paper scan URLs and surface every page that
      exists, without waiting for the keys pack. Images prove existence with
-     onload - no CORS problem. Results cached per week. */
+     onload - no CORS problem. Results cache per week and merge into the papers
+     pack so every "open scans" tap, page count and key reader sees them. */
   var cache = lsGet('jap_scanprobe', null);
-  if (cache && cache.week === week && cache.found && Date.now() - cache.t < 24 * 3600 * 1000) { cb(cache.found); return; }
+  if (cache && cache.week === week && cache.found && Date.now() - cache.t < 24 * 3600 * 1000) {
+    cb(cache.found, japScanMerge(cache.found)); return;
+  }
   var pack = ((lsGet('jap_papers', null) || {}).d) || state.papers || {};
   var slugs = [];
   (pack.papers || []).forEach(function (p) { if (p.id) slugs.push(p.id); });
   if (!slugs.length) slugs = ['bob-morton', 'capital-international', 'soccer-x-research', 'bigwin-soccer',
     'pools-telegraph', 'happy-joe', 'temple-of-draws', 'winstar', 'the-new-dream', 'special-advance-fixtures'];
-  var months = [10, 11];
+  var mo = new Date().getMonth() + 1, months = [];
+  [mo - 1, mo, mo + 1].forEach(function (m) { if (m >= 1 && m <= 12) months.push(m); });
   var found = [], queue = [];
   slugs.forEach(function (sl) {
-    months.forEach(function (mo) { queue.push({ slug: sl, month: mo, page: 1, host: 'fortunesoccer' }); });
+    months.forEach(function (mo2) { queue.push({ slug: sl, month: mo2, page: 1, host: 'fortunesoccer' }); });
   });
   var qi = 0, inflight = 0, MAX = 6;
   var step = function () {
@@ -6464,8 +6482,11 @@ function japPapersAutoScan(week, cb) {
         var img = new Image();
         img.onload = function () {
           inflight--;
-          if (img.naturalWidth > 20) found.push({ paper: job.slug, page: job.page,
-            url: japScanUrl(week, job.slug, job.page, job.month, job.host) });
+          if (img.naturalWidth > 20) {
+            found.push({ paper: job.slug, page: job.page,
+              url: japScanUrl(week, job.slug, job.page, job.month, job.host) });
+            if (job.page < 8) queue.push({ slug: job.slug, month: job.month, page: job.page + 1, host: job.host });
+          }
           step();
         };
         img.onerror = function () { inflight--; step(); };
@@ -6475,12 +6496,34 @@ function japPapersAutoScan(week, cb) {
     if (inflight === 0 && qi >= queue.length) {
       var o = { t: Date.now(), week: week, found: found };
       try { localStorage.setItem('jap_scanprobe', JSON.stringify(o)); } catch (e) {}
+      var ch = japScanMerge(found);
       japPatLog('jap_scanlog', { at: Date.now(), week: week, found: found.length });
-      cb(found);
+      cb(found, ch);
     }
   };
-  if (!queue.length) { cb([]); return; }
+  if (!queue.length) { cb([], false); return; }
   step();
+}
+function japScanMerge(found) {
+  /* fold discovered scan pages into the papers pack (state + cache) */
+  if (!found || !found.length) return false;
+  var pack = state.papers || ((lsGet('jap_papers', null) || {}).d) || null;
+  if (!pack || !pack.papers) return false;
+  var changed = false;
+  pack.papers.forEach(function (p) {
+    var mine = found.filter(function (f) { return f.paper === p.id; });
+    if (!mine.length) return;
+    mine.sort(function (a, b) { return a.page - b.page; });
+    var urls = [], i;
+    for (i = 0; i < mine.length; i++) urls[mine[i].page - 1] = mine[i].url;
+    urls = urls.filter(Boolean);
+    if (urls.length && (p.pages || []).join('|') !== urls.join('|')) { p.pages = urls; changed = true; }
+  });
+  if (changed) {
+    state.papers = pack;
+    try { localStorage.setItem('jap_papers', JSON.stringify({ t: Date.now(), d: pack })); } catch (e) {}
+  }
+  return changed;
 }
 function japAutoCoupon(cb) {
   /* auto-generate the next UK/Aussie weekly coupon (numbered 1..49) from the
@@ -6723,7 +6766,15 @@ function japPaperKeysByNo(papers) {
 function japScanOpen(pid, idx) {
   var pj = state.papers, paper = null;
   ((pj && pj.papers) || []).forEach(function (p) { if (p.id === pid) paper = p; });
-  if (!paper || !paper.pages || !paper.pages.length) { toast('scans not available right now'); return; }
+  if (paper && (!paper.pages || !paper.pages.length)) {
+    var probe = lsGet('jap_scanprobe', null), urls = [];
+    if (probe && probe.found) probe.found.forEach(function (f) {
+      if (f.paper === pid) urls[f.page - 1] = f.url;
+    });
+    urls = urls.filter(Boolean);
+    if (urls.length) paper.pages = urls;
+  }
+  if (!paper || !paper.pages || !paper.pages.length) { toast('scans not available right now - the tab is still auto-scanning'); return; }
   var ov = document.getElementById('japScanOv');
   if (ov) ov.parentNode.removeChild(ov);
   ov = document.createElement('div');
@@ -6850,6 +6901,7 @@ function renderMust5Tab() {
   h += '<div class="card"><p class="tiny muted" style="margin:0">Must 5 record: <b style="color:#4ade80">' + rec.w + ' W</b> \u00b7 <b style="color:#f66">' + rec.l + ' L</b> \u00b7 ' + rec.pend + ' pending \u2014 every row auto-grades with the final scores.</p></div>';
   el.innerHTML = h;
   japMust5Grade();
+  japSettleBacklog(true);   /* v19.31: opening the Must 5s settles every call that has a result */
 }
 function japMust5Grade(pool) {
   var log = lsGet('jap_must5log', []);
@@ -6884,29 +6936,18 @@ function renderPapersTab() {
   /* v19.23: auto-scan - if the keys pack does not cover the current coupon
      week yet, probe the scan URLs and surface every page that exists */
   try {
-    var pj = lsGet('jap_papers', null);
-    var cpn = lsGet('jap_poolcoupon', null);
-    var dw = (cpn && cpn.uk && cpn.uk.week) || 0;
-    var pack = (pj && pj.d) || pj || {};
-    var good = false;
-    (pack.papers || []).forEach(function (x) { if ((x.pages || []).length) good = true; });
-    if (pack.week === dw && good) good = true; else good = false;
-    if (dw && !good) {
-      japPapersAutoScan(dw, function (found) {
-        var ap = document.querySelector('.panel.active');
-        if (ap && ap.id === 'panel-papers' && found.length) {
-          var box = document.getElementById('papersBox');
-          if (box) {
-            var div = document.createElement('div');
-            div.className = 'card';
-            div.innerHTML = '<h3>\U0001f4c2 Auto-scanned papers for week ' + dw + '</h3><p class="tiny muted">' + found.length + ' scan pages found automatically - keys are extracted as the engine runs. Tap to open.</p>' +
-              found.slice(0, 24).map(function (f) {
-            var pid2 = '';
-            ((state.papers && state.papers.papers) || window.japAllPapers || []).forEach(function (pp) { if (pp.name === f.paper) pid2 = pp.id; });
-            return '<p class="tiny" style="margin:3px 0"><a href="#" data-scan="' + esc(pid2) + '" data-scanpage="' + (f.page - 1) + '">' + esc(f.paper) + ' p' + f.page + ' \u00b7 open in app</a></p>';
-          }).join('').join('');
-            box.insertBefore(div, box.firstChild);
-          }
+    var pjx = lsGet('jap_papers', null);
+    var cpnx = lsGet('jap_poolcoupon', null);
+    var dwx = (cpnx && cpnx.uk && cpnx.uk.week) || 0;
+    var packx = (pjx && pjx.d) || pjx || {};
+    var goodx = false;
+    (packx.papers || []).forEach(function (x) { if ((x.pages || []).length) goodx = true; });
+    if (packx.week === dwx && goodx) goodx = true; else goodx = false;
+    if (dwx && !goodx) {
+      japPapersAutoScan(dwx, function (found2, changed2) {
+        if (found2 && found2.length && changed2) {
+          var ap2 = document.querySelector('.panel.active');
+          if (ap2 && ap2.id === 'panel-papers') renderPapersTab();
         }
       });
     }
@@ -7042,6 +7083,7 @@ function renderPoolBankTab() {
       var k = p.keys || {};
       if ((k.banker || []).length || (k.nap || []).length || (k.choice || []).length || (k.draw || []).length) hasKeys = true;
     });
+    if (hasKeys && pj.week !== uk.week) hasKeys = false;   /* v19.31: stale keys never pose as this week's */
     if (!hasKeys) { japPoolBankProvisional(el, uk, byNo); return; }
     /* consensus: how many papers bank each number (banker/nap/choice fields) */
     var votes = {}, notes = {};
@@ -10237,30 +10279,49 @@ function setWatch(on) {
 
 /* ---------- games list ---------- */
 function sofaTTFixtures(date) {
-  /* Table Tennis loads from SofaScore's schedule (browser-side, like football odds) */
+  /* Table Tennis loads from SofaScore's schedule - the same request shape as
+     the football wire (headerless calls get bot-blocked) and a host fallback
+     chain so the list survives CDN/route hiccups. v19.31 */
   var b2 = $('loadBtn'); if (b2) { b2.disabled = true; b2.textContent = '...'; }
   $('fixtureMeta').textContent = 'Loading Table Tennis...';
-  return fetch('https://api.sofascore.com/api/v1/sport/table-tennis/scheduled-events/' + date)
-    .then(function (r) { return r.json(); })
-    .then(function (d) {
-      state.games = ((d && d.events) || []).map(function (ev) {
-        var hs = (ev.homeScore || {}).current || 0, as = (ev.awayScore || {}).current || 0;
-        var type = (ev.status || {}).type || 'notstarted';
-        var isFin = type === 'finished' || type === 'ended';
-        var isLive = type === 'inprogress';
-        return { id: 'sofa' + ev.id, sport: 'tabletennis',
-          home: ((ev.homeTeam || {}).name || ''), away: ((ev.awayTeam || {}).name || ''),
-          league: ((ev.tournament || {}).name || 'Table Tennis'),
-          dateISO: new Date((ev.startTimestamp || 0) * 1000).toISOString(),
-          isFin: isFin, isLive: isLive, gh: hs, ga: as,
-          rawGh: isFin ? hs : null, rawGa: isFin ? as : null, htGoals: null };
-      }).filter(function (g) { return g.id && g.home && g.away; });
-      $('fixtureMeta').textContent = state.games.length + ' table tennis matches on ' + date;
-      renderGames(); renderLeaguePicker(); oddsStatus();
-    })['catch'](function (e) {
-      $('fixtureList').innerHTML = '<div class="empty">Table tennis list unavailable right now (' + esc((e && e.message) || 'network') + '). It loads from SofaScore when your network allows it.</div>';
-      $('fixtureMeta').textContent = 'Could not load.';
-    }).then(function () { if (b2) { b2.disabled = false; b2.textContent = 'Load'; } });
+  var hosts = ['https://api.sofascore.com/api/v1', 'https://www.sofascore.com/api/v1'];
+  var attempt = 0;
+  function run() {
+    return fetch(hosts[attempt] + '/sport/table-tennis/scheduled-events/' + date,
+        { headers: { 'Accept': 'application/json' } })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (d) {
+        var evs = (d && d.events) || [];
+        if (!evs.length && attempt < hosts.length - 1) { attempt++; return run(); }
+        state.games = evs.map(function (ev) {
+          var hs = (ev.homeScore || {}).current || 0, as = (ev.awayScore || {}).current || 0;
+          var type = (ev.status || {}).type || 'notstarted';
+          var isFin = type === 'finished' || type === 'ended';
+          var isLive = type === 'inprogress';
+          return { id: 'sofa' + ev.id, sport: 'tabletennis',
+            home: ((ev.homeTeam || {}).name || ''), away: ((ev.awayTeam || {}).name || ''),
+            league: ((ev.tournament || {}).name || 'Table Tennis'),
+            dateISO: new Date((ev.startTimestamp || 0) * 1000).toISOString(),
+            isFin: isFin, isLive: isLive, gh: hs, ga: as,
+            rawGh: isFin ? hs : null, rawGa: isFin ? as : null, htGoals: null };
+        }).filter(function (g) { return g.id && g.home && g.away; });
+        $('fixtureMeta').textContent = state.games.length
+          ? (state.games.length + ' table tennis matches on ' + date)
+          : ('No table tennis fixtures published for ' + date + ' yet - tap Load to check again.');
+        renderGames(); renderLeaguePicker(); oddsStatus();
+        japSettleBacklog(true);   /* roll call: settle anything these results decide */
+      })['catch'](function (e) {
+        if (attempt < hosts.length - 1) { attempt++; return run(); }
+        var msg = (e && e.message) || 'network';
+        $('fixtureList').innerHTML = '<div class="empty">Table tennis list unavailable right now (' + esc(msg) + ').</div>';
+        $('fixtureMeta').textContent = 'Could not load.';
+        var btn = document.createElement('button');
+        btn.className = 'btnm'; btn.textContent = 'Retry';
+        btn.onclick = function () { sofaTTFixtures(date); };
+        $('fixtureList').appendChild(btn);
+      }).then(function () { if (b2) { b2.disabled = false; b2.textContent = 'Load'; } });
+  }
+  return run();
 }
 function loadGames() {
   var b = $('loadBtn'); if (b) { b.disabled = true; b.textContent = '...'; }
@@ -10448,6 +10509,13 @@ function renderAnalysisStandalone() {
   }
   gs = gs.slice(0, 16);
   var h = '<div class="card"><h2>&#128202; Model analysis</h2><p class="muted small">Every match analysed on its own - no bet slip needed. Tap any match for the full breakdown (form, xG, head-to-head, venue splits).</p></div>';
+  h += (function () {
+    var recs = lsGet('jap_xglog', []).concat(lsGet('jap_fairlog', []), lsGet('jap_must5log', []));
+    var graded = recs.filter(function (e) { return e.graded === 'W' || e.graded === 'L'; });
+    var w = graded.filter(function (e) { return e.graded === 'W'; }).length;
+    if (!graded.length) return '<div class="card"><p class="tiny muted" style="margin:0">Model calls auto-grade with the final results as each roll call lands \u00b7 no graded calls yet.</p></div>';
+    return '<div class="card"><p class="tiny muted" style="margin:0">Model analysis record (auto-graded with the results): <b style="color:#4ade80">' + w + 'W</b> \u00b7 <b style="color:#f66">' + (graded.length - w) + 'L</b> \u00b7 ' + Math.round(w / graded.length * 100) + '% hit rate</p></div>';
+  })();
   gs.forEach(function (g) {
     var odds = state.odds[String(g.id)] || null;
     var lam = (g._realXg && g._realXg.lh != null) ? { lh: g._realXg.lh, la: g._realXg.la } : (odds && odds.o1 ? lambdasFromOddsJ(odds) : null);
@@ -10831,6 +10899,7 @@ document.addEventListener('DOMContentLoaded', function () {
     loadGames();
   });
   loadGames();          /* v19.30: fixtures always load themselves on open (keyless goes straight to the free wires) */
+  japSettleBacklog(true);   /* v19.31: roll-call settling the moment the app opens */
   setTimeout(function () { perfSettle(true); }, 9000);   /* auto-settle: grade yesterday's calls on open, no taps */
   setInterval(function () { if (!document.hidden) { perfSettle(true); japPatternGrade(); } }, 60 * 60 * 1000);   /* v19.25: silent hourly settle only - no per-minute refreshing */   /* v19.9: keep grading as results land */
   /* v19.17.3: the Monitor tab keeps itself current - balance games, fair calls
