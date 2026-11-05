@@ -606,7 +606,7 @@ body{background:#0B0E13}
 <script>
 /* v19.8.1 self-heal: an open tab can never go stale again - if the deployed
    version changes, this tab reloads itself within 5 minutes */
-var JAP_BUILD = '19.31.0';
+var JAP_BUILD = '19.32.0';
 window.japAutoRefreshStopped = true;
 function japVerNewer(a, b) {
   var x = String(a).split('.'), y = String(b).split('.'), d;
@@ -712,7 +712,7 @@ setTimeout(function () { japPatternRefresh(false); }, 2500);   /* v19.25: backgr
   <button class="drawer-item" id="menuAbout"><span class="ic">&#8505;</span><span>About &amp; how it works<small class="sub">What the numbers mean</small></span></button>
 
   <div class="drawer-foot">
-    James AI Predictor <span id="appVerFoot">v19.31.0</span> · 29 Oct 2026<br>
+    James AI Predictor <span id="appVerFoot">v19.32.0</span> · 29 Oct 2026<br>
     Model estimates only &mdash; not betting advice. 18+. Please gamble responsibly.
   </div>
 </nav>
@@ -6834,26 +6834,25 @@ function renderMust5Tab() {
     return bits.join(' \u00b7 ');
   }
   var defs = [
-    { title: '\ud83c\udfe0 MUST 5 HOME WINS', sub: 'the five home wins the model is sure of (odds 1.36-1.64)', kind: 'home' },
-    { title: '\u2708\ufe0f MUST 5 AWAY WINS', sub: 'the five away wins the model is sure of (odds 1.36-1.64)', kind: 'away' },
-    { title: '\u26a1 MUST 5 BTTS', sub: 'both teams to score \u2014 five strongest calls', kind: 'btts' },
-    { title: '\u23f1 MUST 5 FIRST-HALF UNDER/OVER 1.5', sub: 'the five strongest first-half goals calls (under or over)', kind: 'fh' },
-    { title: '\u26bd MUST 5 FULL-TIME OVER 2.5', sub: 'five strongest over-2.5 calls at full time', kind: 'o25' }
+    { title: '\ud83c\udfe0 MUST 5 HOME WINS', sub: 'home wins the model rates above 67% - most certain first', kind: 'home', rec: 'HOME WINS' },
+    { title: '\u2708\ufe0f MUST 5 AWAY WINS', sub: 'away wins the model rates above 67% - most certain first', kind: 'away', rec: 'AWAY WINS' },
+    { title: '\u26a1 MUST 5 BTTS', sub: 'both teams to score - calls above 67% confidence', kind: 'btts', rec: 'BTTS' },
+    { title: '\u23f1 MUST 5 FIRST-HALF UNDER/OVER 1.5', sub: 'first-half goals calls above 67% (under or over)', kind: 'fh', rec: '1H U/O 1.5' },
+    { title: '\u26bd MUST 5 FULL-TIME OVER 2.5', sub: 'over-2.5 calls above 67% confidence', kind: 'o25', rec: 'FT O2.5' }
   ];
   var h = '<div class="cons-hd"><h2 style="margin:0">\ud83c\udfc6 DAILY MUST 5s</h2><span class="muted small">' +
-    rows.length + ' matches scanned \u00b7 odds window ' + M + '-' + U + ' \u00b7 auto-settled</span></div>' +
-    '<p class="tiny muted" style="margin:4px 0 10px">The whole odds window <b>1.36-1.64</b> is in play. A pick only enters when the model is <b>sure of it at its odds</b>: the model must rate it at least as likely as its price implies (small margin allowed). A 1.62 pick earns its place when the model backs it at that price \u2014 and a pick the model is not sure of <b>never enters</b>. Most certain first. Confidence: HIGH \u226572% \u00b7 MEDIUM 65-71% \u00b7 FAIR 61-64%.</p>';
+    rows.length + ' matches scanned \u00b7 confidence above 67% \u00b7 each list auto-grades on its own</span></div>' +
+    '<p class="tiny muted" style="margin:4px 0 10px">A pick enters its list the moment the model rates it <b>above 67% confidence</b> \u2014 most certain first, any price. Every list <b>auto-grades on its own</b> as the results roll in (its W/L record sits right under it). Confidence: HIGH \u226572% \u00b7 MEDIUM 67-71%.</p>';
   defs.forEach(function (d) {
     var cands = [];
     rows.forEach(function (row) {
       var g = row.g, o = row.odds, pr = row.pr;
       function push(call, market, p, price, real) {
         if (p == null || !(p > 0)) return;
-        if (p < 0.61) return;                                 /* floor = the surest the user's own window demands */
+        if (p <= 0.67) return;                          /* v19.32: THE gate - confidence must be ABOVE 67% */
         var fair = 1 / p;
         if (price == null || !isFinite(price)) { price = fair; real = false; }  /* model odds fallback */
-        if (price < M - 0.001 || price > U + 0.001) return;           /* the user's odds window */
-        if (p * price < 0.97) return;                          /* THE SURE GATE - sure AT ITS ODDS: the model must back the pick at least as strongly as the price implies (3% margin) */        cands.push({ g: g, call: call, market: market, p: p, price: price, fair: fair,
+        cands.push({ g: g, call: call, market: market, p: p, price: price, fair: fair,
           conf: confOf(p), real: real, xgb: !!(g._realXg && g._realXg.lh != null),
           note: analyse(row, call, p, price, fair) });
       }
@@ -6876,8 +6875,13 @@ function renderMust5Tab() {
     var top = cands.slice(0, 5);
     h += '<div class="card"><h2 style="margin:0 0 2px;font-size:15px">' + d.title + '</h2>' +
       '<p class="tiny muted" style="margin:0 0 8px">' + d.sub + '</p>';
+    var kmk = { home: ['home_win'], away: ['away_win'], btts: ['btts_yes'], fh: ['fh_under_15', 'fh_over_15'], o25: ['ft_over_25'] }[d.kind];
+    var kg = log.filter(function (e) { return kmk.indexOf(e.market) >= 0; });
+    var kW = kg.filter(function (e) { return e.graded === 'W'; }).length;
+    var kL = kg.filter(function (e) { return e.graded === 'L'; }).length;
+    var recLine = '<p class="tiny muted" style="margin:8px 0 0">' + d.rec + ' record (auto-graded): <b style="color:#4ade80">' + kW + 'W</b> \u00b7 <b style="color:#f66">' + kL + 'L</b> \u00b7 ' + (kg.length - kW - kL) + ' pending</p>';
     if (!top.length) {
-      h += '<p class="tiny" style="margin:0">\u2014 nothing in the 1.36-1.64 window is a pick the model is sure of right now. A Must list never pads with shaky picks.</p></div>';
+      h += '<p class="tiny" style="margin:0">\u2014 no match reaches 67% confidence for this call right now. A Must list never pads with shaky picks.</p>' + recLine + '</div>';
       return;
     }
     top.forEach(function (c, i) {
@@ -6893,12 +6897,11 @@ function renderMust5Tab() {
         ' \u00b7 confidence <b style="color:' + (c.conf === 'HIGH' ? '#4ade80' : (c.conf === 'MEDIUM' ? '#d4af37' : '#888')) + '">' + c.conf + ' (' + Math.round(c.p * 100) + '%)</b></p>' +
         '<p class="tiny muted" style="margin:3px 0 0"><b style="color:#ffcc00">ANALYSIS:</b> ' + esc(c.note) + '.</p></div>';
     });
+    h += recLine;
     h += '</div>';
   });
   try { localStorage.setItem('jap_must5log', JSON.stringify(log.slice(-400))); } catch (e) {}
-  var rec = { w: 0, l: 0, pend: 0 };
-  log.forEach(function (e) { if (e.graded === 'W') rec.w++; else if (e.graded === 'L') rec.l++; else if (e.graded == null) rec.pend++; });
-  h += '<div class="card"><p class="tiny muted" style="margin:0">Must 5 record: <b style="color:#4ade80">' + rec.w + ' W</b> \u00b7 <b style="color:#f66">' + rec.l + ' L</b> \u00b7 ' + rec.pend + ' pending \u2014 every row auto-grades with the final scores.</p></div>';
+  h += '<div class="card"><p class="tiny muted" style="margin:0">Each list carries its <b>own auto-graded record</b> (under the list) \u2014 Home wins, Away wins, BTTS, 1H U/O and FT O2.5 settle separately as every result rolls in.</p></div>';
   el.innerHTML = h;
   japMust5Grade();
   japSettleBacklog(true);   /* v19.31: opening the Must 5s settles every call that has a result */
