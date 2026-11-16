@@ -113,15 +113,15 @@
   },
   {
    "no": 10,
-   "home": "Doncaster",
-   "away": "Leyton O.",
-   "ht": "Void",
-   "gh": null,
-   "ga": null,
+   "home": "Forfar",
+   "away": "Spartans FC",
+   "ht": "1-:-0",
+   "gh": 2,
+   "ga": 1,
    "draw": false,
-   "status": "Panel",
+   "status": "Home",
    "drawpct": null,
-   "tip": ""
+   "tip": "1"
   },
   {
    "no": 11,
@@ -149,15 +149,15 @@
   },
   {
    "no": 13,
-   "home": "Stevenage",
-   "away": "Mansfield",
-   "ht": "Void",
-   "gh": null,
-   "ga": null,
+   "home": "K. Hearts",
+   "away": "Stranraer",
+   "ht": "0-:-1",
+   "gh": 0,
+   "ga": 1,
    "draw": false,
-   "status": "Panel",
+   "status": "Away",
    "drawpct": null,
-   "tip": ""
+   "tip": "2"
   },
   {
    "no": 14,
@@ -185,15 +185,15 @@
   },
   {
    "no": 16,
-   "home": "Wycombe",
-   "away": "Huddersfield",
-   "ht": "Void",
-   "gh": null,
-   "ga": null,
+   "home": "Stirling A.",
+   "away": "Elgin City",
+   "ht": "0-:-0",
+   "gh": 2,
+   "ga": 1,
    "draw": false,
-   "status": "Panel",
+   "status": "Home",
    "drawpct": null,
-   "tip": ""
+   "tip": "1"
   },
   {
    "no": 17,
@@ -257,15 +257,15 @@
   },
   {
    "no": 22,
-   "home": "Rotherham",
-   "away": "Crawley",
-   "ht": "Void",
-   "gh": null,
-   "ga": null,
-   "draw": false,
-   "status": "Panel",
+   "home": "Mirassol",
+   "away": "Atletico MG",
+   "ht": "0-:-0",
+   "gh": 0,
+   "ga": 0,
+   "draw": true,
+   "status": "noScoreDraw",
    "drawpct": null,
-   "tip": ""
+   "tip": "X"
   },
   {
    "no": 23,
@@ -305,15 +305,15 @@
   },
   {
    "no": 26,
-   "home": "Walsall",
-   "away": "Barnet",
-   "ht": "Void",
-   "gh": null,
-   "ga": null,
+   "home": "Chapecoense",
+   "away": "Vasco da Gama",
+   "ht": "0-:-1",
+   "gh": 0,
+   "ga": 2,
    "draw": false,
-   "status": "Panel",
+   "status": "Away",
    "drawpct": null,
-   "tip": ""
+   "tip": "2"
   },
   {
    "no": 27,
@@ -341,15 +341,15 @@
   },
   {
    "no": 29,
-   "home": "Dunfermline",
-   "away": "Arbroath",
-   "ht": "Void",
-   "gh": null,
-   "ga": null,
-   "draw": false,
-   "status": "Panel",
+   "home": "Uganda",
+   "away": "Botswana",
+   "ht": "1-:-1",
+   "gh": 1,
+   "ga": 1,
+   "draw": true,
+   "status": "ScoreDraw",
    "drawpct": null,
-   "tip": ""
+   "tip": "X"
   },
   {
    "no": 30,

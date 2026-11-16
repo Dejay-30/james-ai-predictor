@@ -1,9 +1,9 @@
 {
  "week": 21,
  "date": "2026-11-21",
- "expected_draws": 8.8,
+ "expected_draws": 9.2,
  "group": "low",
- "group_note": "weeks 1-20 average 12.1 draws; the last five weeks averaged 8.8 - week 21 sits in the low-draw group",
+ "group_note": "weeks 1-20 average 12.2 draws; the last five weeks averaged 9.2 - week 21 sits in the low-draw group",
  "picks": [
   {
    "no": 24,
@@ -16,6 +16,19 @@
     "the teams involved have 6 draws between them this season",
     "member of repeating pair(s) 12-24, 7-24 - drawn together in weeks 2,4,11,12,14,17; 5,10,12,17,18",
     "paper keys returned to number 24 in 1 week"
+   ]
+  },
+  {
+   "no": 22,
+   "home": "Oxford Utd.",
+   "away": "Wycombe",
+   "score": 54,
+   "nfreq": 8,
+   "reasons": [
+    "slot 22 drew 8 times already this season (weeks 2,3,4,6,8,10,17,20)",
+    "the teams involved have 8 draws between them this season",
+    "member of repeating pair(s) 12-22, 22-29 - drawn together in weeks 2,4,6,8,17; 2,3,4,10,20",
+    "paper keys returned to number 22 in 1 week"
    ]
   },
   {
@@ -71,6 +84,18 @@
    ]
   },
   {
+   "no": 29,
+   "home": "Grimsby",
+   "away": "Rotherham",
+   "score": 47,
+   "nfreq": 7,
+   "reasons": [
+    "slot 29 drew 7 times already this season (weeks 2,3,4,5,10,13,20)",
+    "the teams involved have 7 draws between them this season",
+    "member of repeating pair(s) 22-29, 24-29 - drawn together in weeks 2,3,4,10,20; 2,4,5,10,13"
+   ]
+  },
+  {
    "no": 30,
    "home": "Northampton",
    "away": "Rochdale",
@@ -81,19 +106,6 @@
     "the teams involved have 8 draws between them this season",
     "member of repeating pair(s) 26-30 - drawn together in weeks 1,9,10,16,19",
     "paper keys returned to number 30 in 2 weeks"
-   ]
-  },
-  {
-   "no": 22,
-   "home": "Oxford Utd.",
-   "away": "Wycombe",
-   "score": 45,
-   "nfreq": 7,
-   "reasons": [
-    "slot 22 drew 7 times already this season (weeks 2,3,4,6,8,10,17)",
-    "the teams involved have 8 draws between them this season",
-    "member of repeating pair(s) 12-22 - drawn together in weeks 2,4,6,8,17",
-    "paper keys returned to number 22 in 1 week"
    ]
   },
   {
@@ -119,18 +131,6 @@
     "the teams involved have 3 draws between them this season",
     "member of repeating pair(s) 23-26 - drawn together in weeks 1,3,6,9,16",
     "paper keys returned to number 23 in 1 week"
-   ]
-  },
-  {
-   "no": 29,
-   "home": "Grimsby",
-   "away": "Rotherham",
-   "score": 38,
-   "nfreq": 6,
-   "reasons": [
-    "slot 29 drew 6 times already this season (weeks 2,3,4,5,10,13)",
-    "the teams involved have 7 draws between them this season",
-    "member of repeating pair(s) 24-29 - drawn together in weeks 2,4,5,10,13"
    ]
   },
   {
@@ -170,18 +170,6 @@
    ]
   },
   {
-   "no": 43,
-   "home": "Raith",
-   "away": "Partick",
-   "score": 35,
-   "nfreq": 7,
-   "reasons": [
-    "slot 43 drew 7 times already this season (weeks 3,4,5,6,10,15,19)",
-    "the teams involved have 4 draws between them this season",
-    "member of repeating pair(s) 26-43 - drawn together in weeks 3,6,10,15,19"
-   ]
-  },
-  {
    "no": 33,
    "home": "York City",
    "away": "Walsall",
@@ -190,6 +178,18 @@
    "reasons": [
     "slot 33 drew 4 times already this season (weeks 3,7,12,18)",
     "the teams involved have 11 draws between them this season"
+   ]
+  },
+  {
+   "no": 31,
+   "home": "Oldham",
+   "away": "Exeter",
+   "score": 32,
+   "nfreq": 6,
+   "reasons": [
+    "slot 31 drew 6 times already this season (weeks 1,9,10,12,13,15)",
+    "the teams involved have 4 draws between them this season",
+    "member of repeating pair(s) 1-31 - drawn together in weeks 1,9,10,13,15"
    ]
   }
  ],
@@ -411,6 +411,18 @@
    ]
   },
   {
+   "no": 13,
+   "home": "West Ham",
+   "away": "Preston",
+   "score": 38,
+   "nfreq": 8,
+   "reasons": [
+    "slot 13 produced 8 away wins already this season (weeks 1,4,5,6,10,16,17,20)",
+    "Preston away have 1 win as the away side this season",
+    "member of repeating away-win pair(s) 13-21, 13-25 - landed together in weeks 1,6,10,17,20; 1,4,5,16,20"
+   ]
+  },
+  {
    "no": 38,
    "home": "Dundee FC",
    "away": "Hearts",
@@ -467,18 +479,6 @@
     "slot 40 produced 8 away wins already this season (weeks 3,4,8,9,10,13,14,15)",
     "member of repeating away-win pair(s) 3-40, 7-40 - landed together in weeks 3,4,9,10,14; 3,4,8,13,15"
    ]
-  },
-  {
-   "no": 4,
-   "home": "Coventry",
-   "away": "Crystal P.",
-   "score": 35,
-   "nfreq": 7,
-   "reasons": [
-    "slot 4 produced 7 away wins already this season (weeks 5,7,8,9,11,15,16)",
-    "Crystal P. away have 1 win as the away side this season",
-    "member of repeating away-win pair(s) 4-7, 4-18 - landed together in weeks 8,11,15,16; 5,7,9,11"
-   ]
   }
  ],
  "all": [
@@ -493,6 +493,19 @@
     "the teams involved have 6 draws between them this season",
     "member of repeating pair(s) 12-24, 7-24 - drawn together in weeks 2,4,11,12,14,17; 5,10,12,17,18",
     "paper keys returned to number 24 in 1 week"
+   ]
+  },
+  {
+   "no": 22,
+   "home": "Oxford Utd.",
+   "away": "Wycombe",
+   "score": 54,
+   "nfreq": 8,
+   "reasons": [
+    "slot 22 drew 8 times already this season (weeks 2,3,4,6,8,10,17,20)",
+    "the teams involved have 8 draws between them this season",
+    "member of repeating pair(s) 12-22, 22-29 - drawn together in weeks 2,4,6,8,17; 2,3,4,10,20",
+    "paper keys returned to number 22 in 1 week"
    ]
   },
   {
@@ -548,6 +561,18 @@
    ]
   },
   {
+   "no": 29,
+   "home": "Grimsby",
+   "away": "Rotherham",
+   "score": 47,
+   "nfreq": 7,
+   "reasons": [
+    "slot 29 drew 7 times already this season (weeks 2,3,4,5,10,13,20)",
+    "the teams involved have 7 draws between them this season",
+    "member of repeating pair(s) 22-29, 24-29 - drawn together in weeks 2,3,4,10,20; 2,4,5,10,13"
+   ]
+  },
+  {
    "no": 30,
    "home": "Northampton",
    "away": "Rochdale",
@@ -558,19 +583,6 @@
     "the teams involved have 8 draws between them this season",
     "member of repeating pair(s) 26-30 - drawn together in weeks 1,9,10,16,19",
     "paper keys returned to number 30 in 2 weeks"
-   ]
-  },
-  {
-   "no": 22,
-   "home": "Oxford Utd.",
-   "away": "Wycombe",
-   "score": 45,
-   "nfreq": 7,
-   "reasons": [
-    "slot 22 drew 7 times already this season (weeks 2,3,4,6,8,10,17)",
-    "the teams involved have 8 draws between them this season",
-    "member of repeating pair(s) 12-22 - drawn together in weeks 2,4,6,8,17",
-    "paper keys returned to number 22 in 1 week"
    ]
   },
   {
@@ -596,18 +608,6 @@
     "the teams involved have 3 draws between them this season",
     "member of repeating pair(s) 23-26 - drawn together in weeks 1,3,6,9,16",
     "paper keys returned to number 23 in 1 week"
-   ]
-  },
-  {
-   "no": 29,
-   "home": "Grimsby",
-   "away": "Rotherham",
-   "score": 38,
-   "nfreq": 6,
-   "reasons": [
-    "slot 29 drew 6 times already this season (weeks 2,3,4,5,10,13)",
-    "the teams involved have 7 draws between them this season",
-    "member of repeating pair(s) 24-29 - drawn together in weeks 2,4,5,10,13"
    ]
   },
   {
@@ -644,18 +644,6 @@
     "slot 17 drew 5 times already this season (weeks 2,8,9,10,18)",
     "the teams involved have 7 draws between them this season",
     "paper keys returned to number 17 in 3 weeks"
-   ]
-  },
-  {
-   "no": 43,
-   "home": "Raith",
-   "away": "Partick",
-   "score": 35,
-   "nfreq": 7,
-   "reasons": [
-    "slot 43 drew 7 times already this season (weeks 3,4,5,6,10,15,19)",
-    "the teams involved have 4 draws between them this season",
-    "member of repeating pair(s) 26-43 - drawn together in weeks 3,6,10,15,19"
    ]
   },
   {
@@ -740,6 +728,17 @@
     "slot 5 drew 5 times already this season (weeks 5,6,10,11,15)",
     "the teams involved have 4 draws between them this season",
     "paper keys returned to number 5 in 3 weeks"
+   ]
+  },
+  {
+   "no": 43,
+   "home": "Raith",
+   "away": "Partick",
+   "score": 29,
+   "nfreq": 7,
+   "reasons": [
+    "slot 43 drew 7 times already this season (weeks 3,4,5,6,10,15,19)",
+    "the teams involved have 4 draws between them this season"
    ]
   },
   {
