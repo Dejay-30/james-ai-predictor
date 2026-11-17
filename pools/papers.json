@@ -2,7 +2,7 @@
  "week": 21,
  "date": "2026-11-21",
  "season": "2026/2027",
- "updatedAt": "2026-11-16T13:53:08+00:00",
+ "updatedAt": "2026-11-17T14:45:43+00:00",
  "credit": "Paper scans published by FortuneSoccer.com and UKFootballPools.com - view the originals at their sites. Keys are read from each week's published sheets (OCR pass over the scans). JAP adds the combined verdict and the FootyStats xG model check on top.",
  "papers": [
   {
@@ -10,18 +10,114 @@
    "name": "Bob Morton",
    "family": "RSK Papers",
    "npages": 4,
-   "pages": [],
-   "keys": {},
-   "note": "Week 21 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-bob-morton-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-bob-morton-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-bob-morton-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-bob-morton-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "43",
+     "35",
+     "11",
+     "14",
+     "12",
+     "20",
+     "9",
+     "24"
+    ],
+    "nap": [
+     "16",
+     "13",
+     "41",
+     "4",
+     "30"
+    ],
+    "draw": [
+     "39",
+     "17"
+    ],
+    "pairs": [
+     [
+      21,
+      11
+     ],
+     [
+      25,
+      10
+     ],
+     [
+      19,
+      10
+     ],
+     [
+      18,
+      10
+     ],
+     [
+      27,
+      10
+     ],
+     [
+      20,
+      10
+     ]
+    ]
+   },
+   "note": "Keys read from the week 21 scans.",
+   "keysWeek": 21
   },
   {
    "id": "capital-international",
    "name": "Capital International",
    "family": "RSK Papers",
    "npages": 4,
-   "pages": [],
-   "keys": {},
-   "note": "Week 21 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-capital-international-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-capital-international-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-capital-international-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-capital-international-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "8"
+    ],
+    "nap": [
+     "8"
+    ],
+    "draw": [
+     "29"
+    ],
+    "pairs": [
+     [
+      21,
+      11
+     ],
+     [
+      2,
+      40
+     ],
+     [
+      4,
+      7
+     ],
+     [
+      11,
+      12
+     ],
+     [
+      11,
+      4
+     ],
+     [
+      22,
+      21
+     ]
+    ]
+   },
+   "note": "Keys read from the week 21 scans.",
+   "keysWeek": 21
   },
   {
    "id": "soccer-x-research",
@@ -253,18 +349,92 @@
    "name": "Happy Joe",
    "family": "Pool Papers",
    "npages": 4,
-   "pages": [],
-   "keys": {},
-   "note": "Week 21 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-happy-joe-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-happy-joe-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-happy-joe-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-happy-joe-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "24",
+     "9",
+     "12",
+     "19"
+    ],
+    "nap": [
+     "38",
+     "7",
+     "28",
+     "2"
+    ],
+    "draw": [
+     "39"
+    ],
+    "tips": [
+     "6",
+     "18",
+     "22",
+     "20",
+     "11"
+    ],
+    "pairs": [
+     [
+      21,
+      22
+     ],
+     [
+      9,
+      2
+     ],
+     [
+      2,
+      29
+     ]
+    ]
+   },
+   "note": "Keys read from the week 21 scans.",
+   "keysWeek": 21
   },
   {
    "id": "right-on-fixtures",
    "name": "Right On Fixtures",
    "family": "Pool Papers",
    "npages": 2,
-   "pages": [],
-   "keys": {},
-   "note": "Week 21 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-right-on-fixtures-2026-back-page.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-right-on-fixtures-2026-front-page.jpg"
+   ],
+   "keys": {
+    "pairs": [
+     [
+      31,
+      4
+     ],
+     [
+      2,
+      16
+     ],
+     [
+      23,
+      14
+     ],
+     [
+      24,
+      40
+     ],
+     [
+      37,
+      13
+     ],
+     [
+      32,
+      16
+     ]
+    ]
+   },
+   "note": "Keys read from the week 21 scans.",
+   "keysWeek": 21
   },
   {
    "id": "temple-of-draws",
@@ -326,9 +496,15 @@
    "name": "Winstar",
    "family": "Pool Papers",
    "npages": 4,
-   "pages": [],
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-winstar-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-winstar-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-winstar-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-winstar-2026-page-4.jpg"
+   ],
    "keys": {},
-   "note": "Week 21 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "note": "Scans are up for week 21 - the key votes are not readable on these sheets yet.",
+   "keysWeek": 21
   },
   {
    "id": "great-soccer",
@@ -591,9 +767,31 @@
    "name": "Final Results",
    "family": "Weekly Papers",
    "npages": 4,
-   "pages": [],
-   "keys": {},
-   "note": "Week 21 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-final-results-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-final-results-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-final-results-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-final-results-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "12",
+     "8",
+     "10",
+     "3"
+    ],
+    "nap": [
+     "28"
+    ],
+    "pairs": [
+     [
+      22,
+      11
+     ]
+    ]
+   },
+   "note": "Keys read from the week 21 scans.",
+   "keysWeek": 21
   },
   {
    "id": "the-new-dream",
@@ -642,9 +840,78 @@
    "name": "Weekly Telegraph",
    "family": "Weekly Papers",
    "npages": 16,
-   "pages": [],
-   "keys": {},
-   "note": "Week 21 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-10.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-11.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-12.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-13.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-14.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-15.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-16.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-17.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-18.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-19.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-20.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-21.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-22.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-23.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-24.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-4.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-5.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-6.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-7.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-8.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-weekly-telegraph-2026-page-9.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "6",
+     "8",
+     "9",
+     "20",
+     "7",
+     "45",
+     "25",
+     "1"
+    ],
+    "nap": [
+     "2",
+     "15",
+     "13",
+     "4"
+    ],
+    "pairs": [
+     [
+      22,
+      15
+     ],
+     [
+      33,
+      47
+     ],
+     [
+      5,
+      16
+     ],
+     [
+      2,
+      34
+     ],
+     [
+      45,
+      25
+     ],
+     [
+      2,
+      4
+     ]
+    ]
+   },
+   "note": "Keys read from the week 21 scans.",
+   "keysWeek": 21
   },
   {
    "id": "mirror-punters-guide",
@@ -793,9 +1060,43 @@
    "name": "Sporting Telegraph",
    "family": "Telegraph Papers",
    "npages": 8,
-   "pages": [],
-   "keys": {},
-   "note": "Week 21 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-sporting-telegraph-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-sporting-telegraph-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-sporting-telegraph-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-sporting-telegraph-2026-page-4.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-sporting-telegraph-2026-page-5.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-sporting-telegraph-2026-page-6.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-sporting-telegraph-2026-page-7.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-21-sporting-telegraph-2026-page-8.jpg"
+   ],
+   "keys": {
+    "nap": [
+     "11",
+     "13",
+     "1",
+     "4"
+    ],
+    "draw": [
+     "29"
+    ],
+    "pairs": [
+     [
+      27,
+      32
+     ],
+     [
+      23,
+      24
+     ],
+     [
+      49,
+      24
+     ]
+    ]
+   },
+   "note": "Keys read from the week 21 scans.",
+   "keysWeek": 21
   },
   {
    "id": "zetters-pools-guide",
