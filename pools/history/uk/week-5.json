@@ -13,7 +13,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 2,
@@ -25,7 +25,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 3,
@@ -37,7 +37,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 4,
@@ -49,7 +49,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 5,
@@ -61,7 +61,7 @@
    "draw": true,
    "status": "noScoreDraw",
    "drawpct": null,
-   "tip": "X"
+   "tip": ""
   },
   {
    "no": 6,
@@ -73,7 +73,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 7,
@@ -85,7 +85,7 @@
    "draw": true,
    "status": "ScoreDraw",
    "drawpct": null,
-   "tip": "X"
+   "tip": ""
   },
   {
    "no": 8,
@@ -97,7 +97,7 @@
    "draw": true,
    "status": "noScoreDraw",
    "drawpct": null,
-   "tip": "X"
+   "tip": ""
   },
   {
    "no": 9,
@@ -109,7 +109,7 @@
    "draw": true,
    "status": "noScoreDraw",
    "drawpct": null,
-   "tip": "X"
+   "tip": ""
   },
   {
    "no": 10,
@@ -121,7 +121,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 11,
@@ -133,7 +133,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 12,
@@ -145,7 +145,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 13,
@@ -157,7 +157,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 14,
@@ -169,7 +169,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 15,
@@ -181,7 +181,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 16,
@@ -193,7 +193,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 17,
@@ -205,7 +205,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 18,
@@ -217,7 +217,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 19,
@@ -229,7 +229,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 20,
@@ -241,7 +241,7 @@
    "draw": true,
    "status": "noScoreDraw",
    "drawpct": null,
-   "tip": "X"
+   "tip": ""
   },
   {
    "no": 21,
@@ -253,7 +253,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 22,
@@ -265,7 +265,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 23,
@@ -277,7 +277,7 @@
    "draw": true,
    "status": "ScoreDraw",
    "drawpct": null,
-   "tip": "X"
+   "tip": ""
   },
   {
    "no": 24,
@@ -289,7 +289,7 @@
    "draw": true,
    "status": "ScoreDraw",
    "drawpct": null,
-   "tip": "X"
+   "tip": ""
   },
   {
    "no": 25,
@@ -301,7 +301,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 26,
@@ -313,7 +313,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 27,
@@ -325,7 +325,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 28,
@@ -337,7 +337,7 @@
    "draw": true,
    "status": "noScoreDraw",
    "drawpct": null,
-   "tip": "X"
+   "tip": ""
   },
   {
    "no": 29,
@@ -349,7 +349,7 @@
    "draw": true,
    "status": "noScoreDraw",
    "drawpct": null,
-   "tip": "X"
+   "tip": ""
   },
   {
    "no": 30,
@@ -361,7 +361,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 31,
@@ -373,7 +373,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 32,
@@ -385,7 +385,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 33,
@@ -397,7 +397,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 34,
@@ -409,7 +409,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 35,
@@ -421,7 +421,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 36,
@@ -433,7 +433,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 37,
@@ -445,7 +445,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 38,
@@ -457,7 +457,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 39,
@@ -469,7 +469,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 40,
@@ -481,7 +481,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 41,
@@ -493,7 +493,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 42,
@@ -505,7 +505,7 @@
    "draw": false,
    "status": "Away",
    "drawpct": null,
-   "tip": "2"
+   "tip": ""
   },
   {
    "no": 43,
@@ -517,7 +517,7 @@
    "draw": true,
    "status": "ScoreDraw",
    "drawpct": null,
-   "tip": "X"
+   "tip": ""
   },
   {
    "no": 44,
@@ -529,7 +529,7 @@
    "draw": false,
    "status": "Void",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 45,
@@ -541,7 +541,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "X"
+   "tip": ""
   },
   {
    "no": 46,
@@ -553,7 +553,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 47,
@@ -565,7 +565,7 @@
    "draw": true,
    "status": "Void",
    "drawpct": null,
-   "tip": "X"
+   "tip": ""
   },
   {
    "no": 48,
@@ -577,7 +577,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   },
   {
    "no": 49,
@@ -589,7 +589,7 @@
    "draw": false,
    "status": "Home",
    "drawpct": null,
-   "tip": "1"
+   "tip": ""
   }
  ],
  "source": "fortunesoccer-results"
