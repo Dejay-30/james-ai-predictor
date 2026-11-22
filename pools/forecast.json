@@ -1,727 +1,729 @@
 {
- "week": 21,
- "date": "2026-11-21",
- "expected_draws": 9.2,
+ "week": 22,
+ "date": "2026-11-28",
+ "expected_draws": 9.6,
  "group": "low",
- "group_note": "weeks 1-20 average 12.2 draws; the last five weeks averaged 9.2 - week 21 sits in the low-draw group",
+ "group_note": "weeks 1-21 average 12.1 draws; the last five weeks averaged 9.6 - week 22 sits in the low-draw group",
  "picks": [
   {
    "no": 24,
-   "home": "Accrington",
-   "away": "Salford C.",
-   "score": 56,
-   "nfreq": 10,
+   "home": "Stockport",
+   "away": "Leyton O.",
+   "score": 59,
+   "nfreq": 11,
    "reasons": [
-    "slot 24 drew 10 times already this season (weeks 2,4,5,10,11,12,13,14,17,18)",
+    "slot 24 drew 11 times already this season (weeks 2,4,5,10,11,12,13,14,17,18,21)",
     "the teams involved have 6 draws between them this season",
-    "member of repeating pair(s) 12-24, 7-24 - drawn together in weeks 2,4,11,12,14,17; 5,10,12,17,18",
+    "member of repeating pair(s) 12-24, 7-24 - drawn together in weeks 2,4,11,12,14,17,21; 5,10,12,17,18,21",
     "paper keys returned to number 24 in 1 week"
    ]
   },
   {
-   "no": 22,
-   "home": "Oxford Utd.",
-   "away": "Wycombe",
-   "score": 54,
-   "nfreq": 8,
-   "reasons": [
-    "slot 22 drew 8 times already this season (weeks 2,3,4,6,8,10,17,20)",
-    "the teams involved have 8 draws between them this season",
-    "member of repeating pair(s) 12-22, 22-29 - drawn together in weeks 2,4,6,8,17; 2,3,4,10,20",
-    "paper keys returned to number 22 in 1 week"
-   ]
-  },
-  {
    "no": 7,
-   "home": "Bolton",
-   "away": "Portsmouth",
-   "score": 52,
-   "nfreq": 8,
+   "home": "Fulham",
+   "away": "Bournemouth",
+   "score": 55,
+   "nfreq": 9,
    "reasons": [
-    "slot 7 drew 8 times already this season (weeks 1,5,6,7,10,12,17,18)",
+    "slot 7 drew 9 times already this season (weeks 1,5,6,7,10,12,17,18,21)",
     "the teams involved have 5 draws between them this season",
-    "member of repeating pair(s) 7-9, 7-24 - drawn together in weeks 1,5,7,12,17,18; 5,10,12,17,18",
+    "member of repeating pair(s) 7-9, 7-24 - drawn together in weeks 1,5,7,12,17,18; 5,10,12,17,18,21",
     "paper keys returned to number 7 in 3 weeks"
    ]
   },
   {
    "no": 12,
-   "home": "Swansea",
-   "away": "West Brom",
-   "score": 52,
-   "nfreq": 8,
+   "home": "Millwall",
+   "away": "Burnley",
+   "score": 55,
+   "nfreq": 9,
    "reasons": [
-    "slot 12 drew 8 times already this season (weeks 2,4,6,8,11,12,14,17)",
+    "slot 12 drew 9 times already this season (weeks 2,4,6,8,11,12,14,17,21)",
     "the teams involved have 5 draws between them this season",
-    "member of repeating pair(s) 12-24, 12-22 - drawn together in weeks 2,4,11,12,14,17; 2,4,6,8,17",
+    "member of repeating pair(s) 12-24, 12-22 - drawn together in weeks 2,4,11,12,14,17,21; 2,4,6,8,17",
     "paper keys returned to number 12 in 3 weeks"
    ]
   },
   {
-   "no": 32,
-   "home": "Tranmere",
-   "away": "Colchester",
-   "score": 48,
-   "nfreq": 6,
-   "reasons": [
-    "slot 32 drew 6 times already this season (weeks 9,10,11,12,13,15)",
-    "the teams involved have 11 draws between them this season",
-    "member of repeating pair(s) 1-32 - drawn together in weeks 9,10,11,13,15",
-    "paper keys returned to number 32 in 1 week"
-   ]
-  },
-  {
-   "no": 1,
-   "home": "Bournemouth",
-   "away": "Nottingham",
-   "score": 47,
-   "nfreq": 7,
-   "reasons": [
-    "slot 1 drew 7 times already this season (weeks 1,9,10,11,13,15,20)",
-    "the teams involved have 4 draws between them this season",
-    "member of repeating pair(s) 1-31, 1-32 - drawn together in weeks 1,9,10,13,15; 9,10,11,13,15",
-    "paper keys returned to number 1 in 3 weeks"
-   ]
-  },
-  {
    "no": 29,
-   "home": "Grimsby",
-   "away": "Rotherham",
-   "score": 47,
-   "nfreq": 7,
+   "home": "Fleetwood",
+   "away": "Accrington",
+   "score": 54,
+   "nfreq": 8,
    "reasons": [
-    "slot 29 drew 7 times already this season (weeks 2,3,4,5,10,13,20)",
-    "the teams involved have 7 draws between them this season",
-    "member of repeating pair(s) 22-29, 24-29 - drawn together in weeks 2,3,4,10,20; 2,4,5,10,13"
+    "slot 29 drew 8 times already this season (weeks 2,3,4,5,10,13,20,21)",
+    "the teams involved have 9 draws between them this season",
+    "member of repeating pair(s) 24-29, 20-29 - drawn together in weeks 2,4,5,10,13,21; 2,5,10,13,21"
    ]
   },
   {
-   "no": 30,
-   "home": "Northampton",
-   "away": "Rochdale",
-   "score": 47,
+   "no": 22,
+   "home": "Sheff Wed.",
+   "away": "Reading",
+   "score": 52,
+   "nfreq": 8,
+   "reasons": [
+    "slot 22 drew 8 times already this season (weeks 2,3,4,6,8,10,17,20)",
+    "the teams involved have 7 draws between them this season",
+    "member of repeating pair(s) 12-22, 22-29 - drawn together in weeks 2,4,6,8,17; 2,3,4,10,20",
+    "paper keys returned to number 22 in 1 week"
+   ]
+  },
+  {
+   "no": 20,
+   "home": "Leicester",
+   "away": "Mansfield",
+   "score": 51,
    "nfreq": 7,
    "reasons": [
-    "slot 30 drew 7 times already this season (weeks 1,8,9,10,13,16,19)",
-    "the teams involved have 8 draws between them this season",
-    "member of repeating pair(s) 26-30 - drawn together in weeks 1,9,10,16,19",
-    "paper keys returned to number 30 in 2 weeks"
+    "slot 20 drew 7 times already this season (weeks 2,5,6,8,10,13,21)",
+    "the teams involved have 7 draws between them this season",
+    "member of repeating pair(s) 20-24, 20-29 - drawn together in weeks 2,5,10,13,21; 2,5,10,13,21",
+    "paper keys returned to number 20 in 2 weeks"
    ]
   },
   {
    "no": 26,
-   "home": "Cheltenham",
-   "away": "Bristol R.",
-   "score": 45,
+   "home": "Wycombe",
+   "away": "Bradford C.",
+   "score": 51,
    "nfreq": 9,
    "reasons": [
     "slot 26 drew 9 times already this season (weeks 1,3,6,9,10,15,16,18,19)",
-    "the teams involved have 3 draws between them this season",
-    "member of repeating pair(s) 23-26, 26-30 - drawn together in weeks 1,3,6,9,16; 1,9,10,16,19"
+    "the teams involved have 9 draws between them this season",
+    "member of repeating pair(s) 23-26 - drawn together in weeks 1,3,6,9,16"
    ]
   },
   {
    "no": 23,
-   "home": "Plymouth",
-   "away": "Peterboro",
-   "score": 38,
+   "home": "Stevenage",
+   "away": "Blackpool",
+   "score": 44,
    "nfreq": 8,
    "reasons": [
     "slot 23 drew 8 times already this season (weeks 1,3,5,6,9,11,16,20)",
-    "the teams involved have 3 draws between them this season",
+    "the teams involved have 6 draws between them this season",
     "member of repeating pair(s) 23-26 - drawn together in weeks 1,3,6,9,16",
     "paper keys returned to number 23 in 1 week"
    ]
   },
   {
    "no": 28,
-   "home": "Crawley",
-   "away": "Fleetwood",
-   "score": 37,
+   "home": "Crewe",
+   "away": "Grimsby",
+   "score": 43,
    "nfreq": 5,
    "reasons": [
     "slot 28 drew 5 times already this season (weeks 2,5,12,14,17)",
-    "the teams involved have 8 draws between them this season",
+    "the teams involved have 11 draws between them this season",
     "member of repeating pair(s) 24-28 - drawn together in weeks 2,5,12,14,17"
    ]
   },
   {
-   "no": 9,
-   "home": "Middlesbro",
-   "away": "Bristol C.",
-   "score": 35,
+   "no": 30,
+   "home": "Port Vale",
+   "away": "Newport Co.",
+   "score": 43,
    "nfreq": 7,
    "reasons": [
-    "slot 9 drew 7 times already this season (weeks 1,5,7,12,16,17,18)",
-    "the teams involved have 4 draws between them this season",
-    "member of repeating pair(s) 7-9 - drawn together in weeks 1,5,7,12,17,18"
-   ]
-  },
-  {
-   "no": 17,
-   "home": "Cambridge U.",
-   "away": "Stockport",
-   "score": 35,
-   "nfreq": 5,
-   "reasons": [
-    "slot 17 drew 5 times already this season (weeks 2,8,9,10,18)",
-    "the teams involved have 7 draws between them this season",
-    "paper keys returned to number 17 in 3 weeks"
-   ]
-  },
-  {
-   "no": 33,
-   "home": "York City",
-   "away": "Walsall",
-   "score": 34,
-   "nfreq": 4,
-   "reasons": [
-    "slot 33 drew 4 times already this season (weeks 3,7,12,18)",
-    "the teams involved have 11 draws between them this season"
+    "slot 30 drew 7 times already this season (weeks 1,8,9,10,13,16,19)",
+    "the teams involved have 9 draws between them this season",
+    "paper keys returned to number 30 in 2 weeks"
    ]
   },
   {
    "no": 31,
-   "home": "Oldham",
-   "away": "Exeter",
-   "score": 32,
+   "home": "Rochdale",
+   "away": "Barnet",
+   "score": 43,
+   "nfreq": 7,
+   "reasons": [
+    "slot 31 drew 7 times already this season (weeks 1,9,10,12,13,15,21)",
+    "the teams involved have 8 draws between them this season",
+    "member of repeating pair(s) 1-31 - drawn together in weeks 1,9,10,13,15"
+   ]
+  },
+  {
+   "no": 1,
+   "home": "Leeds",
+   "away": "Coventry",
+   "score": 41,
+   "nfreq": 7,
+   "reasons": [
+    "slot 1 drew 7 times already this season (weeks 1,9,10,11,13,15,20)",
+    "the teams involved have 1 draw between them this season",
+    "member of repeating pair(s) 1-31, 1-32 - drawn together in weeks 1,9,10,13,15; 9,10,11,13,15",
+    "paper keys returned to number 1 in 3 weeks"
+   ]
+  },
+  {
+   "no": 32,
+   "home": "Rotherham",
+   "away": "Oldham",
+   "score": 40,
    "nfreq": 6,
    "reasons": [
-    "slot 31 drew 6 times already this season (weeks 1,9,10,12,13,15)",
-    "the teams involved have 4 draws between them this season",
-    "member of repeating pair(s) 1-31 - drawn together in weeks 1,9,10,13,15"
+    "slot 32 drew 6 times already this season (weeks 9,10,11,12,13,15)",
+    "the teams involved have 7 draws between them this season",
+    "member of repeating pair(s) 1-32 - drawn together in weeks 9,10,11,13,15",
+    "paper keys returned to number 32 in 1 week"
+   ]
+  },
+  {
+   "no": 10,
+   "home": "Birmingham",
+   "away": "Bolton",
+   "score": 35,
+   "nfreq": 5,
+   "reasons": [
+    "slot 10 drew 5 times already this season (weeks 8,11,12,14,19)",
+    "the teams involved have 7 draws between them this season",
+    "paper keys returned to number 10 in 3 weeks"
+   ]
+  },
+  {
+   "no": 16,
+   "home": "Wrexham",
+   "away": "Portsmouth",
+   "score": 35,
+   "nfreq": 5,
+   "reasons": [
+    "slot 16 drew 5 times already this season (weeks 8,10,12,15,18)",
+    "the teams involved have 7 draws between them this season",
+    "paper keys returned to number 16 in 3 weeks"
    ]
   }
  ],
  "home_picks": [
   {
-   "no": 33,
-   "home": "York City",
-   "away": "Walsall",
-   "score": 58,
-   "nfreq": 12,
+   "no": 27,
+   "home": "Colchester",
+   "away": "York City",
+   "score": 62,
+   "nfreq": 14,
    "reasons": [
-    "slot 33 produced 12 home wins already this season (weeks 2,4,5,8,9,10,11,13,15,17,19,20)",
-    "York City home have 5 wins as the home side this season",
-    "member of repeating home-win pair(s) 33-35, 33-36 - landed together in weeks 4,5,9,10,13,15,17,19,20; 2,9,10,11,13,15,17,19,20"
+    "slot 27 produced 14 home wins already this season (weeks 2,3,4,6,7,9,10,12,14,15,16,18,20,21)",
+    "Colchester home have 4 wins as the home side this season",
+    "member of repeating home-win pair(s) 14-27, 27-35 - landed together in weeks 4,6,7,9,10,12,14,15,16,20,21; 3,4,6,9,10,12,14,15,20,21"
    ]
   },
   {
    "no": 14,
-   "home": "Wolves",
-   "away": "Charlton",
-   "score": 57,
-   "nfreq": 13,
+   "home": "West Brom",
+   "away": "Bristol C.",
+   "score": 60,
+   "nfreq": 14,
    "reasons": [
-    "slot 14 produced 13 home wins already this season (weeks 1,4,5,6,7,9,10,12,14,15,16,19,20)",
-    "Wolves home have 3 wins as the home side this season",
-    "member of repeating home-win pair(s) 14-27, 14-35 - landed together in weeks 4,6,7,9,10,12,14,15,16,20; 4,5,6,9,10,12,14,15,19,20"
+    "slot 14 produced 14 home wins already this season (weeks 1,4,5,6,7,9,10,12,14,15,16,19,20,21)",
+    "West Brom home have 3 wins as the home side this season",
+    "member of repeating home-win pair(s) 14-27, 14-35 - landed together in weeks 4,6,7,9,10,12,14,15,16,20,21; 4,5,6,9,10,12,14,15,19,20,21"
    ]
   },
   {
-   "no": 27,
-   "home": "Chesterfield",
-   "away": "Shrewsbury",
-   "score": 57,
-   "nfreq": 13,
+   "no": 35,
+   "home": "Swindon",
+   "away": "Chesterfield",
+   "score": 60,
+   "nfreq": 14,
    "reasons": [
-    "slot 27 produced 13 home wins already this season (weeks 2,3,4,6,7,9,10,12,14,15,16,18,20)",
-    "Chesterfield home have 3 wins as the home side this season",
-    "member of repeating home-win pair(s) 14-27, 15-27 - landed together in weeks 4,6,7,9,10,12,14,15,16,20; 2,6,7,10,14,15,16,18,20"
+    "slot 35 produced 14 home wins already this season (weeks 3,4,5,6,9,10,12,13,14,15,17,19,20,21)",
+    "Swindon home have 3 wins as the home side this season",
+    "member of repeating home-win pair(s) 14-35, 27-35 - landed together in weeks 4,5,6,9,10,12,14,15,19,20,21; 3,4,6,9,10,12,14,15,20,21"
    ]
   },
   {
-   "no": 15,
-   "home": "Bradford C.",
-   "away": "Doncaster",
-   "score": 55,
+   "no": 33,
+   "home": "Salford C.",
+   "away": "Gillingham",
+   "score": 56,
+   "nfreq": 12,
+   "reasons": [
+    "slot 33 produced 12 home wins already this season (weeks 2,4,5,8,9,10,11,13,15,17,19,20)",
+    "Salford C. home have 4 wins as the home side this season",
+    "member of repeating home-win pair(s) 33-35, 33-36 - landed together in weeks 4,5,9,10,13,15,17,19,20; 2,9,10,11,13,15,17,19,20"
+   ]
+  },
+  {
+   "no": 32,
+   "home": "Rotherham",
+   "away": "Oldham",
+   "score": 53,
+   "nfreq": 13,
+   "reasons": [
+    "slot 32 produced 13 home wins already this season (weeks 1,4,5,6,7,8,14,16,17,18,19,20,21)",
+    "Rotherham home have 1 win as the home side this season",
+    "member of repeating home-win pair(s) 14-32, 1-32 - landed together in weeks 1,4,5,6,7,14,16,19,20,21; 4,5,6,8,14,17,18,19,21"
+   ]
+  },
+  {
+   "no": 28,
+   "home": "Crewe",
+   "away": "Grimsby",
+   "score": 52,
+   "nfreq": 10,
+   "reasons": [
+    "slot 28 produced 10 home wins already this season (weeks 1,8,9,10,13,15,16,19,20,21)",
+    "Crewe home have 5 wins as the home side this season",
+    "member of repeating home-win pair(s) 14-28, 28-39 - landed together in weeks 1,9,10,15,16,19,20,21; 1,8,9,10,13,15,16,19"
+   ]
+  },
+  {
+   "no": 36,
+   "home": "Walsall",
+   "away": "Northampton",
+   "score": 52,
+   "nfreq": 12,
+   "reasons": [
+    "slot 36 produced 12 home wins already this season (weeks 2,7,9,10,11,13,14,15,17,18,19,20)",
+    "Walsall home have 2 wins as the home side this season",
+    "member of repeating home-win pair(s) 15-36, 33-36 - landed together in weeks 2,7,10,11,14,15,17,18,20; 2,9,10,11,13,15,17,19,20"
+   ]
+  },
+  {
+   "no": 3,
+   "home": "Ipswich",
+   "away": "Aston Villa",
+   "score": 51,
    "nfreq": 11,
    "reasons": [
-    "slot 15 produced 11 home wins already this season (weeks 2,6,7,10,11,14,15,16,17,18,20)",
-    "Bradford C. home have 5 wins as the home side this season",
-    "member of repeating home-win pair(s) 15-27, 15-36 - landed together in weeks 2,6,7,10,14,15,16,18,20; 2,7,10,11,14,15,17,18,20"
+    "slot 3 produced 11 home wins already this season (weeks 1,2,5,7,8,12,15,16,18,19,20)",
+    "Ipswich home have 3 wins as the home side this season",
+    "member of repeating home-win pair(s) 2-3, 3-14 - landed together in weeks 1,2,7,8,12,15,16,18; 1,5,7,12,15,16,19,20"
    ]
   },
   {
    "no": 8,
-   "home": "Lincoln",
-   "away": "Wrexham",
-   "score": 53,
+   "home": "Sunderland",
+   "away": "Tottenham",
+   "score": 51,
    "nfreq": 13,
    "reasons": [
     "slot 8 produced 13 home wins already this season (weeks 1,2,4,6,7,8,10,11,12,14,17,19,20)",
-    "Lincoln home have 1 win as the home side this season",
     "member of repeating home-win pair(s) 4-8, 8-14 - landed together in weeks 2,4,6,10,12,14,17,19,20; 1,4,6,7,10,12,14,19,20"
    ]
   },
   {
    "no": 19,
-   "home": "Leyton O.",
-   "away": "A. Wimbledon",
-   "score": 53,
-   "nfreq": 11,
-   "reasons": [
-    "slot 19 produced 11 home wins already this season (weeks 1,2,3,5,6,7,10,12,16,18,19)",
-    "Leyton O. home have 4 wins as the home side this season",
-    "member of repeating home-win pair(s) 3-19, 14-19 - landed together in weeks 1,2,5,7,12,16,18,19; 1,5,6,7,10,12,16,19"
-   ]
-  },
-  {
-   "no": 35,
-   "home": "Falkirk",
-   "away": "St. J&#8217;Stone",
-   "score": 53,
-   "nfreq": 13,
-   "reasons": [
-    "slot 35 produced 13 home wins already this season (weeks 3,4,5,6,9,10,12,13,14,15,17,19,20)",
-    "Falkirk home have 1 win as the home side this season",
-    "member of repeating home-win pair(s) 14-35, 27-35 - landed together in weeks 4,5,6,9,10,12,14,15,19,20; 3,4,6,9,10,12,14,15,20"
-   ]
-  },
-  {
-   "no": 32,
-   "home": "Tranmere",
-   "away": "Colchester",
-   "score": 52,
+   "home": "Bromley",
+   "away": "Burton A.",
+   "score": 50,
    "nfreq": 12,
    "reasons": [
-    "slot 32 produced 12 home wins already this season (weeks 1,4,5,6,7,8,14,16,17,18,19,20)",
-    "Tranmere home have 2 wins as the home side this season",
-    "member of repeating home-win pair(s) 8-32, 14-32 - landed together in weeks 1,4,6,7,8,14,17,19,20; 1,4,5,6,7,14,16,19,20"
-   ]
-  },
-  {
-   "no": 11,
-   "home": "Stoke",
-   "away": "Birmingham",
-   "score": 49,
-   "nfreq": 11,
-   "reasons": [
-    "slot 11 produced 11 home wins already this season (weeks 3,4,10,11,14,15,16,17,18,19,20)",
-    "Stoke home have 2 wins as the home side this season",
-    "member of repeating home-win pair(s) 11-15, 11-27 - landed together in weeks 10,11,14,15,16,17,18,20; 3,4,10,14,15,16,18,20"
+    "slot 19 produced 12 home wins already this season (weeks 1,2,3,5,6,7,10,12,16,18,19,21)",
+    "Bromley home have 1 win as the home side this season",
+    "member of repeating home-win pair(s) 14-19, 19-27 - landed together in weeks 1,5,6,7,10,12,16,19,21; 2,3,6,7,10,12,16,18,21"
    ]
   },
   {
    "no": 41,
-   "home": "Dunfermline",
-   "away": "G. Morton",
+   "home": "Motherwell",
+   "away": "Hibernian",
+   "score": 50,
+   "nfreq": 12,
+   "reasons": [
+    "slot 41 produced 12 home wins already this season (weeks 1,2,3,4,5,7,10,13,15,17,19,21)",
+    "Motherwell home have 1 win as the home side this season",
+    "member of repeating home-win pair(s) 35-41, 14-41 - landed together in weeks 3,4,5,10,13,15,17,19,21; 1,4,5,7,10,15,19,21"
+   ]
+  },
+  {
+   "no": 15,
+   "home": "West Ham",
+   "away": "Stoke",
    "score": 49,
    "nfreq": 11,
    "reasons": [
-    "slot 41 produced 11 home wins already this season (weeks 1,2,3,4,5,7,10,13,15,17,19)",
-    "Dunfermline home have 2 wins as the home side this season",
-    "member of repeating home-win pair(s) 33-41, 35-41 - landed together in weeks 2,4,5,10,13,15,17,19; 3,4,5,10,13,15,17,19"
-   ]
-  },
-  {
-   "no": 20,
-   "home": "Mansfield",
-   "away": "Milton K.D.",
-   "score": 48,
-   "nfreq": 10,
-   "reasons": [
-    "slot 20 produced 10 home wins already this season (weeks 1,3,7,9,11,15,16,17,19,20)",
-    "Mansfield home have 3 wins as the home side this season",
-    "member of repeating home-win pair(s) 11-20, 14-20 - landed together in weeks 3,11,15,16,17,19,20; 1,7,9,15,16,19,20"
-   ]
-  },
-  {
-   "no": 36,
-   "home": "Hibernian",
-   "away": "Dundee Utd.",
-   "score": 48,
-   "nfreq": 12,
-   "reasons": [
-    "slot 36 produced 12 home wins already this season (weeks 2,7,9,10,11,13,14,15,17,18,19,20)",
-    "member of repeating home-win pair(s) 15-36, 33-36 - landed together in weeks 2,7,10,11,14,15,17,18,20; 2,9,10,11,13,15,17,19,20"
+    "slot 15 produced 11 home wins already this season (weeks 2,6,7,10,11,14,15,16,17,18,20)",
+    "West Ham home have 2 wins as the home side this season",
+    "member of repeating home-win pair(s) 15-27, 15-36 - landed together in weeks 2,6,7,10,14,15,16,18,20; 2,7,10,11,14,15,17,18,20"
    ]
   }
  ],
  "away_picks": [
   {
    "no": 25,
-   "home": "Barnet",
-   "away": "Port Vale",
-   "score": 48,
+   "home": "Wigan A.",
+   "away": "Plymouth",
+   "score": 56,
    "nfreq": 12,
    "reasons": [
     "slot 25 produced 12 away wins already this season (weeks 1,2,4,5,7,8,12,14,16,18,19,20)",
+    "Plymouth away have 4 wins as the away side this season",
     "member of repeating away-win pair(s) 17-25, 25-31 - landed together in weeks 4,12,14,16,19,20; 2,4,5,7,16,19"
    ]
   },
   {
-   "no": 17,
-   "home": "Cambridge U.",
-   "away": "Stockport",
-   "score": 44,
-   "nfreq": 10,
+   "no": 18,
+   "home": "A. Wimbledon",
+   "away": "Barnsley",
+   "score": 47,
+   "nfreq": 11,
    "reasons": [
-    "slot 17 produced 10 away wins already this season (weeks 4,6,11,12,13,14,15,16,19,20)",
-    "Stockport away have 1 win as the away side this season",
+    "slot 18 produced 11 away wins already this season (weeks 1,3,5,7,9,10,11,13,14,18,21)",
+    "Barnsley away have 1 win as the away side this season",
+    "member of repeating away-win pair(s) 16-18, 18-37 - landed together in weeks 1,3,7,13,14,21; 1,5,7,13,14,21"
+   ]
+  },
+  {
+   "no": 17,
+   "home": "Swansea",
+   "away": "Cardiff",
+   "score": 45,
+   "nfreq": 11,
+   "reasons": [
+    "slot 17 produced 11 away wins already this season (weeks 4,6,11,12,13,14,15,16,19,20,21)",
     "member of repeating away-win pair(s) 17-25, 7-17 - landed together in weeks 4,12,14,16,19,20; 4,11,13,15,16"
    ]
   },
   {
-   "no": 18,
-   "home": "Huddersfield",
-   "away": "Leicester",
-   "score": 44,
-   "nfreq": 10,
+   "no": 37,
+   "home": "Aberdeen",
+   "away": "Dundee FC",
+   "score": 43,
+   "nfreq": 9,
    "reasons": [
-    "slot 18 produced 10 away wins already this season (weeks 1,3,5,7,9,10,11,13,14,18)",
-    "Leicester away have 1 win as the away side this season",
-    "member of repeating away-win pair(s) 9-18, 16-18 - landed together in weeks 3,9,10,11,13; 1,3,7,13,14"
-   ]
-  },
-  {
-   "no": 29,
-   "home": "Grimsby",
-   "away": "Rotherham",
-   "score": 40,
-   "nfreq": 8,
-   "reasons": [
-    "slot 29 produced 8 away wins already this season (weeks 1,6,8,9,11,14,15,19)",
-    "Rotherham away have 2 wins as the away side this season",
-    "member of repeating away-win pair(s) 17-29, 4-29 - landed together in weeks 6,11,14,15,19; 8,9,11,15"
+    "slot 37 produced 9 away wins already this season (weeks 1,5,7,13,14,15,17,20,21)",
+    "Dundee FC away have 2 wins as the away side this season",
+    "member of repeating away-win pair(s) 37-42, 16-37 - landed together in weeks 5,7,13,14,15,20,21; 1,7,13,14,17,21"
    ]
   },
   {
    "no": 31,
-   "home": "Oldham",
-   "away": "Exeter",
-   "score": 40,
+   "home": "Rochdale",
+   "away": "Barnet",
+   "score": 42,
    "nfreq": 8,
    "reasons": [
     "slot 31 produced 8 away wins already this season (weeks 2,3,4,5,6,7,16,19)",
-    "Exeter away have 2 wins as the away side this season",
+    "Barnet away have 3 wins as the away side this season",
     "member of repeating away-win pair(s) 25-31, 6-31 - landed together in weeks 2,4,5,7,16,19; 2,3,6,7,16"
    ]
   },
   {
    "no": 16,
-   "home": "Burton A.",
-   "away": "Luton",
-   "score": 39,
-   "nfreq": 7,
-   "reasons": [
-    "slot 16 produced 7 away wins already this season (weeks 1,3,4,7,13,14,17)",
-    "Luton away have 3 wins as the away side this season",
-    "member of repeating away-win pair(s) 16-18, 16-37 - landed together in weeks 1,3,7,13,14; 1,7,13,14,17"
-   ]
-  },
-  {
-   "no": 13,
-   "home": "West Ham",
-   "away": "Preston",
-   "score": 38,
+   "home": "Wrexham",
+   "away": "Portsmouth",
+   "score": 40,
    "nfreq": 8,
    "reasons": [
-    "slot 13 produced 8 away wins already this season (weeks 1,4,5,6,10,16,17,20)",
-    "Preston away have 1 win as the away side this season",
-    "member of repeating away-win pair(s) 13-21, 13-25 - landed together in weeks 1,6,10,17,20; 1,4,5,16,20"
+    "slot 16 produced 8 away wins already this season (weeks 1,3,4,7,13,14,17,21)",
+    "Portsmouth away have 2 wins as the away side this season",
+    "member of repeating away-win pair(s) 16-18, 16-37 - landed together in weeks 1,3,7,13,14,21; 1,7,13,14,17,21"
    ]
   },
   {
    "no": 38,
-   "home": "Dundee FC",
-   "away": "Hearts",
+   "home": "Dundee Utd.",
+   "away": "St. J&#8217;Stone",
+   "score": 39,
+   "nfreq": 9,
+   "reasons": [
+    "slot 38 produced 9 away wins already this season (weeks 3,8,9,13,17,18,19,20,21)",
+    "member of repeating away-win pair(s) 8-38, 18-38 - landed together in weeks 3,9,13,18,21; 3,9,13,18,21"
+   ]
+  },
+  {
+   "no": 13,
+   "home": "Q.P.R.",
+   "away": "Sheff Utd.",
    "score": 38,
    "nfreq": 8,
    "reasons": [
-    "slot 38 produced 8 away wins already this season (weeks 3,8,9,13,17,18,19,20)",
-    "Hearts away have 1 win as the away side this season",
-    "member of repeating away-win pair(s) 2-38, 8-38 - landed together in weeks 3,13,17,20; 3,9,13,18"
+    "slot 13 produced 8 away wins already this season (weeks 1,4,5,6,10,16,17,20)",
+    "Sheff Utd. away have 1 win as the away side this season",
+    "member of repeating away-win pair(s) 13-21, 13-25 - landed together in weeks 1,6,10,17,20; 1,4,5,16,20"
    ]
   },
   {
-   "no": 7,
-   "home": "Bolton",
-   "away": "Portsmouth",
+   "no": 29,
+   "home": "Fleetwood",
+   "away": "Accrington",
+   "score": 38,
+   "nfreq": 8,
+   "reasons": [
+    "slot 29 produced 8 away wins already this season (weeks 1,6,8,9,11,14,15,19)",
+    "Accrington away have 1 win as the away side this season",
+    "member of repeating away-win pair(s) 17-29, 4-29 - landed together in weeks 6,11,14,15,19; 8,9,11,15"
+   ]
+  },
+  {
+   "no": 42,
+   "home": "Hearts",
+   "away": "Celtic",
+   "score": 38,
+   "nfreq": 8,
+   "reasons": [
+    "slot 42 produced 8 away wins already this season (weeks 5,7,8,13,14,15,20,21)",
+    "Celtic away have 1 win as the away side this season",
+    "member of repeating away-win pair(s) 37-42, 17-42 - landed together in weeks 5,7,13,14,15,20,21; 13,14,15,20,21"
+   ]
+  },
+  {
+   "no": 3,
+   "home": "Ipswich",
+   "away": "Aston Villa",
    "score": 37,
    "nfreq": 7,
    "reasons": [
-    "slot 7 produced 7 away wins already this season (weeks 3,4,8,11,13,15,16)",
-    "Portsmouth away have 2 wins as the away side this season",
-    "member of repeating away-win pair(s) 7-17, 7-40 - landed together in weeks 4,11,13,15,16; 3,4,8,13,15"
+    "slot 3 produced 7 away wins already this season (weeks 3,4,9,10,14,17,21)",
+    "Aston Villa away have 2 wins as the away side this season",
+    "member of repeating away-win pair(s) 3-16, 3-18 - landed together in weeks 3,4,14,17,21; 3,9,10,14,21"
    ]
   },
   {
-   "no": 12,
-   "home": "Swansea",
-   "away": "West Brom",
-   "score": 36,
-   "nfreq": 6,
+   "no": 21,
+   "home": "Luton",
+   "away": "Oxford Utd.",
+   "score": 37,
+   "nfreq": 7,
    "reasons": [
-    "slot 12 produced 6 away wins already this season (weeks 1,3,5,10,15,19)",
-    "West Brom away have 3 wins as the away side this season",
-    "member of repeating away-win pair(s) 12-18, 12-34 - landed together in weeks 1,3,5,10; 3,5,10,15"
-   ]
-  },
-  {
-   "no": 37,
-   "home": "Kilmarnock",
-   "away": "Aberdeen",
-   "score": 36,
-   "nfreq": 8,
-   "reasons": [
-    "slot 37 produced 8 away wins already this season (weeks 1,5,7,13,14,15,17,20)",
-    "member of repeating away-win pair(s) 37-42, 16-37 - landed together in weeks 5,7,13,14,15,20; 1,7,13,14,17"
-   ]
-  },
-  {
-   "no": 40,
-   "home": "Arbroath",
-   "away": "Stenhsemuir",
-   "score": 36,
-   "nfreq": 8,
-   "reasons": [
-    "slot 40 produced 8 away wins already this season (weeks 3,4,8,9,10,13,14,15)",
-    "member of repeating away-win pair(s) 3-40, 7-40 - landed together in weeks 3,4,9,10,14; 3,4,8,13,15"
+    "slot 21 produced 7 away wins already this season (weeks 1,6,8,10,17,20,21)",
+    "Oxford Utd. away have 2 wins as the away side this season",
+    "member of repeating away-win pair(s) 13-21, 21-26 - landed together in weeks 1,6,10,17,20; 8,17,20,21"
    ]
   }
  ],
  "all": [
   {
    "no": 24,
-   "home": "Accrington",
-   "away": "Salford C.",
-   "score": 56,
-   "nfreq": 10,
+   "home": "Stockport",
+   "away": "Leyton O.",
+   "score": 59,
+   "nfreq": 11,
    "reasons": [
-    "slot 24 drew 10 times already this season (weeks 2,4,5,10,11,12,13,14,17,18)",
+    "slot 24 drew 11 times already this season (weeks 2,4,5,10,11,12,13,14,17,18,21)",
     "the teams involved have 6 draws between them this season",
-    "member of repeating pair(s) 12-24, 7-24 - drawn together in weeks 2,4,11,12,14,17; 5,10,12,17,18",
+    "member of repeating pair(s) 12-24, 7-24 - drawn together in weeks 2,4,11,12,14,17,21; 5,10,12,17,18,21",
     "paper keys returned to number 24 in 1 week"
    ]
   },
   {
-   "no": 22,
-   "home": "Oxford Utd.",
-   "away": "Wycombe",
-   "score": 54,
-   "nfreq": 8,
-   "reasons": [
-    "slot 22 drew 8 times already this season (weeks 2,3,4,6,8,10,17,20)",
-    "the teams involved have 8 draws between them this season",
-    "member of repeating pair(s) 12-22, 22-29 - drawn together in weeks 2,4,6,8,17; 2,3,4,10,20",
-    "paper keys returned to number 22 in 1 week"
-   ]
-  },
-  {
    "no": 7,
-   "home": "Bolton",
-   "away": "Portsmouth",
-   "score": 52,
-   "nfreq": 8,
+   "home": "Fulham",
+   "away": "Bournemouth",
+   "score": 55,
+   "nfreq": 9,
    "reasons": [
-    "slot 7 drew 8 times already this season (weeks 1,5,6,7,10,12,17,18)",
+    "slot 7 drew 9 times already this season (weeks 1,5,6,7,10,12,17,18,21)",
     "the teams involved have 5 draws between them this season",
-    "member of repeating pair(s) 7-9, 7-24 - drawn together in weeks 1,5,7,12,17,18; 5,10,12,17,18",
+    "member of repeating pair(s) 7-9, 7-24 - drawn together in weeks 1,5,7,12,17,18; 5,10,12,17,18,21",
     "paper keys returned to number 7 in 3 weeks"
    ]
   },
   {
    "no": 12,
-   "home": "Swansea",
-   "away": "West Brom",
-   "score": 52,
-   "nfreq": 8,
+   "home": "Millwall",
+   "away": "Burnley",
+   "score": 55,
+   "nfreq": 9,
    "reasons": [
-    "slot 12 drew 8 times already this season (weeks 2,4,6,8,11,12,14,17)",
+    "slot 12 drew 9 times already this season (weeks 2,4,6,8,11,12,14,17,21)",
     "the teams involved have 5 draws between them this season",
-    "member of repeating pair(s) 12-24, 12-22 - drawn together in weeks 2,4,11,12,14,17; 2,4,6,8,17",
+    "member of repeating pair(s) 12-24, 12-22 - drawn together in weeks 2,4,11,12,14,17,21; 2,4,6,8,17",
     "paper keys returned to number 12 in 3 weeks"
    ]
   },
   {
-   "no": 32,
-   "home": "Tranmere",
-   "away": "Colchester",
-   "score": 48,
-   "nfreq": 6,
-   "reasons": [
-    "slot 32 drew 6 times already this season (weeks 9,10,11,12,13,15)",
-    "the teams involved have 11 draws between them this season",
-    "member of repeating pair(s) 1-32 - drawn together in weeks 9,10,11,13,15",
-    "paper keys returned to number 32 in 1 week"
-   ]
-  },
-  {
-   "no": 1,
-   "home": "Bournemouth",
-   "away": "Nottingham",
-   "score": 47,
-   "nfreq": 7,
-   "reasons": [
-    "slot 1 drew 7 times already this season (weeks 1,9,10,11,13,15,20)",
-    "the teams involved have 4 draws between them this season",
-    "member of repeating pair(s) 1-31, 1-32 - drawn together in weeks 1,9,10,13,15; 9,10,11,13,15",
-    "paper keys returned to number 1 in 3 weeks"
-   ]
-  },
-  {
    "no": 29,
-   "home": "Grimsby",
-   "away": "Rotherham",
-   "score": 47,
-   "nfreq": 7,
+   "home": "Fleetwood",
+   "away": "Accrington",
+   "score": 54,
+   "nfreq": 8,
    "reasons": [
-    "slot 29 drew 7 times already this season (weeks 2,3,4,5,10,13,20)",
-    "the teams involved have 7 draws between them this season",
-    "member of repeating pair(s) 22-29, 24-29 - drawn together in weeks 2,3,4,10,20; 2,4,5,10,13"
+    "slot 29 drew 8 times already this season (weeks 2,3,4,5,10,13,20,21)",
+    "the teams involved have 9 draws between them this season",
+    "member of repeating pair(s) 24-29, 20-29 - drawn together in weeks 2,4,5,10,13,21; 2,5,10,13,21"
    ]
   },
   {
-   "no": 30,
-   "home": "Northampton",
-   "away": "Rochdale",
-   "score": 47,
+   "no": 22,
+   "home": "Sheff Wed.",
+   "away": "Reading",
+   "score": 52,
+   "nfreq": 8,
+   "reasons": [
+    "slot 22 drew 8 times already this season (weeks 2,3,4,6,8,10,17,20)",
+    "the teams involved have 7 draws between them this season",
+    "member of repeating pair(s) 12-22, 22-29 - drawn together in weeks 2,4,6,8,17; 2,3,4,10,20",
+    "paper keys returned to number 22 in 1 week"
+   ]
+  },
+  {
+   "no": 20,
+   "home": "Leicester",
+   "away": "Mansfield",
+   "score": 51,
    "nfreq": 7,
    "reasons": [
-    "slot 30 drew 7 times already this season (weeks 1,8,9,10,13,16,19)",
-    "the teams involved have 8 draws between them this season",
-    "member of repeating pair(s) 26-30 - drawn together in weeks 1,9,10,16,19",
-    "paper keys returned to number 30 in 2 weeks"
+    "slot 20 drew 7 times already this season (weeks 2,5,6,8,10,13,21)",
+    "the teams involved have 7 draws between them this season",
+    "member of repeating pair(s) 20-24, 20-29 - drawn together in weeks 2,5,10,13,21; 2,5,10,13,21",
+    "paper keys returned to number 20 in 2 weeks"
    ]
   },
   {
    "no": 26,
-   "home": "Cheltenham",
-   "away": "Bristol R.",
-   "score": 45,
+   "home": "Wycombe",
+   "away": "Bradford C.",
+   "score": 51,
    "nfreq": 9,
    "reasons": [
     "slot 26 drew 9 times already this season (weeks 1,3,6,9,10,15,16,18,19)",
-    "the teams involved have 3 draws between them this season",
-    "member of repeating pair(s) 23-26, 26-30 - drawn together in weeks 1,3,6,9,16; 1,9,10,16,19"
+    "the teams involved have 9 draws between them this season",
+    "member of repeating pair(s) 23-26 - drawn together in weeks 1,3,6,9,16"
    ]
   },
   {
    "no": 23,
-   "home": "Plymouth",
-   "away": "Peterboro",
-   "score": 38,
+   "home": "Stevenage",
+   "away": "Blackpool",
+   "score": 44,
    "nfreq": 8,
    "reasons": [
     "slot 23 drew 8 times already this season (weeks 1,3,5,6,9,11,16,20)",
-    "the teams involved have 3 draws between them this season",
+    "the teams involved have 6 draws between them this season",
     "member of repeating pair(s) 23-26 - drawn together in weeks 1,3,6,9,16",
     "paper keys returned to number 23 in 1 week"
    ]
   },
   {
    "no": 28,
-   "home": "Crawley",
-   "away": "Fleetwood",
-   "score": 37,
+   "home": "Crewe",
+   "away": "Grimsby",
+   "score": 43,
    "nfreq": 5,
    "reasons": [
     "slot 28 drew 5 times already this season (weeks 2,5,12,14,17)",
-    "the teams involved have 8 draws between them this season",
+    "the teams involved have 11 draws between them this season",
     "member of repeating pair(s) 24-28 - drawn together in weeks 2,5,12,14,17"
    ]
   },
   {
-   "no": 9,
-   "home": "Middlesbro",
-   "away": "Bristol C.",
-   "score": 35,
+   "no": 30,
+   "home": "Port Vale",
+   "away": "Newport Co.",
+   "score": 43,
    "nfreq": 7,
    "reasons": [
-    "slot 9 drew 7 times already this season (weeks 1,5,7,12,16,17,18)",
-    "the teams involved have 4 draws between them this season",
-    "member of repeating pair(s) 7-9 - drawn together in weeks 1,5,7,12,17,18"
-   ]
-  },
-  {
-   "no": 17,
-   "home": "Cambridge U.",
-   "away": "Stockport",
-   "score": 35,
-   "nfreq": 5,
-   "reasons": [
-    "slot 17 drew 5 times already this season (weeks 2,8,9,10,18)",
-    "the teams involved have 7 draws between them this season",
-    "paper keys returned to number 17 in 3 weeks"
-   ]
-  },
-  {
-   "no": 33,
-   "home": "York City",
-   "away": "Walsall",
-   "score": 34,
-   "nfreq": 4,
-   "reasons": [
-    "slot 33 drew 4 times already this season (weeks 3,7,12,18)",
-    "the teams involved have 11 draws between them this season"
+    "slot 30 drew 7 times already this season (weeks 1,8,9,10,13,16,19)",
+    "the teams involved have 9 draws between them this season",
+    "paper keys returned to number 30 in 2 weeks"
    ]
   },
   {
    "no": 31,
-   "home": "Oldham",
-   "away": "Exeter",
-   "score": 32,
-   "nfreq": 6,
+   "home": "Rochdale",
+   "away": "Barnet",
+   "score": 43,
+   "nfreq": 7,
    "reasons": [
-    "slot 31 drew 6 times already this season (weeks 1,9,10,12,13,15)",
-    "the teams involved have 4 draws between them this season",
+    "slot 31 drew 7 times already this season (weeks 1,9,10,12,13,15,21)",
+    "the teams involved have 8 draws between them this season",
     "member of repeating pair(s) 1-31 - drawn together in weeks 1,9,10,13,15"
    ]
   },
   {
+   "no": 1,
+   "home": "Leeds",
+   "away": "Coventry",
+   "score": 41,
+   "nfreq": 7,
+   "reasons": [
+    "slot 1 drew 7 times already this season (weeks 1,9,10,11,13,15,20)",
+    "the teams involved have 1 draw between them this season",
+    "member of repeating pair(s) 1-31, 1-32 - drawn together in weeks 1,9,10,13,15; 9,10,11,13,15",
+    "paper keys returned to number 1 in 3 weeks"
+   ]
+  },
+  {
+   "no": 32,
+   "home": "Rotherham",
+   "away": "Oldham",
+   "score": 40,
+   "nfreq": 6,
+   "reasons": [
+    "slot 32 drew 6 times already this season (weeks 9,10,11,12,13,15)",
+    "the teams involved have 7 draws between them this season",
+    "member of repeating pair(s) 1-32 - drawn together in weeks 9,10,11,13,15",
+    "paper keys returned to number 32 in 1 week"
+   ]
+  },
+  {
    "no": 10,
-   "home": "Sheff Utd.",
-   "away": "Watford",
-   "score": 31,
+   "home": "Birmingham",
+   "away": "Bolton",
+   "score": 35,
    "nfreq": 5,
    "reasons": [
     "slot 10 drew 5 times already this season (weeks 8,11,12,14,19)",
-    "the teams involved have 5 draws between them this season",
+    "the teams involved have 7 draws between them this season",
     "paper keys returned to number 10 in 3 weeks"
    ]
   },
   {
-   "no": 13,
-   "home": "West Ham",
-   "away": "Preston",
-   "score": 31,
-   "nfreq": 5,
-   "reasons": [
-    "slot 13 drew 5 times already this season (weeks 2,7,12,14,15)",
-    "the teams involved have 7 draws between them this season",
-    "paper keys returned to number 13 in 1 week"
-   ]
-  },
-  {
    "no": 16,
-   "home": "Burton A.",
-   "away": "Luton",
-   "score": 31,
+   "home": "Wrexham",
+   "away": "Portsmouth",
+   "score": 35,
    "nfreq": 5,
    "reasons": [
     "slot 16 drew 5 times already this season (weeks 8,10,12,15,18)",
-    "the teams involved have 5 draws between them this season",
+    "the teams involved have 7 draws between them this season",
     "paper keys returned to number 16 in 3 weeks"
    ]
   },
   {
-   "no": 47,
-   "home": "SSC Napoli",
-   "away": "Torino",
-   "score": 31,
-   "nfreq": 7,
+   "no": 17,
+   "home": "Swansea",
+   "away": "Cardiff",
+   "score": 33,
+   "nfreq": 5,
    "reasons": [
-    "slot 47 drew 7 times already this season (weeks 5,11,12,13,16,17,20)",
-    "the teams involved have 1 draw between them this season",
-    "member of repeating pair(s) 24-47 - drawn together in weeks 5,11,12,13,17",
-    "paper keys returned to number 47 in 1 week"
+    "slot 17 drew 5 times already this season (weeks 2,8,9,10,18)",
+    "the teams involved have 6 draws between them this season",
+    "paper keys returned to number 17 in 3 weeks"
+   ]
+  },
+  {
+   "no": 36,
+   "home": "Walsall",
+   "away": "Northampton",
+   "score": 32,
+   "nfreq": 2,
+   "reasons": [
+    "slot 36 drew 2 times already this season (weeks 6,16)",
+    "the teams involved have 12 draws between them this season",
+    "paper keys returned to number 36 in 1 week"
+   ]
+  },
+  {
+   "no": 19,
+   "home": "Bromley",
+   "away": "Burton A.",
+   "score": 31,
+   "nfreq": 5,
+   "reasons": [
+    "slot 19 drew 5 times already this season (weeks 8,13,14,17,20)",
+    "the teams involved have 7 draws between them this season",
+    "paper keys returned to number 19 in 1 week"
+   ]
+  },
+  {
+   "no": 27,
+   "home": "Colchester",
+   "away": "York City",
+   "score": 31,
+   "nfreq": 3,
+   "reasons": [
+    "slot 27 drew 3 times already this season (weeks 1,8,11)",
+    "the teams involved have 9 draws between them this season",
+    "paper keys returned to number 27 in 2 weeks"
    ]
   },
   {
    "no": 5,
-   "home": "Tottenham",
-   "away": "Ipswich",
+   "home": "Brighton",
+   "away": "Newcastle",
    "score": 29,
    "nfreq": 5,
    "reasons": [
@@ -731,103 +733,162 @@
    ]
   },
   {
-   "no": 43,
-   "home": "Raith",
-   "away": "Partick",
+   "no": 9,
+   "home": "Arsenal",
+   "away": "Man City",
    "score": 29,
    "nfreq": 7,
    "reasons": [
-    "slot 43 drew 7 times already this season (weeks 3,4,5,6,10,15,19)",
-    "the teams involved have 4 draws between them this season"
+    "slot 9 drew 7 times already this season (weeks 1,5,7,12,16,17,18)",
+    "the teams involved have 1 draw between them this season",
+    "member of repeating pair(s) 7-9 - drawn together in weeks 1,5,7,12,17,18"
    ]
   },
   {
-   "no": 18,
-   "home": "Huddersfield",
-   "away": "Leicester",
+   "no": 33,
+   "home": "Salford C.",
+   "away": "Gillingham",
+   "score": 29,
+   "nfreq": 5,
+   "reasons": [
+    "slot 33 drew 5 times already this season (weeks 3,7,12,18,21)",
+    "the teams involved have 7 draws between them this season"
+   ]
+  },
+  {
+   "no": 34,
+   "home": "Shrewsbury",
+   "away": "Cheltenham",
+   "score": 29,
+   "nfreq": 5,
+   "reasons": [
+    "slot 34 drew 5 times already this season (weeks 1,7,8,11,17)",
+    "the teams involved have 7 draws between them this season"
+   ]
+  },
+  {
+   "no": 4,
+   "home": "Everton",
+   "away": "Liverpool",
    "score": 28,
-   "nfreq": 2,
+   "nfreq": 4,
    "reasons": [
-    "slot 18 drew 2 times already this season (weeks 8,17)",
-    "the teams involved have 8 draws between them this season",
-    "paper keys returned to number 18 in 3 weeks"
-   ]
-  },
-  {
-   "no": 20,
-   "home": "Mansfield",
-   "away": "Milton K.D.",
-   "score": 28,
-   "nfreq": 6,
-   "reasons": [
-    "slot 20 drew 6 times already this season (weeks 2,5,6,8,10,13)",
-    "the teams involved have 3 draws between them this season",
-    "paper keys returned to number 20 in 2 weeks"
-   ]
-  },
-  {
-   "no": 37,
-   "home": "Kilmarnock",
-   "away": "Aberdeen",
-   "score": 28,
-   "nfreq": 6,
-   "reasons": [
-    "slot 37 drew 6 times already this season (weeks 3,6,8,10,11,16)",
-    "the teams involved have 5 draws between them this season"
-   ]
-  },
-  {
-   "no": 15,
-   "home": "Bradford C.",
-   "away": "Doncaster",
-   "score": 27,
-   "nfreq": 3,
-   "reasons": [
-    "slot 15 drew 3 times already this season (weeks 1,9,12)",
-    "the teams involved have 6 draws between them this season",
-    "paper keys returned to number 15 in 3 weeks"
-   ]
-  },
-  {
-   "no": 21,
-   "home": "Notts Co.",
-   "away": "Stevenage",
-   "score": 27,
-   "nfreq": 3,
-   "reasons": [
-    "slot 21 drew 3 times already this season (weeks 7,11,12)",
-    "the teams involved have 8 draws between them this season",
-    "paper keys returned to number 21 in 1 week"
-   ]
-  },
-  {
-   "no": 27,
-   "home": "Chesterfield",
-   "away": "Shrewsbury",
-   "score": 25,
-   "nfreq": 3,
-   "reasons": [
-    "slot 27 drew 3 times already this season (weeks 1,8,11)",
-    "the teams involved have 6 draws between them this season",
-    "paper keys returned to number 27 in 2 weeks"
+    "slot 4 drew 4 times already this season (weeks 1,3,13,18)",
+    "the teams involved have 5 draws between them this season",
+    "paper keys returned to number 4 in 3 weeks"
    ]
   },
   {
    "no": 14,
-   "home": "Wolves",
-   "away": "Charlton",
-   "score": 24,
+   "home": "West Brom",
+   "away": "Bristol C.",
+   "score": 28,
    "nfreq": 4,
    "reasons": [
     "slot 14 drew 4 times already this season (weeks 2,8,13,17)",
-    "the teams involved have 3 draws between them this season",
+    "the teams involved have 5 draws between them this season",
     "paper keys returned to number 14 in 3 weeks"
    ]
   },
   {
+   "no": 15,
+   "home": "West Ham",
+   "away": "Stoke",
+   "score": 28,
+   "nfreq": 4,
+   "reasons": [
+    "slot 15 drew 4 times already this season (weeks 1,9,12,21)",
+    "the teams involved have 5 draws between them this season",
+    "paper keys returned to number 15 in 3 weeks"
+   ]
+  },
+  {
+   "no": 6,
+   "home": "Crystal P.",
+   "away": "Hull City",
+   "score": 27,
+   "nfreq": 5,
+   "reasons": [
+    "slot 6 drew 5 times already this season (weeks 4,8,10,11,21)",
+    "the teams involved have 3 draws between them this season",
+    "paper keys returned to number 6 in 3 weeks"
+   ]
+  },
+  {
+   "no": 47,
+   "home": "Como",
+   "away": "Juventus",
+   "score": 27,
+   "nfreq": 7,
+   "reasons": [
+    "slot 47 drew 7 times already this season (weeks 5,11,12,13,16,17,20)",
+    "the teams involved have 2 draws between them this season",
+    "paper keys returned to number 47 in 1 week"
+   ]
+  },
+  {
+   "no": 2,
+   "home": "Man Utd.",
+   "away": "Brentford",
+   "score": 26,
+   "nfreq": 4,
+   "reasons": [
+    "slot 2 drew 4 times already this season (weeks 9,10,19,21)",
+    "the teams involved have 4 draws between them this season",
+    "paper keys returned to number 2 in 3 weeks"
+   ]
+  },
+  {
+   "no": 3,
+   "home": "Ipswich",
+   "away": "Aston Villa",
+   "score": 25,
+   "nfreq": 3,
+   "reasons": [
+    "slot 3 drew 3 times already this season (weeks 6,11,13)",
+    "the teams involved have 5 draws between them this season",
+    "paper keys returned to number 3 in 3 weeks"
+   ]
+  },
+  {
+   "no": 11,
+   "home": "Derby",
+   "away": "Watford",
+   "score": 25,
+   "nfreq": 3,
+   "reasons": [
+    "slot 11 drew 3 times already this season (weeks 7,9,13)",
+    "the teams involved have 6 draws between them this season",
+    "paper keys returned to number 11 in 2 weeks"
+   ]
+  },
+  {
+   "no": 13,
+   "home": "Q.P.R.",
+   "away": "Sheff Utd.",
+   "score": 24,
+   "nfreq": 6,
+   "reasons": [
+    "slot 13 drew 6 times already this season (weeks 2,7,12,14,15,21)",
+    "the teams involved have 2 draws between them this season",
+    "paper keys returned to number 13 in 1 week"
+   ]
+  },
+  {
+   "no": 37,
+   "home": "Aberdeen",
+   "away": "Dundee FC",
+   "score": 24,
+   "nfreq": 6,
+   "reasons": [
+    "slot 37 drew 6 times already this season (weeks 3,6,8,10,11,16)",
+    "the teams involved have 3 draws between them this season"
+   ]
+  },
+  {
    "no": 39,
-   "home": "Motherwell",
-   "away": "Rangers",
+   "home": "Rangers",
+   "away": "Falkirk",
    "score": 24,
    "nfreq": 4,
    "reasons": [
@@ -836,190 +897,119 @@
    ]
   },
   {
-   "no": 2,
-   "home": "Aston Villa",
-   "away": "Sunderland",
-   "score": 23,
-   "nfreq": 3,
-   "reasons": [
-    "slot 2 drew 3 times already this season (weeks 9,10,19)",
-    "the teams involved have 4 draws between them this season",
-    "paper keys returned to number 2 in 3 weeks"
-   ]
-  },
-  {
-   "no": 11,
-   "home": "Stoke",
-   "away": "Birmingham",
-   "score": 23,
-   "nfreq": 3,
-   "reasons": [
-    "slot 11 drew 3 times already this season (weeks 7,9,13)",
-    "the teams involved have 5 draws between them this season",
-    "paper keys returned to number 11 in 2 weeks"
-   ]
-  },
-  {
-   "no": 19,
-   "home": "Leyton O.",
-   "away": "A. Wimbledon",
-   "score": 23,
-   "nfreq": 5,
-   "reasons": [
-    "slot 19 drew 5 times already this season (weeks 8,13,14,17,20)",
-    "the teams involved have 3 draws between them this season",
-    "paper keys returned to number 19 in 1 week"
-   ]
-  },
-  {
-   "no": 6,
-   "home": "Newcastle",
-   "away": "Arsenal",
-   "score": 22,
-   "nfreq": 4,
-   "reasons": [
-    "slot 6 drew 4 times already this season (weeks 4,8,10,11)",
-    "the teams involved have 2 draws between them this season",
-    "paper keys returned to number 6 in 3 weeks"
-   ]
-  },
-  {
-   "no": 41,
-   "home": "Dunfermline",
-   "away": "G. Morton",
-   "score": 22,
-   "nfreq": 4,
-   "reasons": [
-    "slot 41 drew 4 times already this season (weeks 6,8,9,14)",
-    "the teams involved have 5 draws between them this season"
-   ]
-  },
-  {
-   "no": 25,
-   "home": "Barnet",
-   "away": "Port Vale",
-   "score": 21,
-   "nfreq": 3,
-   "reasons": [
-    "slot 25 drew 3 times already this season (weeks 3,9,15)",
-    "the teams involved have 6 draws between them this season"
-   ]
-  },
-  {
    "no": 35,
-   "home": "Falkirk",
-   "away": "St. J&#8217;Stone",
-   "score": 21,
+   "home": "Swindon",
+   "away": "Chesterfield",
+   "score": 23,
    "nfreq": 5,
    "reasons": [
     "slot 35 drew 5 times already this season (weeks 1,2,7,8,16)",
-    "the teams involved have 3 draws between them this season"
-   ]
-  },
-  {
-   "no": 40,
-   "home": "Arbroath",
-   "away": "Stenhsemuir",
-   "score": 20,
-   "nfreq": 4,
-   "reasons": [
-    "slot 40 drew 4 times already this season (weeks 1,7,12,16)",
     "the teams involved have 4 draws between them this season"
    ]
   },
   {
-   "no": 3,
-   "home": "Chelsea",
-   "away": "Leeds",
-   "score": 19,
+   "no": 21,
+   "home": "Luton",
+   "away": "Oxford Utd.",
+   "score": 21,
    "nfreq": 3,
    "reasons": [
-    "slot 3 drew 3 times already this season (weeks 6,11,13)",
-    "the teams involved have 2 draws between them this season",
-    "paper keys returned to number 3 in 3 weeks"
+    "slot 21 drew 3 times already this season (weeks 7,11,12)",
+    "the teams involved have 5 draws between them this season",
+    "paper keys returned to number 21 in 1 week"
    ]
   },
   {
-   "no": 44,
-   "home": "R. Vallecano",
-   "away": "Valencia",
-   "score": 19,
-   "nfreq": 5,
+   "no": 43,
+   "home": "VfB Stuttgart",
+   "away": "E. Frankfurt",
+   "score": 21,
+   "nfreq": 7,
    "reasons": [
-    "slot 44 drew 5 times already this season (weeks 8,12,13,15,20)",
-    "the teams involved have 2 draws between them this season"
-   ]
-  },
-  {
-   "no": 4,
-   "home": "Coventry",
-   "away": "Crystal P.",
-   "score": 18,
-   "nfreq": 4,
-   "reasons": [
-    "slot 4 drew 4 times already this season (weeks 1,3,13,18)",
-    "paper keys returned to number 4 in 3 weeks"
-   ]
-  },
-  {
-   "no": 42,
-   "home": "Queen&#8217;s Pk",
-   "away": "Livingston",
-   "score": 18,
-   "nfreq": 4,
-   "reasons": [
-    "slot 42 drew 4 times already this season (weeks 3,12,16,18)",
-    "the teams involved have 3 draws between them this season"
+    "slot 43 drew 7 times already this season (weeks 3,4,5,6,10,15,19)"
    ]
   },
   {
    "no": 8,
-   "home": "Lincoln",
-   "away": "Wrexham",
-   "score": 16,
+   "home": "Sunderland",
+   "away": "Tottenham",
+   "score": 20,
    "nfreq": 2,
    "reasons": [
     "slot 8 drew 2 times already this season (weeks 5,15)",
-    "the teams involved have 3 draws between them this season",
+    "the teams involved have 5 draws between them this season",
     "paper keys returned to number 8 in 2 weeks"
    ]
   },
   {
-   "no": 36,
-   "home": "Hibernian",
-   "away": "Dundee Utd.",
-   "score": 16,
+   "no": 18,
+   "home": "A. Wimbledon",
+   "away": "Barnsley",
+   "score": 20,
    "nfreq": 2,
    "reasons": [
-    "slot 36 drew 2 times already this season (weeks 6,16)",
+    "slot 18 drew 2 times already this season (weeks 8,17)",
     "the teams involved have 4 draws between them this season",
-    "paper keys returned to number 36 in 1 week"
+    "paper keys returned to number 18 in 3 weeks"
    ]
   },
   {
-   "no": 34,
-   "home": "Celtic",
-   "away": "St. Mirren",
-   "score": 15,
-   "nfreq": 5,
+   "no": 41,
+   "home": "Motherwell",
+   "away": "Hibernian",
+   "score": 20,
+   "nfreq": 4,
    "reasons": [
-    "slot 34 drew 5 times already this season (weeks 1,7,8,11,17)"
+    "slot 41 drew 4 times already this season (weeks 6,8,9,14)",
+    "the teams involved have 4 draws between them this season"
+   ]
+  },
+  {
+   "no": 40,
+   "home": "St. Mirren",
+   "away": "Kilmarnock",
+   "score": 18,
+   "nfreq": 4,
+   "reasons": [
+    "slot 40 drew 4 times already this season (weeks 1,7,12,16)",
+    "the teams involved have 3 draws between them this season"
    ]
   },
   {
    "no": 45,
-   "home": "Sevilla",
-   "away": "Real Betis",
+   "home": "B. Dortmund",
+   "away": "B. Leverkusen",
+   "score": 18,
+   "nfreq": 6,
+   "reasons": [
+    "slot 45 drew 6 times already this season (weeks 1,2,7,12,19,21)"
+   ]
+  },
+  {
+   "no": 25,
+   "home": "Wigan A.",
+   "away": "Plymouth",
+   "score": 15,
+   "nfreq": 3,
+   "reasons": [
+    "slot 25 drew 3 times already this season (weeks 3,9,15)",
+    "the teams involved have 3 draws between them this season"
+   ]
+  },
+  {
+   "no": 44,
+   "home": "Freiburg",
+   "away": "RB Leipzig",
    "score": 15,
    "nfreq": 5,
    "reasons": [
-    "slot 45 drew 5 times already this season (weeks 1,2,7,12,19)"
+    "slot 44 drew 5 times already this season (weeks 8,12,13,15,20)"
    ]
   },
   {
    "no": 46,
-   "home": "Parma",
-   "away": "Roma",
+   "home": "Roma",
+   "away": "Monza",
    "score": 15,
    "nfreq": 3,
    "reasons": [
@@ -1029,30 +1019,42 @@
    ]
   },
   {
-   "no": 49,
-   "home": "Lille",
-   "away": "Lyon",
-   "score": 12,
+   "no": 42,
+   "home": "Hearts",
+   "away": "Celtic",
+   "score": 14,
    "nfreq": 4,
    "reasons": [
-    "slot 49 drew 4 times already this season (weeks 2,10,18,19)"
+    "slot 42 drew 4 times already this season (weeks 3,12,16,18)",
+    "the teams involved have 1 draw between them this season"
+   ]
+  },
+  {
+   "no": 49,
+   "home": "R. Sociedad",
+   "away": "Sevilla",
+   "score": 14,
+   "nfreq": 4,
+   "reasons": [
+    "slot 49 drew 4 times already this season (weeks 2,10,18,19)",
+    "the teams involved have 1 draw between them this season"
    ]
   },
   {
    "no": 38,
-   "home": "Dundee FC",
-   "away": "Hearts",
-   "score": 10,
+   "home": "Dundee Utd.",
+   "away": "St. J&#8217;Stone",
+   "score": 12,
    "nfreq": 2,
    "reasons": [
     "slot 38 drew 2 times already this season (weeks 10,15)",
-    "the teams involved have 2 draws between them this season"
+    "the teams involved have 3 draws between them this season"
    ]
   },
   {
    "no": 48,
-   "home": "Nice",
-   "away": "Paris SG",
+   "home": "Deportivo LC",
+   "away": "Barcelona",
    "score": 9,
    "nfreq": 3,
    "reasons": [
