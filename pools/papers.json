@@ -2,7 +2,7 @@
  "week": 22,
  "date": "2026-11-28",
  "season": "2026/2027",
- "updatedAt": "2026-11-22T13:31:05+00:00",
+ "updatedAt": "2026-11-23T16:17:39+00:00",
  "credit": "Paper scans published by FortuneSoccer.com and UKFootballPools.com - view the originals at their sites. Keys are read from each week's published sheets (OCR pass over the scans). JAP adds the combined verdict and the FootyStats xG model check on top.",
  "papers": [
   {
@@ -10,27 +10,179 @@
    "name": "Bob Morton",
    "family": "RSK Papers",
    "npages": 4,
-   "pages": [],
-   "keys": {},
-   "note": "Week 22 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-bob-morton-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-bob-morton-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-bob-morton-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-bob-morton-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "42",
+     "44",
+     "13",
+     "32",
+     "2",
+     "4",
+     "5",
+     "21"
+    ],
+    "nap": [
+     "16",
+     "5",
+     "4",
+     "30",
+     "21"
+    ],
+    "draw": [
+     "11",
+     "15",
+     "37"
+    ],
+    "tips": [
+     "41",
+     "17"
+    ],
+    "pairs": [
+     [
+      28,
+      11
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      16,
+      12
+     ],
+     [
+      12,
+      24
+     ],
+     [
+      18,
+      10
+     ],
+     [
+      11,
+      25
+     ]
+    ]
+   },
+   "note": "Keys read from the week 22 scans.",
+   "keysWeek": 22
   },
   {
    "id": "capital-international",
    "name": "Capital International",
    "family": "RSK Papers",
    "npages": 4,
-   "pages": [],
-   "keys": {},
-   "note": "Week 22 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-capital-international-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-capital-international-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-capital-international-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-capital-international-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "15",
+     "47",
+     "7",
+     "5"
+    ],
+    "nap": [
+     "44"
+    ],
+    "draw": [
+     "14"
+    ],
+    "tips": [
+     "18"
+    ],
+    "pairs": [
+     [
+      28,
+      11
+     ],
+     [
+      13,
+      6
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      22,
+      41
+     ],
+     [
+      21,
+      22
+     ],
+     [
+      4,
+      14
+     ]
+    ]
+   },
+   "note": "Keys read from the week 22 scans.",
+   "keysWeek": 22
   },
   {
    "id": "soccer-x-research",
    "name": "Soccer 'X' Research",
    "family": "RSK Papers",
    "npages": 4,
-   "pages": [],
-   "keys": {},
-   "note": "Week 22 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-soccer-x-research-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-soccer-x-research-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-soccer-x-research-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-soccer-x-research-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "17",
+     "13",
+     "22"
+    ],
+    "nap": [
+     "23",
+     "15",
+     "8",
+     "2",
+     "1"
+    ],
+    "pairs": [
+     [
+      25,
+      2
+     ],
+     [
+      7,
+      3
+     ],
+     [
+      22,
+      5
+     ],
+     [
+      4,
+      5
+     ],
+     [
+      42,
+      2
+     ],
+     [
+      5,
+      3
+     ]
+    ]
+   },
+   "note": "Keys read from the week 22 scans.",
+   "keysWeek": 22
   },
   {
    "id": "premier-soccer",
@@ -134,18 +286,10 @@
     "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-london-weekend-2026-page-4.jpg"
    ],
    "keys": {
-    "nap": [
-     "38",
-     "42"
-    ],
     "draw": [
      "43"
     ],
     "pairs": [
-     [
-      13,
-      8
-     ],
      [
       9,
       5
@@ -181,9 +325,39 @@
    "name": "Happy Joe",
    "family": "Pool Papers",
    "npages": 4,
-   "pages": [],
-   "keys": {},
-   "note": "Week 22 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-happy-joe-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-happy-joe-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-happy-joe-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-happy-joe-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "26",
+     "2",
+     "30"
+    ],
+    "nap": [
+     "42"
+    ],
+    "draw": [
+     "40"
+    ],
+    "tips": [
+     "2",
+     "16",
+     "3",
+     "4"
+    ],
+    "pairs": [
+     [
+      2,
+      29
+     ]
+    ]
+   },
+   "note": "Keys read from the week 22 scans.",
+   "keysWeek": 22
   },
   {
    "id": "right-on-fixtures",
@@ -278,9 +452,30 @@
    "name": "Winstar",
    "family": "Pool Papers",
    "npages": 4,
-   "pages": [],
-   "keys": {},
-   "note": "Week 22 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-winstar-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-winstar-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-winstar-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-winstar-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "1",
+     "13"
+    ],
+    "pairs": [
+     [
+      2,
+      4
+     ],
+     [
+      12,
+      7
+     ]
+    ]
+   },
+   "note": "Keys read from the week 22 scans.",
+   "keysWeek": 22
   },
   {
    "id": "great-soccer",
@@ -501,9 +696,31 @@
    "name": "Final Results",
    "family": "Weekly Papers",
    "npages": 4,
-   "pages": [],
-   "keys": {},
-   "note": "Week 22 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-final-results-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-final-results-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-final-results-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-final-results-2026-page-4.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "26",
+     "32",
+     "27"
+    ],
+    "pairs": [
+     [
+      12,
+      18
+     ],
+     [
+      3,
+      8
+     ]
+    ]
+   },
+   "note": "Keys read from the week 22 scans.",
+   "keysWeek": 22
   },
   {
    "id": "the-new-dream",
@@ -543,9 +760,65 @@
    "name": "Weekly Telegraph",
    "family": "Weekly Papers",
    "npages": 16,
-   "pages": [],
-   "keys": {},
-   "note": "Week 22 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-10.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-11.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-12.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-13.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-14.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-15.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-16.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-17.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-18.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-19.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-20.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-21.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-22.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-23.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-24.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-4.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-5.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-6.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-7.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-8.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-weekly-telegraph-2026-page-9.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "35",
+     "6",
+     "5"
+    ],
+    "nap": [
+     "6",
+     "30",
+     "2",
+     "3"
+    ],
+    "pairs": [
+     [
+      41,
+      43
+     ],
+     [
+      22,
+      16
+     ],
+     [
+      20,
+      8
+     ],
+     [
+      21,
+      30
+     ]
+    ]
+   },
+   "note": "Keys read from the week 22 scans.",
+   "keysWeek": 22
   },
   {
    "id": "mirror-punters-guide",
@@ -638,9 +911,56 @@
    "name": "Sporting Telegraph",
    "family": "Telegraph Papers",
    "npages": 8,
-   "pages": [],
-   "keys": {},
-   "note": "Week 22 scans not found yet for this paper - the tab auto-scans and will surface them when they publish."
+   "pages": [
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-sporting-telegraph-2026-page-1.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-sporting-telegraph-2026-page-2.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-sporting-telegraph-2026-page-3.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-sporting-telegraph-2026-page-4.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-sporting-telegraph-2026-page-5.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-sporting-telegraph-2026-page-6.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-sporting-telegraph-2026-page-7.jpg",
+    "https://www.fortunesoccer.com/wp-content/uploads/2026/11/week-22-sporting-telegraph-2026-page-8.jpg"
+   ],
+   "keys": {
+    "banker": [
+     "47",
+     "2"
+    ],
+    "nap": [
+     "4",
+     "30",
+     "1",
+     "28"
+    ],
+    "pairs": [
+     [
+      41,
+      43
+     ],
+     [
+      4,
+      5
+     ],
+     [
+      41,
+      44
+     ],
+     [
+      28,
+      3
+     ],
+     [
+      2,
+      37
+     ],
+     [
+      38,
+      39
+     ]
+    ]
+   },
+   "note": "Keys read from the week 22 scans.",
+   "keysWeek": 22
   },
   {
    "id": "zetters-pools-guide",
