@@ -2,7 +2,7 @@
  "week": 22,
  "date": "2026-11-28",
  "season": "2026/2027",
- "updatedAt": "2026-11-24T16:04:09+00:00",
+ "updatedAt": "2026-11-25T15:53:15+00:00",
  "credit": "Paper scans published by FortuneSoccer.com and UKFootballPools.com - view the originals at their sites. Keys are read from each week's published sheets (OCR pass over the scans). JAP adds the combined verdict and the FootyStats xG model check on top.",
  "papers": [
   {
@@ -86,7 +86,19 @@
    ],
    "keys": {
     "banker": [
-     "15"
+     "15",
+     "47",
+     "7",
+     "5"
+    ],
+    "nap": [
+     "44"
+    ],
+    "draw": [
+     "14"
+    ],
+    "tips": [
+     "18"
     ],
     "pairs": [
      [
@@ -108,6 +120,10 @@
      [
       21,
       22
+     ],
+     [
+      4,
+      14
      ]
     ]
    },
@@ -696,10 +712,15 @@
    ],
    "keys": {
     "banker": [
+     "26",
      "32",
      "27"
     ],
     "pairs": [
+     [
+      12,
+      18
+     ],
      [
       3,
       8
